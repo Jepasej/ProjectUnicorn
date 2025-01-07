@@ -21,6 +21,7 @@
    <bottom>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
+            <Label fx:id="spacefiller" />
             <!-- Added my-textarea style class to this TextArea -->
             <TextArea prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea" />
             <HBox prefHeight="100.0" prefWidth="200.0" />
@@ -32,7 +33,7 @@
          <children>
             <!-- Existing TextArea with the my-textarea style class -->
             <TextArea prefHeight="300.0" prefWidth="480.0" styleClass="my-textarea" />
-            <ImageView fitHeight="300.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="spacefiller" fitHeight="300.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
    </center>
