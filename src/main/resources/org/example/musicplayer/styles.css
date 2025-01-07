@@ -1,0 +1,7 @@
+.my-textarea .content {
+    -fx-background-color: #FFB300; /* Background color for content area */
+}
+
+.my-textarea {
+    -fx-control-inner-background: #FFB300; /* General background color */
+}

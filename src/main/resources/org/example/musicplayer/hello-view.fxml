@@ -1,16 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.musicplayer.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
-
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <ComboBox id="¨" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #FFB300;">
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </ComboBox>
+            <MenuButton alignment="TOP_RIGHT" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: #FFB300;">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </MenuButton>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label />
+            <TextArea prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea">
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextArea>
+            <Label />
+            <HBox prefHeight="85.0" prefWidth="1000.0" spacing="16.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Last Song">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Play">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Pause">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Stop">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Next Song">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Shuffle">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+      <HBox prefHeight="300.0" prefWidth="1000.0" spacing="40.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea prefHeight="300.0" prefWidth="480.0" styleClass="my-textarea">
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextArea>
+            <!-- StackPane used to wrap ImageView and apply golden border -->
+            <StackPane prefHeight="300.0" prefWidth="480.0" style="-fx-border-color: #FFB300; -fx-border-width: 4;">
+               <ImageView fx:id="spacefiller" fitHeight="300.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
+            </StackPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
