@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@styles.css" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -19,15 +19,21 @@
       </HBox>
    </top>
    <bottom>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <!-- Added my-textarea style class to this TextArea -->
+            <TextArea prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea" />
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+         </children>
+      </VBox>
    </bottom>
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
+            <!-- Existing TextArea with the my-textarea style class -->
             <TextArea prefHeight="300.0" prefWidth="480.0" styleClass="my-textarea" />
             <ImageView fitHeight="300.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
    </center>
 </BorderPane>
-
