@@ -36,6 +36,8 @@
                </effect>
             </TextArea>
             <Label />
+            <ProgressBar prefHeight="18.0" prefWidth="1000.0" progress="0.0" style="-fx-background-color: #FFB300;" />
+            <Label />
             <HBox prefHeight="85.0" prefWidth="1000.0" spacing="16.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Last Song">
