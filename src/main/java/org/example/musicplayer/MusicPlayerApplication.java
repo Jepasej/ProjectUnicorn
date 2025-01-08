@@ -15,6 +15,10 @@ public class MusicPlayerApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        MusicController mc = new MusicController();
+        //mc.initialize();
+
     }
 
     public static void main(String[] args) {

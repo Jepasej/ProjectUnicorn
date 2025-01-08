@@ -16,7 +16,9 @@ public class MusicController implements Initializable {
     @FXML
     private Label welcomeText;
     @FXML
-    private TextArea songTitle, songView;
+    private TextArea songTitle;
+    @FXML
+    private ListView<String> songList;
     @FXML
     private Button buttonPlay, buttonPause, buttonStop, buttonPreviousSong, buttonNextSong, buttonShuffle;
     @FXML
@@ -30,23 +32,17 @@ public class MusicController implements Initializable {
 
 
     private Media media;
-
     private int songNumber;
+    private PlayerControls playerControls;
 
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-    /**
-     * This method ....
-     * @param url
-     * @param resourceBundle
-     */
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
 
     }
 }
