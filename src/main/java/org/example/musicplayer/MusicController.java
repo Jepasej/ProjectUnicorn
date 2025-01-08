@@ -46,24 +46,6 @@ public class MusicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        File musicDirectory;
-        File[] songFiles;
-
-        ArrayList<File> songs;
-
-        songs = new ArrayList<File>();
-
-        musicDirectory = new File("Music");
-        //Gets all the Music numbers within our music directory map
-        songFiles = musicDirectory.listFiles();
-
-        if (songFiles != null) {
-            for (File file : songFiles) {
-                songs.add(file);
-                //System.out.println(file);
-            }
-        }
-
 
 
     }
