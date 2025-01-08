@@ -18,6 +18,6 @@ public class MusicController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Hent sange fra databasen og vis i ListView
-        loadSongsFromDatabase();
+        //loadSongsFromDatabase();
     }
 }
