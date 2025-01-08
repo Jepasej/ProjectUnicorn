@@ -100,12 +100,10 @@
    <center>
       <HBox prefHeight="300.0" prefWidth="1000.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="songView" prefHeight="300.0" prefWidth="480.0" styleClass="my-textarea">
+            <ListView fx:id="songList" editable="true" prefHeight="300.0" prefWidth="480.0" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
-               </effect>
-            </TextArea>
-            <ListView fx:id="songList" editable="true" prefHeight="308.0" prefWidth="656.0" />
+               </effect></ListView>
             <!-- StackPane used to wrap ImageView and apply golden border -->
             <StackPane prefHeight="300.0" prefWidth="480.0" style="-fx-border-color: #FFB300; -fx-border-width: 4;">
                <ImageView fx:id="pictureFrame" fitHeight="300.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
