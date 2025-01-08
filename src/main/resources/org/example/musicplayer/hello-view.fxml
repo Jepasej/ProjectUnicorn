@@ -10,12 +10,12 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="700.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox id="¨" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #FFB300;">
+            <ComboBox id="¨" fx:id="searchBox" prefHeight="35.0" prefWidth="250.0" promptText="search" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect>
             </ComboBox>
-            <MenuButton alignment="TOP_RIGHT" mnemonicParsing="false" prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="𝄘">
+            <MenuButton fx:id="menuButton" alignment="TOP_RIGHT" mnemonicParsing="false" prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="𝄘">
                <items>
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                   <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -34,17 +34,17 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label />
-            <TextArea fx:id="songLengthArea" prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea">
+            <TextArea fx:id="songTitle" prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea">
                <effect>
                   <InnerShadow />
                </effect>
             </TextArea>
             <Label />
-            <ProgressBar prefHeight="18.0" prefWidth="1000.0" progress="0.0" style="-fx-background-color: #FFB300;" />
+            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="1000.0" progress="0.0" style="-fx-background-color: #FFB300;" />
             <Label />
             <HBox prefHeight="85.0" prefWidth="1000.0" spacing="16.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏮">
+                  <Button fx:id="buttonPreviousSong" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏮">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -52,7 +52,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏵">
+                  <Button fx:id="buttonPlay" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏵">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -60,7 +60,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏸">
+                  <Button fx:id="buttonPause" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏸">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -68,7 +68,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
+                  <Button fx:id="buttonStop" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -76,7 +76,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏭">
+                  <Button fx:id="buttonNextSong" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏭">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -84,7 +84,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Shuffle">
+                  <Button fx:id="buttonShuffle" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="Shuffle">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -100,14 +100,14 @@
    <center>
       <HBox prefHeight="300.0" prefWidth="1000.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea prefHeight="300.0" prefWidth="480.0" styleClass="my-textarea">
+            <TextArea fx:id="songView" prefHeight="300.0" prefWidth="480.0" styleClass="my-textarea">
                <effect>
                   <InnerShadow />
                </effect>
             </TextArea>
             <!-- StackPane used to wrap ImageView and apply golden border -->
             <StackPane prefHeight="300.0" prefWidth="480.0" style="-fx-border-color: #FFB300; -fx-border-width: 4;">
-               <ImageView fx:id="spacefiller" fitHeight="300.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="pictureFrame" fitHeight="300.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
             </StackPane>
          </children>
       </HBox>
