@@ -16,7 +16,7 @@ public class MusicController implements Initializable {
     @FXML
     private Label welcomeText;
     @FXML
-    private TextArea songView, songTitle;
+    private TextArea songTitle;
     @FXML
     private ListView<String> songList;
     @FXML
