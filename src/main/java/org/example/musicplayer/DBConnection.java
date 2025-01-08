@@ -4,8 +4,8 @@ import java.sql.DriverManager;
 
 
 /**
- *
- * @author tha
+ * Preparing the system to write in our Database
+ * and establish connection to the DB
  */
 public class DBConnection {
         //initializes variables for the getConnection method.
