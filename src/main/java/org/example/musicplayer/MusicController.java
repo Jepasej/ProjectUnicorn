@@ -40,40 +40,9 @@ public class MusicController implements Initializable {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-    /**
-     * This method ....
-     * @param url
-     * @param resourceBundle
-     */
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
 
-        File musicDirectory;
-        File[] songFiles;
-        ArrayList<File> songs;
-
-        songs = new ArrayList<File>();
-
-        musicDirectory = new File("src/main/resources/org/example/musicplayer/Music");
-        //Gets all the Music numbers within our music directory map
-        songFiles = musicDirectory.listFiles();
-
-        if (songFiles != null) {
-            for (File file : songFiles) {
-                songs.add(file);
-                //System.out.println("Added file: " + file.getName()); //Debug output
-            }
-        }
-
-        //Display song names in the songView TextArea
-        StringBuilder songList = new StringBuilder();
-        for (File songFile : songs) {
-            songList.append(songFile.getName()).append("\n");
-        }
-
-        System.out.println(songList.toString() + "hvad som helst");
-
-        songView.setText(songList.toString());
     }
 }
