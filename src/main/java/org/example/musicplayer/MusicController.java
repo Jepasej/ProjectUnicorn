@@ -16,7 +16,9 @@ public class MusicController implements Initializable {
     @FXML
     private Label welcomeText;
     @FXML
-    private TextArea songTitle, songView;
+    private TextArea songView, songTitle;
+    @FXML
+    private ListView<String> songList;
     @FXML
     private Button buttonPlay, buttonPause, buttonStop, buttonPreviousSong, buttonNextSong, buttonShuffle;
     @FXML
@@ -30,8 +32,8 @@ public class MusicController implements Initializable {
 
 
     private Media media;
-
     private int songNumber;
+    private PlayerControls playerControls;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -46,25 +48,32 @@ public class MusicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         File musicDirectory;
         File[] songFiles;
-
         ArrayList<File> songs;
 
         songs = new ArrayList<File>();
 
-        musicDirectory = new File("Music");
+        musicDirectory = new File("src/main/resources/org/example/musicplayer/Music");
         //Gets all the Music numbers within our music directory map
         songFiles = musicDirectory.listFiles();
 
         if (songFiles != null) {
             for (File file : songFiles) {
                 songs.add(file);
-                //System.out.println(file);
+                //System.out.println("Added file: " + file.getName()); //Debug output
             }
         }
 
+        //Display song names in the songView TextArea
+        StringBuilder songList = new StringBuilder();
+        for (File songFile : songs) {
+            songList.append(songFile.getName()).append("\n");
+        }
 
+        System.out.println(songList.toString() + "hvad som helst");
 
+        songView.setText(songList.toString());
     }
 }
