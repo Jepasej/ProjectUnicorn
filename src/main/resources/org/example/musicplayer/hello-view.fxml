@@ -30,7 +30,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label />
-            <TextArea prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea">
+            <TextArea fx:id="songLengthArea" prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea">
                <effect>
                   <InnerShadow />
                </effect>
