@@ -4,12 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import javax.print.attribute.standard.Media;
-import javax.swing.text.html.ImageView;
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MusicController implements Initializable {
@@ -27,7 +26,7 @@ public class MusicController implements Initializable {
     @FXML
     private ComboBox searchBox;
     @FXML
-    private static ImageView pictureFrame;
+    private javafx.scene.image.ImageView pictureFrame;
     @FXML
     private ProgressBar progressBar;
 
@@ -35,9 +34,8 @@ public class MusicController implements Initializable {
     private Media media;
     private ArrayList<Image> imageList;
     private int songNumber;
-    private static org.example.musicplayer.ImageDisplay ImageDisplay;
+    private org.example.musicplayer.ImageDisplay imageDisplay;
     private PlayerControls playerControls;
-    private static javax.swing.text.html.ImageView ImageView;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -47,23 +45,32 @@ public class MusicController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        imageDisplay = new ImageDisplay();
+        displayRandomImage();
+        System.out.printf("Hello world");
 
     }
 
-
+/*
     public static void initializeImageDisplay(ImageView display)
     {
         ImageView = display;
     }
+*/
 
-
-    public static void displayRandomImage()
-    {
-        if (ImageView != null) {
-            Image randomImage = ImageDisplay.getRandomImage();
+    public void displayRandomImage() {
+        if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
+            Image randomImage = imageDisplay.getRandomImage();
             if (randomImage != null) {
-                pictureFrame.getImage();
+                pictureFrame.setImage(randomImage);
+                // Print the URI or some other useful info about the image
+                System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
+            } else {
+                System.out.println("Random image was null.");
             }
+        } else {
+            System.out.println("Image display is not initialized or contains no images.");
         }
     }
+
 }
