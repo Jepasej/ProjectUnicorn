@@ -52,7 +52,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonPlay" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏵">
+                  <Button fx:id="buttonPlay" onAction="#pressPlay" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏵">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -60,7 +60,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonPause" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏸">
+                  <Button fx:id="buttonPause" onAction="#pressPause" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏸">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -68,7 +68,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonStop" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
+                  <Button fx:id="buttonStop" onAction="#pressStop" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
                      <effect>
                         <InnerShadow />
                      </effect>

@@ -34,10 +34,29 @@ public class MusicController implements Initializable {
 
     private Media media;
     private int songNumber;
+    private PlayerControls playerControls;
+
+    @FXML
+    public void pressPlay()
+    {
+        playerControls.playTrack();
+    }
+
+    @FXML
+    public void pressStop()
+    {
+        playerControls.stopTrack();
+    }
+
+    @FXML
+    public void pressPause()
+    {
+        playerControls.pauseTrack();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Hent sange fra databasen og vis i ListView
-        loadSongsFromDatabase();
+        //loadSongsFromDatabase();
     }
 }
