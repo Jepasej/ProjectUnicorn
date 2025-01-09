@@ -10,13 +10,16 @@ import java.io.IOException;
 
 public class MusicPlayerApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-        stage.setTitle("UniPlayer");
+        stage.setTitle("Your Music");
         stage.setScene(scene);
         stage.show();
 
+        DBConnection dbConnection = new DBConnection();
+        dbConnection.getConnection();
+        dbConnection.readSongsForStart();
         MusicController mc = new MusicController();
         //mc.initialize();
 
@@ -33,4 +36,6 @@ public class MusicPlayerApplication extends Application {
         launch();
         //private char hello = 'c';
     }
+
+
 }

@@ -17,19 +17,25 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>17.0.6</version>
+      <version>17.0.12</version>
     </dependency>
 
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>17.0.6</version>
+      <version>17.0.12</version>
     </dependency>
 
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-media</artifactId>
-      <version>18.0.2</version>
+      <version>17.0.12</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>11.2.3.jre17</version>
     </dependency>
 
 <dependency>
@@ -44,6 +50,7 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>  </dependencies>
+
 
   <build>
     <plugins>

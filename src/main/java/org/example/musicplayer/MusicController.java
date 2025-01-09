@@ -1,5 +1,6 @@
 package org.example.musicplayer;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -7,8 +8,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.print.attribute.standard.Media;
+import javafx.scene.image.ImageView;
 import java.net.URL;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class MusicController implements Initializable {
@@ -18,7 +22,7 @@ public class MusicController implements Initializable {
     @FXML
     private TextArea songTitle;
     @FXML
-    private ListView<String> songList;
+    private ListView<String> infoSongs;
     @FXML
     private Button buttonPlay, buttonPause, buttonStop, buttonPreviousSong, buttonNextSong, buttonShuffle;
     @FXML
@@ -43,6 +47,10 @@ public class MusicController implements Initializable {
     }
 
     @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+       try{
+            ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            infoSongs.setItems(songs);
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         imageDisplay = new ImageDisplay();
@@ -57,6 +65,11 @@ public class MusicController implements Initializable {
     }
 */
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Hent sange fra databasen og vis i ListView
+        //loadSongsFromDatabase();
     public void displayRandomImage() {
         if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
             Image randomImage = imageDisplay.getRandomImage();
