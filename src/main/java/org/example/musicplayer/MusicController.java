@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import javax.print.attribute.standard.Media;
-import javax.swing.text.html.ImageView;
+import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,6 +38,6 @@ public class MusicController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Hent sange fra databasen og vis i ListView
-        loadSongsFromDatabase();
+        //loadSongsFromDatabase();
     }
 }
