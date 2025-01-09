@@ -23,6 +23,7 @@ public class DBConnection {
             return conn;
         }
 
+
     public void readSongsForStart() throws Exception{
         String sql = "SELECT fldName, fldArtist, fldLengthInSeconds FROM tblSongs";
         Connection conn = getConnection();
