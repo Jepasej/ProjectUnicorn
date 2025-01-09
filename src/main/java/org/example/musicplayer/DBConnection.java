@@ -15,7 +15,7 @@ public class DBConnection {
         static final String USERNAME = "sa"; // replace with your username
         static final String PASSWORD = "admin"; // replace with your password
 
-        //connects us to the SQL server named DBHundepension
+        //connects us to the SQL to DB server
         public static Connection getConnection() throws Exception {
             Connection conn = null;
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
