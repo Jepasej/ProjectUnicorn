@@ -36,7 +36,7 @@ public class DBConnection {
             song.setFldName(rs.getString(1));
             song.setFldArtist(rs.getString(2));
             song.setFldLengthInSeconds(rs.getString(3));
-            System.out.println(song.getFldName()+" "+ song.getFldArtist()+" "+ song.getFldLengthInSeconds());
+            System.out.println(song.getFldName().trim()+" "+ song.getFldArtist().trim()+" "+ song.getFldLengthInSeconds().trim());
         }
         if (!hasSongs) {
             System.out.println("No songs found.");
