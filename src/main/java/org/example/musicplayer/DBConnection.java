@@ -1,7 +1,12 @@
 package org.example.musicplayer;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 /**
@@ -27,5 +32,28 @@ public class DBConnection {
         System.out.println("Connecting to server.");
         Connection conn = getConnection();
     }
+
+    public static ObservableList<String> displaySongInfo() throws Exception {
+        ObservableList<String> songInfo = FXCollections.observableArrayList();
+        String query = "SELECT fldSongID, fldName, fldLengthInSeconds, fldArtist, fldAlbum FROM tblSongs";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet result = stmt.executeQuery(query)) {
+
+            while (result.next()) {
+                DisplaySongUI songs = new DisplaySongUI();
+                int songID = Integer.parseInt(result.getString("fldSongID"));
+                String songTitle = result.getString("fldName");
+                int songLength = Integer.parseInt(result.getString("fldLengthInSeconds"));
+                String artist = result.getString("fldArtist");
+                String album = result.getString("fldAlbum");
+
+                songInfo.add(songID + " - " + songTitle + " - " + songLength + " - " + artist + " - " + album);
+            }
+        }
+        return songInfo;
+    }
+
 }
 
