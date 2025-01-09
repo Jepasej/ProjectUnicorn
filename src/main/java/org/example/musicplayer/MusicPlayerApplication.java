@@ -9,16 +9,16 @@ import java.io.IOException;
 
 public class MusicPlayerApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         stage.setTitle("Your Music");
         stage.setScene(scene);
         stage.show();
 
-        MusicController mc = new MusicController();
-        //mc.initialize();
-
+        DBConnection dbConnection = new DBConnection();
+        dbConnection.getConnection();
+        dbConnection.readSongsForStart();
     }
 
     public static void main(String[] args) {
