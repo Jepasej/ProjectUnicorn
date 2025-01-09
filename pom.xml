@@ -45,6 +45,13 @@
       <scope>test</scope>
     </dependency>  </dependencies>
 
+  <dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>mssql-jdbc</artifactId>
+    <version>11.2.3.jre17</version> <!-- Eller en version, der passer til din Java-version -->
+  </dependency>
+
+
   <build>
     <plugins>
       <plugin>
