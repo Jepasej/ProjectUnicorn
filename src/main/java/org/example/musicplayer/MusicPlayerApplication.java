@@ -21,7 +21,7 @@ public class MusicPlayerApplication extends Application {
         //mc.initialize();
 
         ImageDisplay imageDisplay = new ImageDisplay();
-        MusicController.initializeImageDisplay(ImageView);
+        //MusicController.initializeImageDisplay(ImageView);
         MusicController.displayRandomImage();
 
 

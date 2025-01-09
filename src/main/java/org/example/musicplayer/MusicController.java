@@ -53,7 +53,7 @@ public class MusicController implements Initializable {
 
     public static void initializeImageDisplay(ImageView display)
     {
-        this.ImageView = display;
+        ImageView = display;
     }
 
 

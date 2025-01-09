@@ -2,6 +2,7 @@ package org.example.musicplayer;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -19,15 +20,21 @@ public class ImageDisplay
     }
     */
 
-    private static ArrayList<Image> images = new ArrayList<>();
 
-    public ImageDisplay()
-    {
-        images.add(new Image(ImageDisplay.class.getResourceAsStream("Charlie%27s_Kidney_Taken.webp")));
-        images.add(new Image(ImageDisplay.class.getResourceAsStream("Unicorn1.webp")));
-        images.add(new Image(ImageDisplay.class.getResourceAsStream("unicorn4.jpg")));
-        images.add(new Image(ImageDisplay.class.getResourceAsStream("unicorn_final_full-1.webp")));
-        images.add(new Image(ImageDisplay.class.getResourceAsStream("Why-Indias-unicorns-have-bolted.jpg")));
+
+
+        private static final ArrayList<Image> images = new ArrayList<>();
+
+        public static void main(String[] args) {
+        // Initialize the images list
+        images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn1.webp"))));
+        images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn2.webp"))));
+        images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn3.jpg"))));
+        images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn4.jpg"))));
+        images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn5.jpg"))));
+
+        System.out.println("Images added: " + images.size());
+
     }
 
     // Method to retrieve a random image
