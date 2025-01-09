@@ -47,7 +47,6 @@ public class MusicController implements Initializable {
     {
         imageDisplay = new ImageDisplay();
         displayRandomImage();
-        System.out.printf("Hello world");
 
     }
 
