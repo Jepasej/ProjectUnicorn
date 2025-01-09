@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import javax.print.attribute.standard.Media;
 import javafx.scene.image.ImageView;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class MusicController implements Initializable {
@@ -43,6 +46,6 @@ public class MusicController implements Initializable {
             e.printStackTrace();
         }
         // Hent sange fra databasen og vis i ListView
-        //loadSongsFromDatabase();
+        loadSongsFromDatabase();
     }
 }
