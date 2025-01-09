@@ -20,7 +20,7 @@ public class MusicController implements Initializable {
     @FXML
     private TextArea songTitle;
     @FXML
-    private ListView<String> songList;
+    private ListView<String> infoSongs;
     @FXML
     private Button buttonPlay, buttonPause, buttonStop, buttonPreviousSong, buttonNextSong, buttonShuffle;
     @FXML
@@ -38,9 +38,9 @@ public class MusicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
-            ObservableList<String> infoSongs = DisplaySongUI.displaySongInfo();
-            songList.setItems(infoSongs);
+       try{
+            ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            infoSongs.setItems(songs);
 
         } catch (Exception e) {
             e.printStackTrace();

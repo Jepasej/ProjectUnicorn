@@ -18,7 +18,7 @@ public class DisplaySongUI {
                 int songLength = Integer.parseInt(result.getString("fldLengthInSeconds"));
                 String artist = result.getString("fldArtist");
 
-                songInfo.add(songTitle.trim() + " - " + songLength + " - " + artist.trim());
+                songInfo.add(songTitle.trim()+ " - " + artist.trim() + " - " + songLength);
 
             }
             for (var i : songInfo)
