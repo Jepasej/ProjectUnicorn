@@ -13,13 +13,13 @@ public class DisplaySongUI {
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet result = stmt.executeQuery(query)) {
+            if (result.next()) {
+                String songTitle = result.getString("fldName");
+                int songLength = Integer.parseInt(result.getString("fldLengthInSeconds"));
+                String artist = result.getString("fldArtist");
 
-
-            String songTitle = result.getString("fldName");
-            int songLength = Integer.parseInt(result.getString("fldLengthInSeconds"));
-            String artist = result.getString("fldArtist");
-
-            songInfo.add(songTitle + " - " + songLength + " - " + artist);
+                songInfo.add(songTitle + " - " + songLength + " - " + artist);
+            }
         }
 
         return songInfo;

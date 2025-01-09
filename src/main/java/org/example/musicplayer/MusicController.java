@@ -15,13 +15,13 @@ public class MusicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
+        /*try{
             ObservableList<String> infoSongs = DisplaySongUI.displaySongInfo();
             songList.setItems(infoSongs);
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         // Hent sange fra databasen og vis i ListView
         //loadSongsFromDatabase();
     }
