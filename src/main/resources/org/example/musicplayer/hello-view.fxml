@@ -100,7 +100,7 @@
    <center>
       <HBox prefHeight="300.0" prefWidth="1000.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="songList" editable="true" prefHeight="300.0" prefWidth="480.0" style="-fx-background-color: #FFB300;">
+            <ListView fx:id="infoSongs" editable="true" prefHeight="300.0" prefWidth="480.0" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect></ListView>
