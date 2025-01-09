@@ -15,15 +15,10 @@ public class MusicPlayerApplication extends Application {
         stage.setTitle("Your Music");
         stage.setScene(scene);
         stage.show();
-
-        DBConnection dbConnection = new DBConnection();
-        dbConnection.getConnection();
-        dbConnection.readSongsForStart();
     }
 
     public static void main(String[] args) {
         launch();
-        //private char hello = 'c';
     }
 
 
