@@ -13,12 +13,17 @@ public class DisplaySongUI {
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet result = stmt.executeQuery(query)) {
-            if (result.next()) {
+            while (result.next()) {
                 String songTitle = result.getString("fldName");
                 int songLength = Integer.parseInt(result.getString("fldLengthInSeconds"));
                 String artist = result.getString("fldArtist");
 
                 songInfo.add(songTitle + " - " + songLength + " - " + artist);
+
+            }
+            for (var i : songInfo)
+            {
+                System.out.println(i);
             }
         }
 
