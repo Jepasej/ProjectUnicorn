@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MusicController implements Initializable {
@@ -48,41 +49,33 @@ public class MusicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       try{
+        try {
             ObservableList<String> songs = DisplaySongUI.displaySongInfo();
             infoSongs.setItems(songs);
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-        imageDisplay = new ImageDisplay();
-        displayRandomImage();
+            imageDisplay = new ImageDisplay();
+            displayRandomImage();
 
-    }
-
-/*
-    public static void initializeImageDisplay(ImageView display)
-    {
-        ImageView = display;
-    }
-*/
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
         // Hent sange fra databasen og vis i ListView
         //loadSongsFromDatabase();
-    public void displayRandomImage() {
-        if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
-            Image randomImage = imageDisplay.getRandomImage();
-            if (randomImage != null) {
-                pictureFrame.setImage(randomImage);
-                // Print the URI or some other useful info about the image
-                System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
+
+        public void displayRandomImage()
+        {
+            if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
+                Image randomImage = imageDisplay.getRandomImage();
+                if (randomImage != null) {
+                    pictureFrame.setImage(randomImage);
+                    // Print the URI or some other useful info about the image
+                    System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
+                } else {
+                    System.out.println("Random image was null.");
+                }
             } else {
-                System.out.println("Random image was null.");
+                System.out.println("Image display is not initialized or contains no images.");
             }
-        } else {
-            System.out.println("Image display is not initialized or contains no images.");
         }
     }
-
-}
