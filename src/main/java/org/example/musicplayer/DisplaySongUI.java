@@ -5,42 +5,23 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class DisplaySongUI {
-    private int songID;
-    private String songTitle;
-    private int songLength;
-    private String artist;
-    private String album;
 
-    public DisplaySongUI(int songID, String songTitle, int songLength, String artist, String album) {
-        this.songID = songID;
-        this.songTitle = songTitle;
-        this.songLength = songLength;
-        this.artist = artist;
-        this.album = album;
+    public static ObservableList<String> displaySongInfo() throws Exception {
+        ObservableList<String> songInfo = FXCollections.observableArrayList();
+        String query = "SELECT fldName, fldLengthInSeconds, fldArtist FROM tblSongs";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet result = stmt.executeQuery(query)) {
+
+
+            String songTitle = result.getString("fldName");
+            int songLength = Integer.parseInt(result.getString("fldLengthInSeconds"));
+            String artist = result.getString("fldArtist");
+
+            songInfo.add(songTitle + " - " + songLength + " - " + artist);
+        }
+
+        return songInfo;
     }
-
-    public DisplaySongUI(){
-
-    }
-
-    public int getSongID() {
-        return songID;
-    }
-
-    public String getSongTitle() {
-        return songTitle;
-    }
-
-    public int getSongLength() {
-        return songLength;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
 }
