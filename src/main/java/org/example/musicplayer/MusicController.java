@@ -45,7 +45,5 @@ public class MusicController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // Hent sange fra databasen og vis i ListView
-        loadSongsFromDatabase();
     }
 }
