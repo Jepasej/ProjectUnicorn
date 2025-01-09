@@ -22,5 +22,25 @@ public class DBConnection {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             return conn;
         }
+
+
+    public void readSongsForStart() throws Exception{
+        String sql = "SELECT fldName, fldArtist, fldLengthInSeconds FROM tblSongs";
+        Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        boolean hasSongs = false;
+        while (rs.next()) {
+            hasSongs = true;
+            Song song = new Song();
+            song.setFldName(rs.getString(1));
+            song.setFldArtist(rs.getString(2));
+            song.setFldLengthInSeconds(rs.getString(3));
+            System.out.println(song.getFldName()+" "+ song.getFldArtist()+" "+ song.getFldLengthInSeconds());
+        }
+        if (!hasSongs) {
+            System.out.println("No songs found.");
+        }
+    }
 }
 
