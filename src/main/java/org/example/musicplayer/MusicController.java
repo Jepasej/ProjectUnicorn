@@ -11,14 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javax.print.attribute.standard.Media;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
-
 import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -110,20 +106,6 @@ public class MusicController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    public void displayRandomImage()
-    {
-        if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
-            Image randomImage = imageDisplay.getRandomImage();
-            if (randomImage != null) {
-                pictureFrame.setImage(randomImage);
-                // Print the URI or some other useful info about the image
-                System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
-            } else {
-                System.out.println("Random image was null.");
-            }
-        } else {
-            System.out.println("Image display is not initialized or contains no images.");
-        }
     }
 
     public void playSong(ActionEvent actionEvent) throws Exception
@@ -161,7 +143,6 @@ public class MusicController implements Initializable {
         stage.show();
     }
 
-}
 
     public void pauseSong(ActionEvent actionEvent)
     {
