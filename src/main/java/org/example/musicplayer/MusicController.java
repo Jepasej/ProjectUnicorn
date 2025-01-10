@@ -2,7 +2,9 @@ package org.example.musicplayer;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -86,14 +89,23 @@ public class MusicController implements Initializable {
         }
     }
 
-    public void switchToPlaylistScene(ActionEvent event)
-    {
-
+    public void switchToPlaylistScene(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("playlistScene.fxml"));
+        Parent root = fxmlLoader.load(); // Ensure you load the FXML
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Fixed parentheses
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public void switchToFrontUI(ActionEvent event)
+    public void switchToFrontUI(ActionEvent event) throws IOException
     {
-
+        FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
+        Parent root = fxmlLoader.load(); // Ensure you load the FXML
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Fixed parentheses
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
