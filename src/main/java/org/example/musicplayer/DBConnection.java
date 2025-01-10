@@ -11,7 +11,7 @@ import java.sql.ResultSet;
  */
 public class DBConnection {
         //initializes variables for the getConnection method.
-        static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=DbMusicPlayer";
+        static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=DbMusicPlayer;TrustServerCertificate=true;";
         static final String USERNAME = "sa"; // replace with your username
         static final String PASSWORD = "admin"; // replace with your password
 

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 
@@ -15,7 +16,21 @@ public class MusicPlayerApplication extends Application {
         stage.setTitle("Your Music");
         stage.setScene(scene);
         stage.show();
+
+        DBConnection dbConnection = new DBConnection();
+        dbConnection.getConnection();
+        dbConnection.readSongsForStart();
+        MusicController mc = new MusicController();
+        //mc.initialize();
+
+        ImageDisplay imageDisplay = new ImageDisplay();
+        //MusicController.initializeImageDisplay(ImageView);
+        mc.displayRandomImage();
+
+
     }
+
+
 
     public static void main(String[] args) {
         launch();

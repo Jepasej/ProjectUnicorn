@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.print.attribute.standard.Media;
 import javafx.scene.image.ImageView;
@@ -11,6 +13,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MusicController implements Initializable {
@@ -28,24 +31,51 @@ public class MusicController implements Initializable {
     @FXML
     private ComboBox searchBox;
     @FXML
-    private ImageView pictureFrame;
+    private javafx.scene.image.ImageView pictureFrame;
     @FXML
     private ProgressBar progressBar;
 
 
     private Media media;
+    private ArrayList<Image> imageList;
     private int songNumber;
+    private org.example.musicplayer.ImageDisplay imageDisplay;
+    private PlayerControls playerControls;
+
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       try{
+        try {
             ObservableList<String> songs = DisplaySongUI.displaySongInfo();
             infoSongs.setItems(songs);
+            imageDisplay = new ImageDisplay();
+            displayRandomImage();
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
         // Hent sange fra databasen og vis i ListView
         //loadSongsFromDatabase();
+
+        public void displayRandomImage()
+        {
+            if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
+                Image randomImage = imageDisplay.getRandomImage();
+                if (randomImage != null) {
+                    pictureFrame.setImage(randomImage);
+                    // Print the URI or some other useful info about the image
+                    System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
+                } else {
+                    System.out.println("Random image was null.");
+                }
+            } else {
+                System.out.println("Image display is not initialized or contains no images.");
+            }
+        }
     }
-}
