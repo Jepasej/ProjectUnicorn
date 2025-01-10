@@ -16,7 +16,7 @@ public class DisplaySongUI {
 
         for (Song song : songs)
         {
-                songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds());
+                songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
         }
 
         /*String query = "SELECT fldName, fldLengthInSeconds, fldArtist FROM tblSongs";

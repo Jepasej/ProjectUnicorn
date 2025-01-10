@@ -65,7 +65,7 @@ public class MusicController implements Initializable {
     public int getCurrentSelection()
     {
         String selection = infoSongs.getSelectionModel().getSelectedItem();
-        selection = selection.substring(0,1).trim();
+        selection = selection.substring(0,2).trim();
         return Integer.parseInt(selection);
     }
         // Hent sange fra databasen og vis i ListView
