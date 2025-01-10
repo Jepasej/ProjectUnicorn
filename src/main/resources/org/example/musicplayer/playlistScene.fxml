@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.musicplayer.PlaylistScene"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <ListView prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <ListView prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <VBox prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: black;" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="50.0" style="-fx-background-color: Black;">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Edit Playlist">
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+                  <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Delete Playlist">
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="50.0" style="-fx-background-color: black;">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Add Song">
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+                  <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Remove Song">
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+               </children></HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" style="-fx-background-color: black;">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="250.0" style="-fx-background-color: #FFB300;" text="Return to Frontpage">
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+               </children></HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
