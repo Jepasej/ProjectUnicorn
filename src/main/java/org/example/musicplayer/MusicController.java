@@ -1,6 +1,7 @@
 package org.example.musicplayer;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,8 @@ import javafx.scene.image.ImageView;
 
 import javax.print.attribute.standard.Media;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
+
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
@@ -45,10 +48,12 @@ public class MusicController implements Initializable {
 
 
     private Media media;
+    private MediaPlayer mediaPlayer;
     private ArrayList<Image> imageList;
     private int songNumber;
     private org.example.musicplayer.ImageDisplay imageDisplay;
     private PlayerControls playerControls;
+    public String lastSelectedTrack;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -72,6 +77,13 @@ public class MusicController implements Initializable {
     }
     // Hent sange fra databasen og vis i ListView
     //loadSongsFromDatabase();
+
+    public int getCurrentSelection()
+    {
+        String selection = infoSongs.getSelectionModel().getSelectedItem();
+        selection = selection.substring(0,2).trim();
+        return Integer.parseInt(selection);
+    }
 
     public void displayRandomImage()
     {
@@ -98,6 +110,45 @@ public class MusicController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    public void displayRandomImage()
+    {
+        if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
+            Image randomImage = imageDisplay.getRandomImage();
+            if (randomImage != null) {
+                pictureFrame.setImage(randomImage);
+                // Print the URI or some other useful info about the image
+                System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
+            } else {
+                System.out.println("Random image was null.");
+            }
+        } else {
+            System.out.println("Image display is not initialized or contains no images.");
+        }
+    }
+
+    public void playSong(ActionEvent actionEvent) throws Exception
+    {
+        int songID = getCurrentSelection();
+        DBConnection dbConnection = new DBConnection();
+        String filePath = dbConnection.getFilepathFromID(songID);
+
+        if(filePath.equals(lastSelectedTrack))
+        {
+            playerControls.playTrack();
+        }
+        else
+        {
+            playerControls = new PlayerControls();
+            playerControls.setTrack(filePath);
+            playerControls.playTrack();
+
+            if (mediaPlayer != null)
+            {
+                mediaPlayer.stop();
+                mediaPlayer.play();
+            }
+        }
+        lastSelectedTrack = filePath;
     }
 
     public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
@@ -110,4 +161,11 @@ public class MusicController implements Initializable {
         stage.show();
     }
 
+}
+
+    public void pauseSong(ActionEvent actionEvent)
+    {
+        playerControls.pauseTrack();
+
+    }
 }
