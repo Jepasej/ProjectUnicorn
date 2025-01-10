@@ -94,31 +94,25 @@ public class MusicController implements Initializable {
         int songID = getCurrentSelection();
         DBConnection dbConnection = new DBConnection();
         String filePath = dbConnection.getFilepathFromID(songID);
-        playerControls = new PlayerControls();
-        playerControls.setTrack(filePath);
-        playerControls.playTrack();
-
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.play();
-        }
-
-
-
-    }
 
         if(filePath.equals(lastSelectedTrack))
         {
             playerControls.playTrack();
         }
-        else
-        {
+        else {
+            if (mediaPlayer != null) {
+            mediaPlayer.stop(); }
             playerControls = new PlayerControls();
             playerControls.setTrack(filePath);
             playerControls.playTrack();
+
+
+                mediaPlayer.play();
         }
 
         lastSelectedTrack = filePath;
+
+
     }
 
     public void pauseSong(ActionEvent actionEvent)
