@@ -16,18 +16,11 @@
                   <InnerShadow />
                </effect>
             </ComboBox>
-            <MenuButton fx:id="menuButton" alignment="TOP_RIGHT" mnemonicParsing="false" prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="𝄘">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
+            <Button mnemonicParsing="false" onAction="#switchToPlaylistScene" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="Playlists">
                <effect>
                   <InnerShadow />
                </effect>
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </MenuButton>
+            </Button>
          </children>
       </HBox>
    </top>
