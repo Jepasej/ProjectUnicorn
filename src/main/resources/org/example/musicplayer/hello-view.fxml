@@ -17,8 +17,10 @@
             </ComboBox>
             <MenuButton fx:id="menuButton" alignment="TOP_RIGHT" mnemonicParsing="false" prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="𝄘">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                  <MenuItem mnemonicParsing="false" text="Create Playlist" />
+                  <MenuItem mnemonicParsing="false" text="Delete Playlist" />
+                  <MenuItem mnemonicParsing="false" text="Update Playlist" />
+                  <MenuItem mnemonicParsing="false" text="View Playlist" />
                </items>
                <effect>
                   <InnerShadow />
