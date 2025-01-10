@@ -21,6 +21,7 @@
                   <MenuItem mnemonicParsing="false" text="Delete Playlist" />
                   <MenuItem mnemonicParsing="false" text="Update Playlist" />
                   <MenuItem mnemonicParsing="false" text="View Playlist" />
+                  <MenuItem mnemonicParsing="false" text="Close Playlist Editor" />
                </items>
                <effect>
                   <InnerShadow />
