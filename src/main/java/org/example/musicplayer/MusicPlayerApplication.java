@@ -4,9 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
-
-import java.io.IOException;
 
 public class MusicPlayerApplication extends Application {
     @Override
@@ -19,7 +16,7 @@ public class MusicPlayerApplication extends Application {
 
         DBConnection dbConnection = new DBConnection();
         dbConnection.getConnection();
-        dbConnection.readSongsForStart();
+        dbConnection.readAllSongsToArray();
         MusicController mc = new MusicController();
         //mc.initialize();
 

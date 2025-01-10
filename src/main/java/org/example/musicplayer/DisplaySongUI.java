@@ -3,12 +3,23 @@ package org.example.musicplayer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DisplaySongUI {
 
     public static ObservableList<String> displaySongInfo() throws Exception {
+
+        DBConnection db = new DBConnection();
+        ArrayList<Song> songs;
+        songs = db.readAllSongsToArray();
         ObservableList<String> songInfo = FXCollections.observableArrayList();
-        String query = "SELECT fldName, fldLengthInSeconds, fldArtist FROM tblSongs";
+
+        for (Song song : songs)
+        {
+                songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds());
+        }
+
+        /*String query = "SELECT fldName, fldLengthInSeconds, fldArtist FROM tblSongs";
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -25,7 +36,7 @@ public class DisplaySongUI {
             {
                 System.out.println(i);
             }
-        }
+        }*/
 
         return songInfo;
     }
