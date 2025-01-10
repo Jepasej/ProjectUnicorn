@@ -42,6 +42,7 @@ public class MusicController implements Initializable {
     private int songNumber;
     private org.example.musicplayer.ImageDisplay imageDisplay;
     private PlayerControls playerControls;
+    public String lastSelectedTrack;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -100,9 +101,18 @@ public class MusicController implements Initializable {
         DBConnection dbConnection = new DBConnection();
         String filePath = dbConnection.getFilepathFromID(songID);
 
-        playerControls = new PlayerControls();
-        playerControls.setTrack(filePath);
-        playerControls.playTrack();
+        if(filePath.equals(lastSelectedTrack))
+        {
+            playerControls.playTrack();
+        }
+        else
+        {
+            playerControls = new PlayerControls();
+            playerControls.setTrack(filePath);
+            playerControls.playTrack();
+        }
+
+        lastSelectedTrack = filePath;
     }
 
     public void pauseSong(ActionEvent actionEvent)
