@@ -99,20 +99,19 @@ public class MusicController implements Initializable {
         {
             playerControls.playTrack();
         }
-        else {
-            if (mediaPlayer != null) {
-            mediaPlayer.stop(); }
+        else
+        {
             playerControls = new PlayerControls();
             playerControls.setTrack(filePath);
             playerControls.playTrack();
 
-
+            if (mediaPlayer != null)
+            {
+                mediaPlayer.stop();
                 mediaPlayer.play();
+            }
         }
-
         lastSelectedTrack = filePath;
-
-
     }
 
     public void pauseSong(ActionEvent actionEvent)
