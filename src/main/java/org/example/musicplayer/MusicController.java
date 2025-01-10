@@ -31,7 +31,7 @@ public class MusicController implements Initializable {
     @FXML
     private TextArea songTitle;
     @FXML
-    private ListView<String> infoSongs;
+    private ListView<String> infoSongs, infoSongsInSecondUI;
     @FXML
     private Button buttonPlay, buttonPause, buttonStop, buttonPreviousSong, buttonNextSong, buttonShuffle;
     @FXML
@@ -60,13 +60,12 @@ public class MusicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
+        try
+        {
             ObservableList<String> songs = DisplaySongUI.displaySongInfo();
             infoSongs.setItems(songs);
             imageDisplay = new ImageDisplay();
             displayRandomImage();
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +90,7 @@ public class MusicController implements Initializable {
     }
 
 
-    public void switchToPlaylistScene(javafx.event.ActionEvent event) throws IOException
+    public void switchToPlaylistScene(javafx.event.ActionEvent event) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("playlistScene.fxml"));
         Parent root = fxmlLoader.load();
