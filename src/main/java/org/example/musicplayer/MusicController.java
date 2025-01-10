@@ -74,7 +74,8 @@ public class MusicController implements Initializable {
     // Hent sange fra databasen og vis i ListView
     //loadSongsFromDatabase();
 
-    public void displayRandomImage() {
+    public void displayRandomImage()
+    {
         if (imageDisplay != null && !imageDisplay.images.isEmpty()) {
             Image randomImage = imageDisplay.getRandomImage();
             if (randomImage != null) {
@@ -89,16 +90,18 @@ public class MusicController implements Initializable {
         }
     }
 
-    public void switchToPlaylistScene(ActionEvent event) throws IOException {
+
+    public void switchToPlaylistScene(javafx.event.ActionEvent event) throws IOException
+    {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("playlistScene.fxml"));
-        Parent root = fxmlLoader.load(); // Ensure you load the FXML
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Fixed parentheses
+        Parent root = fxmlLoader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void switchToFrontUI(ActionEvent event) throws IOException
+    public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
         Parent root = fxmlLoader.load(); // Ensure you load the FXML

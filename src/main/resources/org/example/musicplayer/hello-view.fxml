@@ -15,21 +15,11 @@
                   <InnerShadow />
                </effect>
             </ComboBox>
-            <MenuButton fx:id="menuButton" alignment="TOP_RIGHT" mnemonicParsing="false" prefHeight="36.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="𝄘">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Create Playlist" />
-                  <MenuItem mnemonicParsing="false" text="Delete Playlist" />
-                  <MenuItem mnemonicParsing="false" text="Update Playlist" />
-                  <MenuItem mnemonicParsing="false" text="View Playlist" />
-                  <MenuItem mnemonicParsing="false" text="Close Playlist Editor" />
-               </items>
+            <Button mnemonicParsing="false" onAction="#switchToPlaylistScene" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="Playlists">
                <effect>
                   <InnerShadow />
                </effect>
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </MenuButton>
+            </Button>
          </children>
       </HBox>
    </top>
