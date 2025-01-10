@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 
 import javax.print.attribute.standard.Media;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,6 +40,7 @@ public class MusicController implements Initializable {
 
 
     private Media media;
+    private MediaPlayer mediaPlayer;
     private ArrayList<Image> imageList;
     private int songNumber;
     private org.example.musicplayer.ImageDisplay imageDisplay;
@@ -68,8 +71,6 @@ public class MusicController implements Initializable {
         selection = selection.substring(0,2).trim();
         return Integer.parseInt(selection);
     }
-        // Hent sange fra databasen og vis i ListView
-        //loadSongsFromDatabase();
 
     public void displayRandomImage()
     {
@@ -92,14 +93,22 @@ public class MusicController implements Initializable {
         int songID = getCurrentSelection();
         DBConnection dbConnection = new DBConnection();
         String filePath = dbConnection.getFilepathFromID(songID);
-
         playerControls = new PlayerControls();
         playerControls.setTrack(filePath);
         playerControls.playTrack();
+
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.play();
+        }
+
+
+
     }
 
     public void pauseSong(ActionEvent actionEvent)
     {
         playerControls.pauseTrack();
+
     }
 }
