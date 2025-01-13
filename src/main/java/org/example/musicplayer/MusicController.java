@@ -56,6 +56,8 @@ public class MusicController implements Initializable
     private ArrayList<Image> imageList;
     //Tracks the current song index
     private int songNumber;
+    //Current playlist object
+    private Playlist currentPlaylist;
     //Handles image display
     private org.example.musicplayer.ImageDisplay imageDisplay;
     //Manges player controls for music playback
@@ -139,8 +141,14 @@ public class MusicController implements Initializable
         Parent root = fxmlLoader.load();
         // Retrieve the controller of the second scene
         PlaylistController playlistController = fxmlLoader.getController();
+        //Create playlist (and add songs)
+        Playlist currentPlaylist = new Playlist("My Playlist");
+
         // Pass the data from infoSongs to infoSongsInSecondUI
         ObservableList<String> songs = infoSongs.getItems(); // Get the items from the first ListView
+        playlistController.setInfoSongs(songs);
+
+        //Send songs to PlaylistController
         playlistController.setInfoSongs(songs);
 
         //Retrieves the current stage
