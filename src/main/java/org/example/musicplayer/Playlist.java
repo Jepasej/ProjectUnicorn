@@ -11,6 +11,9 @@ public class Playlist {
     //Name of playlist
     private String name;
 
+    //ID of playlist
+    private int fldPlaylistID;
+
     //List that contains all songs in playlist
     private List<Song> songs;
 
@@ -96,5 +99,21 @@ public class Playlist {
      */
     public void clearPlaylist() {
         songs.clear();
+    }
+
+    /**
+     * Gets playlistID
+     * @return playlistID
+     */
+    public int getFldPlaylistID() {
+        return fldPlaylistID;
+    }
+
+    /**
+     * Sets new ID for Playlist
+     * @param fldPlaylistID
+     */
+    public void setFldPlaylistID(int fldPlaylistID) {
+        this.fldPlaylistID = fldPlaylistID;
     }
 }
