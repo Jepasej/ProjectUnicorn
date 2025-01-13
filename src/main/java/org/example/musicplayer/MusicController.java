@@ -1,5 +1,6 @@
 package org.example.musicplayer;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,17 +11,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javax.print.attribute.standard.Media;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,8 +32,6 @@ import java.util.ResourceBundle;
 public class MusicController implements Initializable
 {
     @FXML
-    private Label welcomeText;
-    @FXML
     private TextArea songTitle;
     @FXML
     private ListView<String> infoSongs, infoSongsInSecondUI;
@@ -43,7 +40,7 @@ public class MusicController implements Initializable
     @FXML
     private MenuButton menuButton;
     @FXML
-    private ComboBox searchBox;
+    private ComboBox<String> searchBox;
     @FXML
     private javafx.scene.image.ImageView pictureFrame;
     @FXML
@@ -67,7 +64,13 @@ public class MusicController implements Initializable
     private Scene scene;
     private Parent root;
 
-    List<String>searchwords = List.of("Bear McCreary", "The ");
+    List<String> searchWords = Arrays.asList("A Good Lighter", "Baltar Panics",
+            "Baltar Speaks With Adama", "Battlestar Galactica Season One", "Battlestar Muzaktica",
+            "Battlestar Operatica", "Bear McCreary", "Boomer Flees", "Flesh And Bone", "Forgiven",
+            "Helo Chase", "Helo In The Warehouse", "Helo Rescued", "Main Title",
+            "Starbuck On The Red Moon", "Starbuck Takes On All Eight", "The Card Game",
+            "The Dinner Party", "The Olympic Carrier", "The Thousandth Landing", "Two Boomers",
+            "Two Funerals");
 
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
@@ -91,6 +94,12 @@ public class MusicController implements Initializable
             //Log any exceptions that occur during initialization
             e.printStackTrace();
         }
+
+        addFilterToSearchSong(searchBox);
+
+        //Adds the search words from the list "searchWords" to the combobox and allows text input.
+        searchBox.setItems(FXCollections.observableArrayList(searchWords));
+        searchBox.setEditable(true);
     }
 
     /**
@@ -222,4 +231,33 @@ public class MusicController implements Initializable
         //Stops the current track
         playerControls.stopTrack();
     }
+
+
+    public void addFilterToSearchSong(ComboBox<String> searchBox){
+        List<String> originalList = new ArrayList<>(searchWords);
+
+        searchBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue == null || newValue.isEmpty()){
+                searchBox.setItems(FXCollections.observableArrayList(originalList));
+            }
+            else{
+                String userInput = newValue.toLowerCase();
+                List<String> filteredList = new ArrayList<>();
+
+                for (String search: originalList){
+                    if(search.toLowerCase().startsWith(userInput)){
+                        filteredList.add(search);
+                    }
+                }
+                searchBox.setItems(FXCollections.observableArrayList(filteredList));
+            }
+            searchBox.show();
+        });
+    }
+
+    @FXML
+    public void searchSongInfo() {
+        String selectedSong = searchBox.getValue();
+        mediaPlayer.play();
+        }
 }

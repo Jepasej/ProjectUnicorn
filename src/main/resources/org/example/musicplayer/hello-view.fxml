@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.musicplayer.MusicController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.musicplayer.MusicController">
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="700.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox id="¨" fx:id="searchBox" prefHeight="35.0" prefWidth="250.0" promptText="search" style="-fx-background-color: #FFB300;">
+            <ComboBox id="¨" fx:id="searchBox" onAction="#searchSongInfo" prefHeight="35.0" prefWidth="250.0" promptText="Search songs, artists or album" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect>
@@ -46,7 +45,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonPlay" onAction="#playSong" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏵">
+                  <Button fx:id="buttonPlay" mnemonicParsing="false" onAction="#playSong" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏵">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -54,7 +53,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonPause" onAction="#pauseSong" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏸">
+                  <Button fx:id="buttonPause" mnemonicParsing="false" onAction="#pauseSong" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏸">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -62,7 +61,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonStop" onAction="#stopSong" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
+                  <Button fx:id="buttonStop" mnemonicParsing="false" onAction="#stopSong" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
                      <effect>
                         <InnerShadow />
                      </effect>
