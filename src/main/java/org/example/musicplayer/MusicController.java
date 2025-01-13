@@ -258,6 +258,9 @@ public class MusicController implements Initializable
     @FXML
     public void searchSongInfo() {
         String selectedSong = searchBox.getValue();
-        mediaPlayer.play();
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
         }
+
+    }
 }
