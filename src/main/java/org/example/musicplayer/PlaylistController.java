@@ -60,6 +60,8 @@ public class PlaylistController
         }
     }
 
+
+
     public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
