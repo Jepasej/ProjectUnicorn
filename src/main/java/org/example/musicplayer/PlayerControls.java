@@ -5,14 +5,17 @@ import java.io.*;
 import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * Class in charge of the classic media player controls, eg. start/stop
+ */
 public class PlayerControls
 {
     private MediaPlayer playerCommands;
     private Media track;
-    private Duration pausePosition; // Variabel to save pauseposition
-    final static Duration SKIP_SECONDS = Duration.seconds(5);
+
     /**
-     * Method to define what song we wish to interact with
+     * Method to define what song we wish to interact with.
+     * Checks whether the selected song is the same as the song currently playing.
      * @param songChoicePath the file path of the chosen song, retrieved from the database
      */
     public void setTrack(String songChoicePath)
@@ -29,41 +32,31 @@ public class PlayerControls
         }
     }
 
+    /**
+     * plays selected track
+     */
     public void playTrack()
-
     {
-        if (playerCommands != null) {
-            //If "pausebutton" is pressed, continue from where we paused
-            if (pausePosition != null) {
-                playerCommands.seek(pausePosition); //Resume from pausepositon
-            }
-            playerCommands.play();
-        }
+        playerCommands.play();
     }
 
 
-
+    /**
+     * stops selected track
+     */
     public void stopTrack()
     {
         playerCommands.stop();
     }
 
+    /**
+     * pauses selected track
+     */
     public void pauseTrack()
     {
         if (playerCommands != null)
         {
-            pausePosition = playerCommands.getCurrentTime(); //Save pauseposition
             playerCommands.pause();
-        }
-    }
-    //playerCommands.pause();
-
-
-    public void seekTrack()
-    {
-        if (playerCommands != null)
-        {
-            playerCommands.seek(SKIP_SECONDS);
         }
     }
 }
