@@ -59,6 +59,57 @@ public class DBConnection
         return songs;
     }
 
+    /**
+     * Takes a playlist object and inserts it into the database
+     * @param newPlaylist playlist object created with UI
+     * @throws Exception
+     */
+    public void createPlaylist(Playlist newPlaylist) throws Exception
+    {
+        String sql = "INSERT INTO tblPlaylists (fldName) VALUES (?)";
+        Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, newPlaylist.getname());
+        int affectedRows = pstmt.executeUpdate();
+        if (affectedRows > 0) {
+            System.out.println("Playlist added successfully.");
+        } else {
+            System.out.println("Failed to add the Playlist.");
+        }
+
+        /*
+        HER SKAL VI HAVE EN FUNKTION TIL AT OPDATERE PLAYLISTOBJEKTETS ID TIL ID'ET FRA DATABASEN, ENTEN VED SELECT MAX ELLER GETPLAYLISTID WHERE NAME.EQUALS BRANCH
+        */
+
+        createBridgeLink(newPlaylist);
+    }
+
+    /**
+     * updates the bridgetable to connect a playlist to specific songs.
+     * @param newPlaylist playlist received from cratePlaylist()
+     * @throws Exception
+     */
+    private void createBridgeLink(Playlist newPlaylist) throws Exception
+    {
+        ArrayList<Song> songsToBridgeTable = (ArrayList<Song>) newPlaylist.getSongs();
+
+        for(int i = 1; i <= songsToBridgeTable.size(); i++)
+        {
+            String sql = "INSERT INTO tblSongsPlaylists (fldSongID, fldPlaylistID, fldOrderNo) VALUES (?, ?, ?)";
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, songsToBridgeTable.get(i-1).getFldSongID());
+            pstmt.setInt(2, newPlaylist.getFldPlaylistID());
+            pstmt.setInt(3, i);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Bridgelink added successfully.");
+            } else {
+                System.out.println("Failed to add the Bridgelink.");
+            }
+        }
+    }
+
 
     /**
      * Retrieves the filepath from our database for a specific chosen song in our song arrayList.
