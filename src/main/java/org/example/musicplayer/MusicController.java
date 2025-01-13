@@ -59,6 +59,11 @@ public class MusicController implements Initializable {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
+    /**
+     * Supplies our UI with the necessary information to display songs and images.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try
@@ -74,6 +79,10 @@ public class MusicController implements Initializable {
     // Hent sange fra databasen og vis i ListView
     //loadSongsFromDatabase();
 
+    /**
+     * Extracts the songID from our listview
+     * @return a songID int which can be used to retrieve a filepath from the DB
+     */
     public int getCurrentSelection()
     {
         String selection = infoSongs.getSelectionModel().getSelectedItem();
@@ -148,5 +157,14 @@ public class MusicController implements Initializable {
     {
         playerControls.pauseTrack();
 
+    }
+
+    /**
+     * Stops the currently playing music track.
+     * @param actionEvent
+     */
+    public void stopSong(ActionEvent actionEvent)
+    {
+        playerControls.stopTrack();
     }
 }

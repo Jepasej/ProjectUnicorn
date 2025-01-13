@@ -62,7 +62,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonStop" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
+                  <Button fx:id="buttonStop" onAction="#stopSong" mnemonicParsing="false" prefHeight="60.0" prefWidth="166.0" style="-fx-background-color: #FFB300;" text="⏹">
                      <effect>
                         <InnerShadow />
                      </effect>

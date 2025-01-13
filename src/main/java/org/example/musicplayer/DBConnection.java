@@ -10,19 +10,20 @@ import java.util.ArrayList;
  * Preparing the system to write in our Database
  * and establish connection to the DB
  */
-public class DBConnection {
-        //initializes variables for the getConnection method.
-        static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=DbMusicPlayer;TrustServerCertificate=true;";
-        static final String USERNAME = "sa"; // replace with your username
-        static final String PASSWORD = "admin"; // replace with your password
+public class DBConnection
+{
+    //initializes variables for the getConnection method.
+    static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=DbMusicPlayer;TrustServerCertificate=true;";
+    static final String USERNAME = "sa"; // replace with your username
+    static final String PASSWORD = "admin"; // replace with your password
 
-        //connects us to the SQL to DB server
-        public static Connection getConnection() throws Exception {
-            Connection conn = null;
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            return conn;
-        }
+    //connects us to the SQL to DB server
+    public static Connection getConnection() throws Exception {
+        Connection conn = null;
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        return conn;
+}
 
 
     public ArrayList readAllSongsToArray() throws Exception
