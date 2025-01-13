@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -65,6 +66,8 @@ public class MusicController implements Initializable
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    List<String>searchwords = List.of("Bear McCreary", "The ");
 
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
