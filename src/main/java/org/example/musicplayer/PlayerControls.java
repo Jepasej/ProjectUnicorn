@@ -5,12 +5,13 @@ import java.io.*;
 import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * Class in charge of the classic media player controls, eg. start/stop
+ */
 public class PlayerControls
 {
     private MediaPlayer playerCommands;
     private Media track;
-    // Variable to save pauseposition
-    private Duration pausePosition;
 
     /**
      * Method to define what song we wish to interact with.
