@@ -5,15 +5,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-
+/**
+ * Class to enable an ArrayList with all images we need for the application. Loaded images from the resource folder into the array.
+ */
 public class ImageDisplay
 {
-
+    //Declaring the array
     public ArrayList<Image> images;
-
 
     public ImageDisplay()
         {
+            //INITIALIZING the Array
         this.images = new ArrayList<Image>();
 
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn1.jpg"))));
@@ -25,6 +27,7 @@ public class ImageDisplay
         System.out.println("Images added: " + images.size());
         }
 
+        //Method to generate a random image out of the array. Uses the importet Random Class.
     public Image getRandomImage()
     {
         if (!images.isEmpty()) {
