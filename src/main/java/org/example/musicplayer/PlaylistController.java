@@ -36,6 +36,11 @@ public class PlaylistController
         stage.show();
 
     }
+
+    public void createPlaylist(javafx.event.ActionEvent event) throws IOException
+    {
+
+    }
 }
 
 //currentPlaylist.addSong(new Song("Song 1", "Artist 1", "path/to/song1"));
