@@ -72,6 +72,7 @@ public class MusicController implements Initializable {
             infoSongs.setItems(songs);
             imageDisplay = new ImageDisplay();
             displayRandomImage();
+            //System.out.println(infoSongs); //used for bugfixing and bugsearching
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,6 +112,12 @@ public class MusicController implements Initializable {
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("playlistScene.fxml"));
         Parent root = fxmlLoader.load();
+        // Retrieve the controller of the second scene
+        PlaylistController playlistController = fxmlLoader.getController();
+        // Pass the data from infoSongs to infoSongsInSecondUI
+        ObservableList<String> songs = infoSongs.getItems(); // Get the items from the first ListView
+        playlistController.setInfoSongs(songs);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -140,16 +147,6 @@ public class MusicController implements Initializable {
             }
         }
         lastSelectedTrack = filePath;
-    }
-
-    public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
-        Parent root = fxmlLoader.load(); // Ensure you load the FXML
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Fixed parentheses
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
 

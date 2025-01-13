@@ -4,9 +4,9 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.musicplayer.MusicController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.musicplayer.PlaylistController">
    <left>
-      <ListView fx:id="infoSongsPla" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+      <ListView fx:id="infoSongsInSecondUI" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
    </left>
    <right>
       <ListView prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
