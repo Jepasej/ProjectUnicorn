@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Launches the application, loads the scene and declares what methods need to be used from the start.
+ */
 public class MusicPlayerApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
