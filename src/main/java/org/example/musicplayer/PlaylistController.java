@@ -37,3 +37,6 @@ public class PlaylistController
 
     }
 }
+
+//currentPlaylist.addSong(new Song("Song 1", "Artist 1", "path/to/song1"));
+//currentPlaylist.addSong(new Song("Song 2", "Artist 2", "path/to/song2"));
