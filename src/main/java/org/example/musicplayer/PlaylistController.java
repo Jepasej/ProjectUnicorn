@@ -1,5 +1,6 @@
 package org.example.musicplayer;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,40 @@ public class PlaylistController
 {
 
     @FXML
-    private ListView<String> infoSongsInSecondUI;
+    private ListView<String> infoSongsInSecondUI,editPlaylistField;
+
+    public void intialize()
+    {
+        infoSongsInSecondUI.setItems(FXCollections.observableArrayList());
+        editPlaylistField.setItems(FXCollections.observableArrayList());
+    }
+
+    //Method to switch the entries in the main ListView to the edit field so we later can create playlists.
+    private void transferItems(ListView<String> source, ListView<String> destination)
+    {
+        ObservableList<String> selectedItems = source.getSelectionModel().getSelectedItems();
+
+        if (!selectedItems.isEmpty()) {
+            // Add the selected items to the destination ListView
+            destination.getItems().addAll(selectedItems);
+
+            // Remove the selected items from the source ListView
+            source.getItems().removeAll(selectedItems);
+        } else {
+            System.out.println("No items selected for transfer.");
+        }
+    }
+
+    public void transferToEditPlaylist()
+    {
+        transferItems(infoSongsInSecondUI, editPlaylistField);
+    }
+
+    public void transferToInfoSongs()
+    {
+        transferItems(editPlaylistField, infoSongsInSecondUI);
+    }
+
 
     // Method to set the items in the ListView
     public void setInfoSongs(ObservableList<String> songs) {
