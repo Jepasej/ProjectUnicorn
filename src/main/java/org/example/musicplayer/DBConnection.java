@@ -25,15 +25,23 @@ public class DBConnection
         return conn;
 }
 
-
+    /**
+     * Initializes an arraylist with data from tblSongs from our database
+     * @return returns all data from the database
+     * @throws Exception If the database or SQL connection operation fails
+     */
     public ArrayList readAllSongsToArray() throws Exception
     {
+        //Declares an arraylist and connects to the DB.
         ArrayList<Song> songs = new ArrayList<>();
         String sql = "SELECT * FROM tblSongs";
         Connection conn = getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
+
         boolean hasSongs = false;
+
+        //Loops through every song until none left and retrieves all information about the songs from out DB.
         while (rs.next()) {
             hasSongs = true;
             Song song = new Song();
@@ -102,14 +110,25 @@ public class DBConnection
         }
     }
 
+
+    /**
+     * Retrieves the filepath from our database for a specific chosen song in our song arrayList.
+     * @param id The songID from our database
+     * @return returns the filepath for the chosen song
+     * @throws Exception If the database og SQL connection operation fails.
+     */
     public String getFilepathFromID(int id) throws Exception
     {
+        //Connects to our DB and retrieves all information for a specific chosen song from our DB.
         String sql = "SELECT * FROM tblSongs WHERE FldSongID = ?";
         Connection conn = getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, id);
         ResultSet rs = pstmt.executeQuery();
+
         boolean hasSongs = false;
+
+        //Loops through our tblSong in our DB until match with songID and retrieves all info on that song.
         while (rs.next()) {
             hasSongs = true;
             Song song = new Song();
