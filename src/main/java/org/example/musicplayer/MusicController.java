@@ -1,5 +1,6 @@
 package org.example.musicplayer;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.TimerTask;
+import java.util.Timer;
 
 /**
  * Controller for the music player application, managing UI interactions,
@@ -67,6 +70,8 @@ public class MusicController implements Initializable
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Timer timer;
+    private TimerTask task;
 
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
@@ -86,6 +91,7 @@ public class MusicController implements Initializable
             imageDisplay = new ImageDisplay();
             //Displays a random image in the picture frame
             displayRandomImage();
+
             //System.out.println(infoSongs); //used for bugfixing and bugsearching
         } catch (Exception e) {
             //Log any exceptions that occur during initialization
@@ -172,10 +178,12 @@ public class MusicController implements Initializable
         //Retrieves the file path from the database
         String filePath = dbConnection.getFilepathFromID(songID);
 
+
         if(filePath.equals(lastSelectedTrack))
         {
             //Resumes playback of the current track
             playerControls.playTrack();
+
         }
         else
         {
@@ -194,6 +202,7 @@ public class MusicController implements Initializable
         }
         //Updates the last selected track
         lastSelectedTrack = filePath;
+        progressBarUI();
     }
 
     /**
@@ -234,4 +243,41 @@ public class MusicController implements Initializable
         //Stops the current track
         playerControls.stopTrack();
     }
+
+    public void progressBarUI()
+    {
+        //System.out.printf("Testing");
+        mediaPlayer = playerControls.getPlayerCommands();
+        timer = new Timer();
+        task = new TimerTask()
+        {
+            @Override
+            public void run() {
+                //System.out.printf("TestingRun");
+                Platform.runLater(() ->
+
+                {
+                //System.out.printf("TestingRunLater");
+
+                if (mediaPlayer == null) {
+                    //System.out.println("MediaPlayer is null");
+                }
+
+                if (mediaPlayer != null && mediaPlayer.getMedia() != null)
+                {
+
+                    System.out.println("Playing " + mediaPlayer.getMedia());
+
+                    double currentSeconds = mediaPlayer.getCurrentTime().toSeconds();
+                    double end = mediaPlayer.getMedia().getDuration().toSeconds();
+                    progressBar.setProgress(currentSeconds / end);
+                    System.out.println(currentSeconds / end);
+                }
+            });
+            }
+        };
+
+        timer.scheduleAtFixedRate(task, 100, 1000);
+
+    };
 }
