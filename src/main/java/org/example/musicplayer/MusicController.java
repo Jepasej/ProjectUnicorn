@@ -40,7 +40,7 @@ public class MusicController implements Initializable
     @FXML
     private MenuButton menuButton;
     @FXML
-    private ComboBox<String> searchBox;
+    private TextField searchBox;
     @FXML
     private javafx.scene.image.ImageView pictureFrame;
     @FXML
@@ -64,13 +64,10 @@ public class MusicController implements Initializable
     private Scene scene;
     private Parent root;
 
-    List<String> searchWords = Arrays.asList("A Good Lighter", "Baltar Panics",
-            "Baltar Speaks With Adama", "Battlestar Galactica Season One", "Battlestar Muzaktica",
-            "Battlestar Operatica", "Bear McCreary", "Boomer Flees", "Flesh And Bone", "Forgiven",
-            "Helo Chase", "Helo In The Warehouse", "Helo Rescued", "Main Title",
-            "Starbuck On The Red Moon", "Starbuck Takes On All Eight", "The Card Game",
-            "The Dinner Party", "The Olympic Carrier", "The Thousandth Landing", "Two Boomers",
-            "Two Funerals");
+    private ObservableList<String> allSongs;
+    private ObservableList<String> filteredSongs;
+
+
 
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
@@ -95,13 +92,28 @@ public class MusicController implements Initializable
             e.printStackTrace();
         }
 
+        //All songs in our Music player put in to an observable list
+        allSongs = FXCollections.observableArrayList("A Good Lighter", "Baltar Panics",
+                "Baltar Speaks With Adama", "Battlestar Muzaktica",
+                "Battlestar Operatica", "Boomer Flees", "Flesh And Bone", "Forgiven",
+                "Helo Chase", "Helo In The Warehouse", "Helo Rescued", "Main Title",
+                "Starbuck On The Red Moon", "Starbuck Takes On All Eight", "The Card Game",
+                "The Dinner Party", "The Olympic Carrier", "The Thousandth Landing", "Two Boomers",
+                "Two Funerals");
+
+        //The filtered songs to be shown after user input taken from pur allSongs observable list.
+        filteredSongs = FXCollections.observableArrayList(allSongs);
+
+        infoSongs.setItems(filteredSongs);
 
 
-        addFilterToSearchSong(searchBox);
+
+
+        //addFilterToSearchSong(searchBox);
 
         //Adds the search words from the list "searchWords" to the combobox and allows text input.
-        searchBox.setItems(FXCollections.observableArrayList(searchWords));
-        searchBox.setEditable(true);
+        //searchBox.setItems(FXCollections.observableArrayList(searchWords));
+        //searchBox.setEditable(true);
     }
 
     /**
@@ -235,7 +247,7 @@ public class MusicController implements Initializable
     }
 
 
-    public void addFilterToSearchSong(ComboBox<String> searchBox){
+    /*public void addFilterToSearchSong(ComboBox<String> searchBox){
         List<String> originalList = new ArrayList<>(searchWords);
 
         searchBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -255,37 +267,12 @@ public class MusicController implements Initializable
             }
             searchBox.show();
         });
-    }
+    }*/
 
     @FXML
     public void searchSongInfo() {
-        String selectedSong = searchBox.getValue();
-        DBConnection dataconnect = new DBConnection();
 
-        try {
-            int selectedSongID = songTitleID(selectedSong);
-            if (selectedSongID > 0 && selectedSongID > 25) {
-                String songFilePath = dataconnect.getFilepathFromID(selectedSongID);
-
-                if (songFilePath != null) {
-                    mediaPlayer.play();
-                } else {
-                    mediaPlayer.stop();
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    private int songTitleID(String selectedSong) throws Exception{
-        DBConnection dataconnect = new DBConnection();
-        List<String> getAllSongs = dataconnect.readAllSongsToArray();
-
-        for (String song : getAllSongs){
-            if()
-        }
-    }
 
 }
