@@ -101,20 +101,16 @@ public class MusicController implements Initializable
                 "The Dinner Party", "The Olympic Carrier", "The Thousandth Landing", "Two Boomers",
                 "Two Funerals");
 
-        //The filtered songs to be shown after user input taken from pur allSongs observable list.
+        //The filtered songs to be shown after user input taken from our allSongs observable list.
         filteredSongs = FXCollections.observableArrayList(allSongs);
 
         infoSongs.setItems(filteredSongs);
 
-
-
-
-        //addFilterToSearchSong(searchBox);
-
-        //Adds the search words from the list "searchWords" to the combobox and allows text input.
-        //searchBox.setItems(FXCollections.observableArrayList(searchWords));
-        //searchBox.setEditable(true);
+        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterListView (newValue);
+        });
     }
+
 
     /**
      * Extracts the songID from our listview
@@ -269,10 +265,21 @@ public class MusicController implements Initializable
         });
     }*/
 
-    @FXML
-    public void searchSongInfo() {
 
+    private void filterListView(String searchSongs) {
+        if(searchSongs == null || searchSongs.isEmpty()){
+            filteredSongs.setAll(allSongs);
+        }else{
+            String userInput = searchSongs.toLowerCase();
+            List<String> filteredMatches = new ArrayList<>();
+
+            for(String match : allSongs){
+                if(match.toLowerCase().contains(userInput)){
+                    filteredMatches.add(match);
+                }
+            }
+            filteredSongs.setAll(filteredMatches);
+        }
     }
-
-
 }
+

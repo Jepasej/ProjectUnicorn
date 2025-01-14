@@ -10,7 +10,7 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="700.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="searchBox" onAction="#searchSongInfo" promptText="Search songs, artist or album" />
+            <TextField fx:id="searchBox" promptText="Search songs, artist or album" />
             <Button mnemonicParsing="false" onAction="#switchToPlaylistScene" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="Playlists">
                <effect>
                   <InnerShadow />
