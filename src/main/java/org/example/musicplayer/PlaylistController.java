@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
@@ -17,6 +18,8 @@ public class PlaylistController
 
     @FXML
     private ListView<String> infoSongsInSecondUI,editPlaylistField;
+    @FXML
+    private Button createPlaylist, editPlaylist, deletePlaylist, addSong, removeSong;
 
     public void intialize()
     {
@@ -49,6 +52,7 @@ public class PlaylistController
     {
         transferItems(editPlaylistField, infoSongsInSecondUI);
     }
+
 
 
     // Method to set the items in the ListView

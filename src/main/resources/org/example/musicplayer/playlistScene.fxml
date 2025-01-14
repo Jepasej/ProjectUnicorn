@@ -22,11 +22,11 @@
             <ListView fx:id="editPlaylistField" prefHeight="265.0" prefWidth="400.0" style="-fx-background-color: black;" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="50.0" style="-fx-background-color: Black;">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Delete Playlist">
+                  <Button fx:id="deletePlaylist" mnemonicParsing="false" onAction="#onDeletePlaylistClick" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Delete Playlist">
                      <effect>
                         <InnerShadow />
                      </effect></Button>
-                  <Button mnemonicParsing="false" onAction="#transferToEditPlaylist" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Add Song">
+                  <Button fx:id="addSong" mnemonicParsing="false" onAction="#transferToEditPlaylist" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Add Song">
                      <effect>
                         <InnerShadow />
                      </effect></Button>
@@ -34,18 +34,18 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="50.0" style="-fx-background-color: black;">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Edit Playlist">
+                  <Button fx:id="editPlaylist" mnemonicParsing="false" onAction="#onEditPlaylistClick" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Edit Playlist">
                      <effect>
                         <InnerShadow />
                      </effect></Button>
-                  <Button mnemonicParsing="false" onAction="#transferToInfoSongs" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Remove Song">
+                  <Button fx:id="removeSong" mnemonicParsing="false" onAction="#transferToInfoSongs" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Remove Song">
                      <effect>
                         <InnerShadow />
                      </effect></Button>
                </children></HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="50.0" style="-fx-background-color: black;">
                <children>
-                  <Button mnemonicParsing="false" onAction="#createPlaylist" prefHeight="90.0" prefWidth="175.0" style="-fx-background-color: #FFB300;" text="Create Playlist">
+                  <Button fx:id="createPlaylist" mnemonicParsing="false" onAction="#onCreatePlaylistClick" prefHeight="90.0" prefWidth="175.0" style="-fx-background-color: #FFB300;" text="Create Playlist">
                      <effect>
                         <InnerShadow />
                      </effect>
