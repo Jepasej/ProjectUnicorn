@@ -77,7 +77,7 @@ public class PlaylistController
         stage.show();
     }
 
-    public void onCreatePlaylistClick(ActionEvent actionEvent)
+    public void onSavePlaylistClick(ActionEvent actionEvent)
     {
 
     }
