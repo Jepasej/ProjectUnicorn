@@ -1,5 +1,4 @@
 package org.example.musicplayer;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,9 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +30,28 @@ public class PlaylistController
 
     private ObservableList<String> editWindow = FXCollections.observableArrayList();
 
-    public void intialize()
+    public void initialize()
     {
         //Initialize the ListView with empty observable lists
         infoSongsInSecondUI.setItems(FXCollections.observableArrayList());
         editPlaylistField.setItems(FXCollections.observableArrayList());
 
         //Load playlists from the database and add them to the ListView
+        try
+        {
+            DBConnection dbConnection = new DBConnection();
+            ArrayList <Playlist> playlists = dbConnection.readAllPlaylists();
+            ObservableList<String> playlistNames = FXCollections.observableArrayList();
 
+            for (Playlist playlist : playlists)
+            {
+                playlistNames.add(playlist.getname());
+            }
+            playlistListview.setItems(playlistNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to load playlists from DB");
+        }
     }
 
     //Method to switch the entries in the main ListView to the edit field so we later can create playlists.
@@ -106,6 +120,9 @@ public class PlaylistController
 
         DBConnection dbConnection = new DBConnection();
         dbConnection.createPlaylist(newPlaylist);
+
+        //Refresh the ListView
+        initialize();
     }
 
     public void onEditPlaylistClick(ActionEvent actionEvent)
