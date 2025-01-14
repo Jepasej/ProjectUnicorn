@@ -10,9 +10,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaylistController
 {
@@ -20,7 +24,11 @@ public class PlaylistController
     @FXML
     private ListView<String> infoSongsInSecondUI,editPlaylistField;
     @FXML
-    private Button createPlaylist, editPlaylist, deletePlaylist, addSong, removeSong;
+    private Button savePlaylist, editPlaylist, deletePlaylist, addSong, removeSong;
+    @FXML
+    private TextField playlistName;
+
+    private ObservableList<String> editWindow = FXCollections.observableArrayList();
 
     public void intialize()
     {
@@ -66,7 +74,6 @@ public class PlaylistController
         }
     }
 
-
     public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
@@ -77,9 +84,24 @@ public class PlaylistController
         stage.show();
     }
 
-    public void onSavePlaylistClick(ActionEvent actionEvent)
-    {
+    public void onSavePlaylistClick(ActionEvent actionEvent) throws Exception {
+        Playlist newPlaylist = new Playlist(playlistName.getText());
+        ArrayList<Integer> songsToAdd = new ArrayList<>();
+        List<String> currentSelection = editPlaylistField.getItems();
 
+
+        for(int i = 0; i < currentSelection.size(); i++)
+        {
+            String selection = currentSelection.get(i);
+            selection = selection.substring(0,2).trim();
+
+            songsToAdd.add(Integer.parseInt(selection));
+        }
+
+        newPlaylist.setSongIDs(songsToAdd);
+
+        DBConnection dbConnection = new DBConnection();
+        dbConnection.createPlaylist(newPlaylist);
     }
 
     public void onEditPlaylistClick(ActionEvent actionEvent)

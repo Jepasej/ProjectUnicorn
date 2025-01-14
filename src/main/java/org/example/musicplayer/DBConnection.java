@@ -18,7 +18,8 @@ public class DBConnection
     static final String PASSWORD = "admin"; // replace with your password
 
     //connects us to the SQL to DB server
-    public static Connection getConnection() throws Exception {
+    public static Connection getConnection() throws Exception
+    {
         Connection conn = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -42,7 +43,8 @@ public class DBConnection
         boolean hasSongs = false;
 
         //Loops through every song until none left and retrieves all information about the songs from out DB.
-        while (rs.next()) {
+        while (rs.next())
+        {
             hasSongs = true;
             Song song = new Song();
             song.setFldSongID(rs.getInt(1));
@@ -53,7 +55,9 @@ public class DBConnection
             song.setFldFilePath(rs.getString(6).trim());
             songs.add(song);
         }
-        if (!hasSongs) {
+
+        if (!hasSongs)
+        {
             System.out.println("No songs found.");
         }
         return songs;
@@ -71,34 +75,67 @@ public class DBConnection
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, newPlaylist.getname());
         int affectedRows = pstmt.executeUpdate();
-        if (affectedRows > 0) {
+        if (affectedRows > 0)
+        {
             System.out.println("Playlist added successfully.");
         } else {
             System.out.println("Failed to add the Playlist.");
         }
 
-        /*
-        HER SKAL VI HAVE EN FUNKTION TIL AT OPDATERE PLAYLISTOBJEKTETS ID TIL ID'ET FRA DATABASEN, ENTEN VED SELECT MAX ELLER GETPLAYLISTID WHERE NAME.EQUALS BRANCH
-        */
+        newPlaylist.setFldPlaylistID(getPlaylistID(newPlaylist));
 
         createBridgeLink(newPlaylist);
     }
 
     /**
-     * updates the bridgetable to connect a playlist to specific songs.
+     *
+     * @param newPlaylist
+     * @return
+     * @throws Exception
+     */
+
+    private int getPlaylistID(Playlist newPlaylist) throws Exception
+    {
+        int playlistID = 0;
+
+        String sql = "SELECT fldPlaylistID FROM tblPlaylists WHERE fldName = ?";
+        Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,newPlaylist.getname());
+        ResultSet rs = pstmt.executeQuery();
+
+        boolean hasPlaylistID = false;
+
+        //Loops through every song until none left and retrieves all information about the songs from out DB.
+        while (rs.next())
+        {
+            hasPlaylistID = true;
+            playlistID = rs.getInt(1);
+        }
+
+        if (!hasPlaylistID)
+        {
+            System.out.println("No songs found.");
+        }
+
+        return playlistID;
+    }
+
+    /**
+     * Updates the bridgetable to connect a playlist to specific songs.
      * @param newPlaylist playlist received from cratePlaylist()
      * @throws Exception
      */
     private void createBridgeLink(Playlist newPlaylist) throws Exception
     {
-        ArrayList<Song> songsToBridgeTable = (ArrayList<Song>) newPlaylist.getSongs();
+        ArrayList<Integer> songsToBridgeTable = newPlaylist.getSongIDs();
 
         for(int i = 1; i <= songsToBridgeTable.size(); i++)
         {
             String sql = "INSERT INTO tblSongsPlaylists (fldSongID, fldPlaylistID, fldOrderNo) VALUES (?, ?, ?)";
             Connection conn = getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, songsToBridgeTable.get(i-1).getFldSongID());
+            pstmt.setInt(1, songsToBridgeTable.get(i-1));
             pstmt.setInt(2, newPlaylist.getFldPlaylistID());
             pstmt.setInt(3, i);
             int affectedRows = pstmt.executeUpdate();
@@ -129,7 +166,8 @@ public class DBConnection
         boolean hasSongs = false;
 
         //Loops through our tblSong in our DB until match with songID and retrieves all info on that song.
-        while (rs.next()) {
+        while (rs.next())
+        {
             hasSongs = true;
             Song song = new Song();
             song.setFldSongID(rs.getInt(1));

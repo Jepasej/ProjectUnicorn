@@ -14,7 +14,7 @@
    <center>
       <VBox prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #FFB300;">
+            <TextField fx:id="playlistName" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect>

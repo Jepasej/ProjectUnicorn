@@ -219,7 +219,6 @@ public class MusicController implements Initializable
      *
      * @param actionEvent The ActionEvent triggered by the pause button.
      */
-
     public void pauseSong(ActionEvent actionEvent)
     {
         //Pauses the current track
