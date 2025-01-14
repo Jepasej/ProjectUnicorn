@@ -63,6 +63,42 @@ public class DBConnection
         return songs;
     }
 
+    public ArrayList<Song> readSomeSongsToArray(String playlistName) throws Exception
+    {
+        Playlist desiredPlaylist = new Playlist(playlistName);
+        desiredPlaylist.setFldPlaylistID(getPlaylistID(desiredPlaylist));
+
+        //Declares an arraylist and connects to the DB.
+        ArrayList<Song> songs = new ArrayList<>();
+        String sql = "SELECT tblSongs.* FROM tblSongs INNER JOIN tblSongsPlaylists ON tblSongs.fldSongID = tblSongsPlaylists.fldSongID INNER JOIN tblPlaylists ON tblPlaylists.fldPlaylistID = tblSongsPlaylists.fldPlaylistID WHERE tblPlaylists.fldPlaylistID = ?";
+        Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1,desiredPlaylist.getFldPlaylistID());
+        ResultSet rs = pstmt.executeQuery();
+
+        boolean hasSongs = false;
+
+        //Loops through every song until none left and retrieves all information about the songs from out DB.
+        while (rs.next())
+        {
+            hasSongs = true;
+            Song song = new Song();
+            song.setFldSongID(rs.getInt(1));
+            song.setFldName(rs.getString(2).trim());
+            song.setFldLengthInSeconds(rs.getString(3).trim());
+            song.setFldArtist(rs.getString(4).trim());
+            song.setFldAlbum(rs.getString(5).trim());
+            song.setFldFilePath(rs.getString(6).trim());
+            songs.add(song);
+        }
+
+        if (!hasSongs)
+        {
+            System.out.println("No songs found.");
+        }
+        return songs;
+    }
+
     /**
      * Takes a playlist object and inserts it into the database
      * @param newPlaylist playlist object created with UI
