@@ -22,7 +22,7 @@ public class PlaylistController
 {
 
     @FXML
-    private ListView<String> infoSongsInSecondUI,editPlaylistField;
+    private ListView<String> infoSongsInSecondUI,editPlaylistField, playlistListview;
     @FXML
     private Button savePlaylist, editPlaylist, deletePlaylist, addSong, removeSong;
     @FXML
@@ -32,8 +32,12 @@ public class PlaylistController
 
     public void intialize()
     {
+        //Initialize the ListView with empty observable lists
         infoSongsInSecondUI.setItems(FXCollections.observableArrayList());
         editPlaylistField.setItems(FXCollections.observableArrayList());
+
+        //Load playlists from the database and add them to the ListView
+
     }
 
     //Method to switch the entries in the main ListView to the edit field so we later can create playlists.
