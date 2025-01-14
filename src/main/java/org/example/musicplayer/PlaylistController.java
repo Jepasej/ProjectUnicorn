@@ -2,6 +2,7 @@ package org.example.musicplayer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -77,9 +78,13 @@ public class PlaylistController
 
     }
 
-    public void createPlaylist(javafx.event.ActionEvent event) throws IOException
-    {
+    public void onDeletePlaylistClick(ActionEvent actionEvent) {
+    }
 
+    public void onEditPlaylistClick(ActionEvent actionEvent) {
+    }
+
+    public void onCreatePlaylistClick(ActionEvent actionEvent) {
     }
 }
 
