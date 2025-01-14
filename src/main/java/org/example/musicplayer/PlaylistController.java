@@ -55,16 +55,16 @@ public class PlaylistController
     }
 
 
-
     // Method to set the items in the ListView
-    public void setInfoSongs(ObservableList<String> songs) {
-        if (infoSongsInSecondUI != null) {
+    public void setInfoSongs(ObservableList<String> songs)
+    {
+        if (infoSongsInSecondUI != null)
+        {
             infoSongsInSecondUI.setItems(songs);
         } else {
             System.out.println("infoSongsInSecondUI is null!");
         }
     }
-
 
 
     public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
@@ -75,16 +75,21 @@ public class PlaylistController
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void onCreatePlaylistClick(ActionEvent actionEvent)
+    {
 
     }
 
-    public void onDeletePlaylistClick(ActionEvent actionEvent) {
+    public void onEditPlaylistClick(ActionEvent actionEvent)
+    {
+
     }
 
-    public void onEditPlaylistClick(ActionEvent actionEvent) {
-    }
+    public void onDeletePlaylistClick(ActionEvent actionEvent)
+    {
 
-    public void onCreatePlaylistClick(ActionEvent actionEvent) {
     }
 }
 
