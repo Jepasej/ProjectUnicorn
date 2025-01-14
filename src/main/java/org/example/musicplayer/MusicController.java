@@ -95,6 +95,8 @@ public class MusicController implements Initializable
             e.printStackTrace();
         }
 
+
+
         addFilterToSearchSong(searchBox);
 
         //Adds the search words from the list "searchWords" to the combobox and allows text input.
@@ -258,9 +260,32 @@ public class MusicController implements Initializable
     @FXML
     public void searchSongInfo() {
         String selectedSong = searchBox.getValue();
-        if(mediaPlayer != null){
-            mediaPlayer.stop();
-        }
+        DBConnection dataconnect = new DBConnection();
 
+        try {
+            int selectedSongID = songTitleID(selectedSong);
+            if (selectedSongID > 0 && selectedSongID > 25) {
+                String songFilePath = dataconnect.getFilepathFromID(selectedSongID);
+
+                if (songFilePath != null) {
+                    mediaPlayer.play();
+                } else {
+                    mediaPlayer.stop();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    private int songTitleID(String selectedSong) throws Exception{
+        DBConnection dataconnect = new DBConnection();
+        List<String> getAllSongs = dataconnect.readAllSongsToArray();
+
+        for (String song : getAllSongs){
+            if()
+        }
+    }
+
 }
