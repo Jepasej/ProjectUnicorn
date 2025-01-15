@@ -10,12 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +33,18 @@ public class PlaylistController
         infoSongsInSecondUI.setItems(FXCollections.observableArrayList());
         editPlaylistField.setItems(FXCollections.observableArrayList());
 
+        try
+        {
+            ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            //Populates the song list in the UI
+            infoSongsInSecondUI.setItems(songs);
+
+
+            //System.out.println(infoSongs); //used for bugfixing and bugsearching
+        } catch (Exception e) {
+            //Log any exceptions that occur during initialization
+            e.printStackTrace();
+        }
         //Load playlists from the database and add them to the ListView
         try
         {
@@ -131,20 +139,21 @@ public class PlaylistController
 
     }
 
-    public void onDeletePlaylistClick(ActionEvent actionEvent)
+    public void onDeletePlaylistClick(ActionEvent actionEvent) throws Exception
     {
-
+        DBConnection dbConnection = new DBConnection();
+        dbConnection.deletePlaylist(playlistListview.getSelectionModel().getSelectedItem());
+        displayPlaylist();
     }
 
-    public void displayPlaylist(MouseEvent mouseEvent)
+    public void displayPlaylist()
     {
         try
         {
             ObservableList<String> songs = DisplaySongUI.displayPlaylistSongInfo(playlistListview.getSelectionModel().getSelectedItem());
-            //Populates the song list in the UI
+            //Populates the editor in the UI
             editPlaylistField.setItems(songs);
 
-            //System.out.println(infoSongs); //used for bugfixing and bugsearching
         } catch (Exception e) {
             //Log any exceptions that occur during initialization
             e.printStackTrace();

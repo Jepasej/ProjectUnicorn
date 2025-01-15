@@ -237,5 +237,45 @@ public class DBConnection
         }
         return playlists;
     }
+
+    public void deletePlaylist(String playlistName) throws Exception 
+    {
+        Playlist playlist = new Playlist(playlistName);
+        playlist.setFldPlaylistID(getPlaylistID(playlist));
+
+        deleteBridgeTableEntries(playlist);
+
+        deletePlaylistTableEntries(playlist);
+    }
+
+    private void deletePlaylistTableEntries(Playlist playlist) throws Exception
+    {
+        String sql = "DELETE FROM tblPlaylists WHERE fldPlaylistID = ?";
+        Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, playlist.getFldPlaylistID());
+        int affectedRows = pstmt.executeUpdate();
+        if (affectedRows > 0)
+        {
+            System.out.println("Playlist deleted successfully.");
+        } else {
+            System.out.println("Failed to delete the Playlist.");
+        }
+    }
+
+    private void deleteBridgeTableEntries(Playlist playlist) throws Exception {
+        String sql = "DELETE FROM tblSongsPlaylists WHERE fldPlaylistID = ?";
+
+        Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, playlist.getFldPlaylistID());
+        int affectedRows = pstmt.executeUpdate();
+        if (affectedRows > 0)
+        {
+            System.out.println("Playlist bridgetable entries deleted successfully.");
+        } else {
+            System.out.println("Failed to delete the Playlist bridgetable entries.");
+        }
+    }
 }
 
