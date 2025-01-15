@@ -20,6 +20,7 @@ public class DisplaySongUI {
         DBConnection db = new DBConnection();
         ArrayList<Song> songs;
         songs = db.readAllSongsToArray();
+        int totalDuration = 0;
 
         //Declares an empty observableList to hold song info to be used in JavaFX.
         ObservableList<String> songInfo = FXCollections.observableArrayList();
@@ -29,6 +30,26 @@ public class DisplaySongUI {
         {
                 songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
         }
+        return songInfo;
+    }
+
+    public static ObservableList<String> displayPlaylistSongInfo(String playlistName) throws Exception
+    {
+        /*Connects to our DB and inititlaizes an arraylist with the songs from our method readSomeSongsToArray
+        from the DBConnection class.*/
+        DBConnection db = new DBConnection();
+        ArrayList<Song> songs;
+        songs = db.readSomeSongsToArray(playlistName);
+
+        //Declares an empty observableList to hold song info to be used in JavaFX.
+        ObservableList<String> songInfo = FXCollections.observableArrayList();
+
+        //Loops through our arraylist songs and retrieves info.
+        for (Song song : songs)
+        {
+            songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
+        }
+
         return songInfo;
     }
 }
