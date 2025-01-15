@@ -255,29 +255,22 @@ public class MusicController implements Initializable
             public void run() {
                 //System.out.printf("TestingRun");
                 Platform.runLater(() ->
-
                 {
                 //System.out.printf("TestingRunLater");
-
                 if (mediaPlayer == null) {
                     //System.out.println("MediaPlayer is null");
                 }
-
                 if (mediaPlayer != null && mediaPlayer.getMedia() != null)
                 {
-
-                    System.out.println("Playing " + mediaPlayer.getMedia());
-
+                    //System.out.println("Playing " + mediaPlayer.getMedia());
                     double currentSeconds = mediaPlayer.getCurrentTime().toSeconds();
                     double end = mediaPlayer.getMedia().getDuration().toSeconds();
                     progressBar.setProgress(currentSeconds / end);
-                    System.out.println(currentSeconds / end);
+                    //System.out.println(currentSeconds / end);
                 }
             });
             }
         };
-
         timer.scheduleAtFixedRate(task, 100, 1000);
-
     };
 }
