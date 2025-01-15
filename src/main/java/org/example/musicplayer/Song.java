@@ -7,7 +7,7 @@ public class Song
 {
     private int fldSongID;
     private String fldName;
-    private String fldLengthInSeconds;
+    private int fldLengthInSeconds;
     private String fldArtist;
     private String fldAlbum;
     private String fldFilePath;
@@ -48,7 +48,7 @@ public class Song
      * retrieves length of song object (in seconds)
      * @return length of song
      */
-    public String getFldLengthInSeconds() {
+    public int getFldLengthInSeconds() {
         return fldLengthInSeconds;
     }
 
@@ -56,7 +56,7 @@ public class Song
      * sets length (in seconds) on Song object
      * @param fldLengthInSeconds desired length
      */
-    public void setFldLengthInSeconds(String fldLengthInSeconds) {
+    public void setFldLengthInSeconds(int fldLengthInSeconds) {
         this.fldLengthInSeconds = fldLengthInSeconds;
     }
 

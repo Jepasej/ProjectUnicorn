@@ -49,7 +49,7 @@ public class DBConnection
             Song song = new Song();
             song.setFldSongID(rs.getInt(1));
             song.setFldName(rs.getString(2).trim());
-            song.setFldLengthInSeconds(rs.getString(3).trim());
+            song.setFldLengthInSeconds(rs.getInt(3));
             song.setFldArtist(rs.getString(4).trim());
             song.setFldAlbum(rs.getString(5).trim());
             song.setFldFilePath(rs.getString(6).trim());
@@ -85,7 +85,7 @@ public class DBConnection
             Song song = new Song();
             song.setFldSongID(rs.getInt(1));
             song.setFldName(rs.getString(2).trim());
-            song.setFldLengthInSeconds(rs.getString(3).trim());
+            song.setFldLengthInSeconds(rs.getInt(3));
             song.setFldArtist(rs.getString(4).trim());
             song.setFldAlbum(rs.getString(5).trim());
             song.setFldFilePath(rs.getString(6).trim());
@@ -208,7 +208,7 @@ public class DBConnection
             Song song = new Song();
             song.setFldSongID(rs.getInt(1));
             song.setFldName(rs.getString(2).trim());
-            song.setFldLengthInSeconds(rs.getString(3).trim());
+            song.setFldLengthInSeconds(rs.getInt(3));
             song.setFldArtist(rs.getString(4).trim());
             song.setFldAlbum(rs.getString(5).trim());
             song.setFldFilePath(rs.getString(6).trim());
