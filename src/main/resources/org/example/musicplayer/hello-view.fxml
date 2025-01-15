@@ -16,7 +16,7 @@
                   <InnerShadow />
                </effect>
             </ComboBox>
-            <ComboBox prefHeight="35.0" prefWidth="250.0" promptText="Playlists" style="-fx-background-color: #FFB300;">
+            <ComboBox fx:id="playlistBox" onAction="#changePlaylist" prefHeight="35.0" prefWidth="250.0" promptText="Playlists" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect>

@@ -1,6 +1,7 @@
 package org.example.musicplayer;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class MusicController implements Initializable
     @FXML
     private MenuButton menuButton;
     @FXML
-    private ComboBox searchBox;
+    private ComboBox searchBox, playlistBox;
     @FXML
     private javafx.scene.image.ImageView pictureFrame;
     @FXML
@@ -82,15 +83,49 @@ public class MusicController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        populateInfoSongs();
+
+        populateImageDisplay();
+
+        populatePlaylistBox();
+    }
+
+    private void populateImageDisplay()
+    {
+        //Initializes the image display object
+        imageDisplay = new ImageDisplay();
+        //Displays a random image in the picture frame
+        displayRandomImage();
+    }
+
+    private void populatePlaylistBox()
+    {
+        //Load playlists from the database and add them to the ListView
+        try
+        {
+            DBConnection dbConnection = new DBConnection();
+            ArrayList <Playlist> playlists = dbConnection.readAllPlaylists();
+            ObservableList<String> playlistNames = FXCollections.observableArrayList();
+
+            for (Playlist playlist : playlists)
+            {
+                playlistNames.add(playlist.getname());
+            }
+            playlistBox.setItems(playlistNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to load playlists from DB");
+        }
+    }
+
+    private void populateInfoSongs()
+    {
         try
         {
             ObservableList<String> songs = DisplaySongUI.displaySongInfo();
             //Populates the song list in the UI
             infoSongs.setItems(songs);
-            //Initializes the image display object
-            imageDisplay = new ImageDisplay();
-            //Displays a random image in the picture frame
-            displayRandomImage();
+
 
             //System.out.println(infoSongs); //used for bugfixing and bugsearching
         } catch (Exception e) {
@@ -273,4 +308,19 @@ public class MusicController implements Initializable
         };
         timer.scheduleAtFixedRate(task, 100, 1000);
     };
+
+    public void changePlaylist(ActionEvent actionEvent)
+    {
+        try
+        {
+            ObservableList<String> songs = DisplaySongUI.displayPlaylistSongInfo(playlistBox.getValue().toString());
+            //Populates the song list in the UI
+            infoSongs.setItems(songs);
+
+            //System.out.println(infoSongs); //used for bugfixing and bugsearching
+        } catch (Exception e) {
+            //Log any exceptions that occur during initialization
+            e.printStackTrace();
+        }
+    }
 }
