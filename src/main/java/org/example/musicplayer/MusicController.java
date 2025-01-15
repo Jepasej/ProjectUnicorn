@@ -64,8 +64,8 @@ public class MusicController implements Initializable
     private Scene scene;
     private Parent root;
 
-    private ObservableList<String> allSongs;
-    private ObservableList<String> filteredSongs;
+    //private ObservableList<String> allSongs;
+    //private ObservableList<String> filteredSongs;
 
 
 
@@ -92,23 +92,14 @@ public class MusicController implements Initializable
             e.printStackTrace();
         }
 
-        //All songs in our Music player put in to an observable list
-        allSongs = FXCollections.observableArrayList("A Good Lighter", "Baltar Panics",
-                "Baltar Speaks With Adama", "Battlestar Muzaktica",
-                "Battlestar Operatica", "Boomer Flees", "Flesh And Bone", "Forgiven",
-                "Helo Chase", "Helo In The Warehouse", "Helo Rescued", "Main Title",
-                "Starbuck On The Red Moon", "Starbuck Takes On All Eight", "The Card Game",
-                "The Dinner Party", "The Olympic Carrier", "The Thousandth Landing", "Two Boomers",
-                "Two Funerals");
-
         //The filtered songs to be shown after user input taken from our allSongs observable list.
-        filteredSongs = FXCollections.observableArrayList(allSongs);
+        /*filteredSongs = FXCollections.observableArrayList(allSongs);
 
         infoSongs.setItems(filteredSongs);
 
         searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
             filterListView (newValue);
-        });
+        });*/
     }
 
 
@@ -263,7 +254,7 @@ public class MusicController implements Initializable
             }
             searchBox.show();
         });
-    }*/
+    }
 
 
     private void filterListView(String searchSongs) {
@@ -280,6 +271,6 @@ public class MusicController implements Initializable
             }
             filteredSongs.setAll(filteredMatches);
         }
-    }
+    }*/
 }
 

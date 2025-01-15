@@ -2,7 +2,7 @@ package org.example.musicplayer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.sql.*;
+
 import java.util.ArrayList;
 
 public class DisplaySongUI {
@@ -18,8 +18,7 @@ public class DisplaySongUI {
         from the DBConnection class.
          */
         DBConnection db = new DBConnection();
-        ArrayList<Song> songs;
-        songs = db.readAllSongsToArray();
+        ArrayList<Song> songs = db.readAllSongsToArray();
 
         //Declares an empty observableList to hold song info to be used in JavaFX.
         ObservableList<String> songInfo = FXCollections.observableArrayList();
@@ -27,8 +26,17 @@ public class DisplaySongUI {
         //Loops through our arraylist songs and retrieves info.
         for (Song song : songs)
         {
-                songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
+                songInfo.add(song.getFldSongID() + "\t" + song.getFldName() + "\t\t\t" + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
         }
+        return songInfo;
+    }
+
+    public static ObservableList<Song> filterSongs() throws Exception {
+        DBConnection db = new DBConnection();
+        ArrayList<Song> filteredSongs = db.readAllSongsToArray();
+
+        ObservableList<Song> songInfo = FXCollections.observableArrayList(filteredSongs);
+
         return songInfo;
     }
 }
