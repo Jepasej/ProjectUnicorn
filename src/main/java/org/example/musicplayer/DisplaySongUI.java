@@ -30,13 +30,4 @@ public class DisplaySongUI {
         }
         return songInfo;
     }
-
-    public static ObservableList<Song> filterSongs() throws Exception {
-        DBConnection db = new DBConnection();
-        ArrayList<Song> filteredSongs = db.readAllSongsToArray();
-
-        ObservableList<Song> songInfo = FXCollections.observableArrayList(filteredSongs);
-
-        return songInfo;
-    }
 }
