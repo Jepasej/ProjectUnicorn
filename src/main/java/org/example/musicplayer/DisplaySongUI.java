@@ -29,7 +29,20 @@ public class DisplaySongUI {
         for (Song song : songs)
         {
                 songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
+                totalDuration += song.getFldLengthInSeconds();
         }
+        int minutes = totalDuration / 60;
+        int seconds = totalDuration % 60;
+
+        if(seconds < 10)
+        {
+            songInfo.add("Total Duration: " + minutes + ":0" + seconds);
+        }
+        else
+        {
+            songInfo.add("Total Duration: " + minutes + ":" + seconds);
+        }
+
         return songInfo;
     }
 
@@ -40,6 +53,7 @@ public class DisplaySongUI {
         DBConnection db = new DBConnection();
         ArrayList<Song> songs;
         songs = db.readSomeSongsToArray(playlistName);
+        int totalDuration = 0;
 
         //Declares an empty observableList to hold song info to be used in JavaFX.
         ObservableList<String> songInfo = FXCollections.observableArrayList();
@@ -48,6 +62,18 @@ public class DisplaySongUI {
         for (Song song : songs)
         {
             songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
+            totalDuration += song.getFldLengthInSeconds();
+        }
+        int minutes = totalDuration / 60;
+        int seconds = totalDuration % 60;
+
+        if(seconds < 10)
+        {
+            songInfo.add("Total Duration: " + minutes + ":0" + seconds);
+        }
+        else
+        {
+            songInfo.add("Total Duration: " + minutes + ":" + seconds);
         }
 
         return songInfo;
