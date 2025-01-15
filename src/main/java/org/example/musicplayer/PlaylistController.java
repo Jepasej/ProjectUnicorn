@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -133,6 +134,21 @@ public class PlaylistController
     public void onDeletePlaylistClick(ActionEvent actionEvent)
     {
 
+    }
+
+    public void displayPlaylist(MouseEvent mouseEvent)
+    {
+        try
+        {
+            ObservableList<String> songs = DisplaySongUI.displayPlaylistSongInfo(playlistListview.getSelectionModel().getSelectedItem());
+            //Populates the song list in the UI
+            editPlaylistField.setItems(songs);
+
+            //System.out.println(infoSongs); //used for bugfixing and bugsearching
+        } catch (Exception e) {
+            //Log any exceptions that occur during initialization
+            e.printStackTrace();
+        }
     }
 }
 
