@@ -33,6 +33,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label />
+            <Label text="Total Duration" textFill="#fffefe" />
             <TextArea fx:id="songTitle" prefHeight="46.0" prefWidth="1000.0" styleClass="my-textarea">
                <effect>
                   <InnerShadow />
@@ -99,7 +100,7 @@
    <center>
       <HBox prefHeight="300.0" prefWidth="1000.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="infoSongs" editable="true" onMouseReleased="#getCurrentSelection" prefHeight="300.0" prefWidth="480.0" style="-fx-background-color: #FFB300;">
+            <ListView fx:id="infoSongs" editable="true" onMouseReleased="#getCurrentSelection" prefHeight="300.0" prefWidth="472.0" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect></ListView>
