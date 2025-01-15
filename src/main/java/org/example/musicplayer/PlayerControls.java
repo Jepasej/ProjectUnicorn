@@ -13,6 +13,14 @@ public class PlayerControls
     private MediaPlayer playerCommands;
     private Media track;
 
+    public MediaPlayer getPlayerCommands() {
+        return playerCommands;
+    }
+
+    public void setPlayerCommands(MediaPlayer playerCommands) {
+        this.playerCommands = playerCommands;
+    }
+
     /**
      * Method to define what song we wish to interact with.
      * Checks whether the selected song is the same as the song currently playing.

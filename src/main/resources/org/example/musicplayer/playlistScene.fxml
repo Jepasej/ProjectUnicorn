@@ -9,7 +9,7 @@
       <ListView fx:id="infoSongsInSecondUI" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <ListView prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
+      <ListView fx:id="playlistListview" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
    </right>
    <center>
       <VBox prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">

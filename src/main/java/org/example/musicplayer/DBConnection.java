@@ -14,8 +14,8 @@ public class DBConnection
 {
     //initializes variables for the getConnection method.
     static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=DbMusicPlayer;TrustServerCertificate=true;";
-    static final String USERNAME = "sa"; // replace with your username
-    static final String PASSWORD = "admin"; // replace with your password
+    static final String USERNAME = "sa";
+    static final String PASSWORD = "admin";
 
     //connects us to the SQL to DB server
     public static Connection getConnection() throws Exception
@@ -219,6 +219,23 @@ public class DBConnection
             System.out.println("No songs found.");
         }
     return null;
+    }
+
+    public ArrayList<Playlist> readAllPlaylists() throws Exception
+    {
+        ArrayList<Playlist> playlists = new ArrayList<>();
+        String sql = "SELECT fldPlaylistID, fldName FROM tblPlaylists";
+        Connection conn = getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next())
+        {
+            Playlist playlist = new Playlist(rs.getString("fldName"));
+            playlist.setFldPlaylistID(rs.getInt("fldPlaylistID"));
+            playlists.add(playlist);
+        }
+        return playlists;
     }
 }
 
