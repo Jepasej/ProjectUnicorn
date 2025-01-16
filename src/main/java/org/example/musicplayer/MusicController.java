@@ -83,11 +83,22 @@ public class MusicController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        playOnStartup();
+
         populateInfoSongs();
 
         populateImageDisplay();
 
         populatePlaylistBox();
+
+    }
+
+    private void playOnStartup()
+    {
+        String startupSound = "src/main/resources/org/example/musicplayer/Music/pornhub-intro-made-with-Voicemod.mp3";
+        playerControls = new PlayerControls();
+        playerControls.setTrack(startupSound);
+        playerControls.playTrack();
     }
 
     private void populateImageDisplay()
