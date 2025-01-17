@@ -12,7 +12,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="220.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="searchBox" promptText="Search songs, artist or album" />
-            <ComboBox fx:id="playlistBox." onAction="#changePlaylist" prefHeight="35.0" prefWidth="250.0" promptText="Playlists" style="-fx-background-color: #FFB300;">
+            <ComboBox fx:id="playlistBox" onAction="#changePlaylist" prefHeight="35.0" prefWidth="250.0" promptText="Playlists" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect>
