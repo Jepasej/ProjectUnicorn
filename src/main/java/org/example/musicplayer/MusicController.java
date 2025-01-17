@@ -1,6 +1,8 @@
 package org.example.musicplayer;
 
 import javafx.collections.FXCollections;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,17 +13,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-
+import javafx.scene.image.ImageView;
 import javax.print.attribute.standard.Media;
-
+import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.TimerTask;
+import java.util.Timer;
 
 /**
  * Controller for the music player application, managing UI interactions,
@@ -32,6 +39,8 @@ import java.util.ResourceBundle;
 public class MusicController implements Initializable
 {
     @FXML
+    private Label welcomeText;
+    @FXML
     private TextArea songTitle;
     @FXML
     private ListView<String> infoSongs, infoSongsInSecondUI;
@@ -41,6 +50,8 @@ public class MusicController implements Initializable
     private MenuButton menuButton;
     @FXML
     private TextField searchBox;
+    @FXML
+    private ComboBox playlistBox;
     @FXML
     private javafx.scene.image.ImageView pictureFrame;
     @FXML
@@ -54,6 +65,8 @@ public class MusicController implements Initializable
     private ArrayList<Image> imageList;
     //Tracks the current song index
     private int songNumber;
+    //Current playlist object
+    private Playlist currentPlaylist;
     //Handles image display
     private org.example.musicplayer.ImageDisplay imageDisplay;
     //Manges player controls for music playback
@@ -63,6 +76,8 @@ public class MusicController implements Initializable
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Timer timer;
+    private TimerTask task;
 
     private ObservableList<String> allSongs;
     private ObservableList<String> filteredSongs;
@@ -78,15 +93,62 @@ public class MusicController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        playOnStartup();
+
+        populateInfoSongs();
+
+        populateImageDisplay();
+
+        populatePlaylistBox();
+
+    }
+
+    private void playOnStartup()
+    {
+        String startupSound = "src/main/resources/org/example/musicplayer/Music/pornhub-intro-made-with-Voicemod.mp3";
+        playerControls = new PlayerControls();
+        playerControls.setTrack(startupSound);
+        playerControls.playTrack();
+    }
+
+    private void populateImageDisplay()
+    {
+        //Initializes the image display object
+        imageDisplay = new ImageDisplay();
+        //Displays a random image in the picture frame
+        displayRandomImage();
+    }
+
+    private void populatePlaylistBox()
+    {
+        //Load playlists from the database and add them to the ListView
+        try
+        {
+            DBConnection dbConnection = new DBConnection();
+            ArrayList <Playlist> playlists = dbConnection.readAllPlaylists();
+            ObservableList<String> playlistNames = FXCollections.observableArrayList();
+
+            for (Playlist playlist : playlists)
+            {
+                playlistNames.add(playlist.getname());
+            }
+            playlistBox.setItems(playlistNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to load playlists from DB");
+        }
+    }
+
+    private void populateInfoSongs()
+    {
         try
         {
             ObservableList<String> songs = DisplaySongUI.displaySongInfo();
             //Populates the song list in the UI
             infoSongs.setItems(songs);
-            //Initializes the image display object
-            imageDisplay = new ImageDisplay();
-            //Displays a random image in the picture frame
-            displayRandomImage();
+
+
+            //System.out.println(infoSongs); //used for bugfixing and bugsearching
         } catch (Exception e) {
             //Log any exceptions that occur during initialization
             e.printStackTrace();
@@ -172,6 +234,18 @@ public class MusicController implements Initializable
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("playlistScene.fxml"));
         Parent root = fxmlLoader.load();
+        // Retrieve the controller of the second scene
+        PlaylistController playlistController = fxmlLoader.getController();
+        //Create playlist (and add songs)
+        Playlist currentPlaylist = new Playlist("My Playlist");
+
+        // Pass the data from infoSongs to infoSongsInSecondUI
+        ObservableList<String> songs = infoSongs.getItems(); // Get the items from the first ListView
+        playlistController.setInfoSongs(songs);
+
+        //Send songs to PlaylistController
+        playlistController.setInfoSongs(songs);
+
         //Retrieves the current stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -193,10 +267,12 @@ public class MusicController implements Initializable
         //Retrieves the file path from the database
         String filePath = dbConnection.getFilepathFromID(songID);
 
+
         if(filePath.equals(lastSelectedTrack))
         {
             //Resumes playback of the current track
             playerControls.playTrack();
+
         }
         else
         {
@@ -215,6 +291,7 @@ public class MusicController implements Initializable
         }
         //Updates the last selected track
         lastSelectedTrack = filePath;
+        progressBarUI();
     }
 
     /**
@@ -293,6 +370,51 @@ public class MusicController implements Initializable
                 }
             }
             filteredSongs.setAll(filteredMatches);
+        }
+    }
+
+    public void progressBarUI()
+    {
+        //System.out.printf("Testing");
+        mediaPlayer = playerControls.getPlayerCommands();
+        timer = new Timer();
+        task = new TimerTask()
+        {
+            @Override
+            public void run() {
+                //System.out.printf("TestingRun");
+                Platform.runLater(() ->
+                {
+                //System.out.printf("TestingRunLater");
+                if (mediaPlayer == null) {
+                    //System.out.println("MediaPlayer is null");
+                }
+                if (mediaPlayer != null && mediaPlayer.getMedia() != null)
+                {
+                    //System.out.println("Playing " + mediaPlayer.getMedia());
+                    double currentSeconds = mediaPlayer.getCurrentTime().toSeconds();
+                    double end = mediaPlayer.getMedia().getDuration().toSeconds();
+                    progressBar.setProgress(currentSeconds / end);
+                    //System.out.println(currentSeconds / end);
+                }
+            });
+            }
+        };
+        timer.scheduleAtFixedRate(task, 100, 1000);
+    };
+
+    public void changePlaylist(ActionEvent actionEvent)
+    {
+        try
+        {
+            ObservableList<String> songs = DisplaySongUI.displayPlaylistSongInfo(playlistBox.getValue().toString());
+            //Populates the song list in the UI
+            infoSongs.setItems(songs);
+
+            //System.out.println(infoSongs); //used for bugfixing and bugsearching
+        } catch (Exception e) {
+            //Log any exceptions that occur during initialization
+            e.printStackTrace();
         }
     }
 }

@@ -7,12 +7,39 @@ import java.util.List;
  * Class to represent og administrate a playlist
  * Contains methods to add, remove and administrate songs
  */
-public class Playlist {
+public class Playlist
+{
     //Name of playlist
     private String name;
 
+    //ID of playlist
+    private int fldPlaylistID;
+
     //List that contains all songs in playlist
     private List<Song> songs;
+
+    //ArrayList of songIDs
+    private ArrayList<Integer> songIDs;
+
+    /**
+     *
+     * @return
+     */
+
+    public ArrayList<Integer> getSongIDs()
+    {
+        return songIDs;
+    }
+
+    /**
+     *
+     * @param songIDs
+     */
+
+    public void setSongIDs(ArrayList<Integer> songIDs)
+    {
+        this.songIDs = songIDs;
+    }
 
     /**
      * Contructor to add a new playlist with a chosen name
@@ -20,7 +47,8 @@ public class Playlist {
      * @param name name of playlist
      */
 
-    public Playlist(String name) {
+    public Playlist(String name)
+    {
         this.name = name;
         //Initialize list to contain songs
         this.songs = new ArrayList<Song>();
@@ -31,7 +59,8 @@ public class Playlist {
      *
      * @return name of playlist
      */
-    public String getname() {
+    public String getname()
+    {
         return name;
     }
 
@@ -40,7 +69,8 @@ public class Playlist {
      *
      * @param name new name of playlist
      */
-    public void setname(String name) {
+    public void setname(String name)
+    {
         this.name = name;
     }
 
@@ -49,7 +79,8 @@ public class Playlist {
      *
      * @return list of song-objects
      */
-    public List<Song> getSongs() {
+    public List<Song> getSongs()
+    {
         return songs;
     }
 
@@ -58,7 +89,8 @@ public class Playlist {
      *
      * @param song the song that is added
      */
-    public void addSong(Song song) {
+    public void addSong(Song song)
+    {
         songs.add(song);
     }
 
@@ -68,7 +100,8 @@ public class Playlist {
      * @param song the song that is removed
      */
 
-    public void removeSong(Song song) {
+    public void removeSong(Song song)
+    {
         songs.remove(song);
     }
 
@@ -78,7 +111,8 @@ public class Playlist {
      * @param index the index of the song in the List
      * return song on the given index
      */
-    public Song getSong(int index) {
+    public Song getSong(int index)
+    {
         return songs.get(index);
     }
 
@@ -94,7 +128,32 @@ public class Playlist {
     /**
      * Removes all songs from playlist
      */
-    public void clearPlaylist() {
+    public void clearPlaylist()
+    {
         songs.clear();
+    }
+
+    /**
+     * Gets playlistID
+     * @return playlistID
+     */
+    public int getFldPlaylistID()
+    {
+        return fldPlaylistID;
+    }
+
+    /**
+     * Sets new ID for Playlist
+     * @param fldPlaylistID
+     */
+    public void setFldPlaylistID(int fldPlaylistID)
+    {
+        this.fldPlaylistID = fldPlaylistID;
+    }
+
+
+    public void deletePlaylist()
+    {
+
     }
 }

@@ -2,7 +2,7 @@ package org.example.musicplayer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DisplaySongUI {
@@ -18,7 +18,9 @@ public class DisplaySongUI {
         from the DBConnection class.
          */
         DBConnection db = new DBConnection();
-        ArrayList<Song> songs = db.readAllSongsToArray();
+        ArrayList<Song> songs;
+        songs = db.readAllSongsToArray();
+        int totalDuration = 0;
 
         //Declares an empty observableList to hold song info to be used in JavaFX.
         ObservableList<String> songInfo = FXCollections.observableArrayList();
@@ -26,8 +28,54 @@ public class DisplaySongUI {
         //Loops through our arraylist songs and retrieves info.
         for (Song song : songs)
         {
-                songInfo.add(song.getFldSongID() + "\t" + song.getFldName() + "\t\t\t" + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
+                songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
+                totalDuration += song.getFldLengthInSeconds();
         }
+        int minutes = totalDuration / 60;
+        int seconds = totalDuration % 60;
+
+        if(seconds < 10)
+        {
+            songInfo.add("Total Duration: " + minutes + ":0" + seconds);
+        }
+        else
+        {
+            songInfo.add("Total Duration: " + minutes + ":" + seconds);
+        }
+
+        return songInfo;
+    }
+
+    public static ObservableList<String> displayPlaylistSongInfo(String playlistName) throws Exception
+    {
+        /*Connects to our DB and inititlaizes an arraylist with the songs from our method readSomeSongsToArray
+        from the DBConnection class.*/
+        DBConnection db = new DBConnection();
+        ArrayList<Song> songs;
+        songs = db.readSomeSongsToArray(playlistName);
+        int totalDuration = 0;
+
+        //Declares an empty observableList to hold song info to be used in JavaFX.
+        ObservableList<String> songInfo = FXCollections.observableArrayList();
+
+        //Loops through our arraylist songs and retrieves info.
+        for (Song song : songs)
+        {
+            songInfo.add(song.getFldSongID() + " - " + song.getFldName() + " - " + song.getFldArtist() + " - " + song.getFldLengthInSeconds() + "sec");
+            totalDuration += song.getFldLengthInSeconds();
+        }
+        int minutes = totalDuration / 60;
+        int seconds = totalDuration % 60;
+
+        if(seconds < 10)
+        {
+            songInfo.add("Total Duration: " + minutes + ":0" + seconds);
+        }
+        else
+        {
+            songInfo.add("Total Duration: " + minutes + ":" + seconds);
+        }
+
         return songInfo;
     }
 }

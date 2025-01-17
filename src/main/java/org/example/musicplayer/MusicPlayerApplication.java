@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 /**
  * Launches the application, loads the scene and declares what methods need to be used from the start.
  */
-public class MusicPlayerApplication extends Application {
+public class MusicPlayerApplication extends Application
+{
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception
+    {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         stage.setTitle("Your Music");
@@ -29,10 +31,8 @@ public class MusicPlayerApplication extends Application {
     }
 
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch();
     }
-
-
 }
