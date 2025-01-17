@@ -224,6 +224,7 @@ public class MusicController implements Initializable
         }
     }
 
+
     /**
      * Switches to the playlist scene
      *
@@ -280,6 +281,7 @@ public class MusicController implements Initializable
             //Sets the new track
             playerControls.setTrack(filePath);
             playerControls.playTrack();
+            displayRandomImage();
 
             if (mediaPlayer != null)
             {
