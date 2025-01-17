@@ -46,7 +46,9 @@ public class MusicController implements Initializable
     @FXML
     private MenuButton menuButton;
     @FXML
-    private ComboBox searchBox, playlistBox;
+    private ComboBox searchBox;
+    @FXML
+    private ComboBox playlistBox;
     @FXML
     private javafx.scene.image.ImageView pictureFrame;
     @FXML

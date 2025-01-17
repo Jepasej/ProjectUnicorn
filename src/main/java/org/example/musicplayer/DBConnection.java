@@ -237,5 +237,30 @@ public class DBConnection
         }
         return playlists;
     }
+
+    /**
+     *
+     * @param playlistName
+     * @throws Exception
+     */
+
+    public void deletePlaylist(String playlistName) throws Exception
+    {
+        String deletePlaylistQuery = "DELETE FROM tblPlaylists WHERE fldName = ?";
+        String deletePlaylistSongsQuery = "DELETE FROM tblSongsPlaylists WHERE fldPlaylistID = (SELECT fldPlaylistID FROM tblPlaylists WHERE fldName = ?)";
+
+        try (Connection connection = getConnection();
+             PreparedStatement deleteSongsStatement = connection.prepareStatement(deletePlaylistSongsQuery);
+             PreparedStatement deletePlaylistStatement = connection.prepareStatement(deletePlaylistQuery)) {
+
+            // Remove all strings in playlist_songs
+            deleteSongsStatement.setString(1, playlistName);
+            deleteSongsStatement.executeUpdate();
+
+            // Remove playlist from playlisttable
+            deletePlaylistStatement.setString(1, playlistName);
+            deletePlaylistStatement.executeUpdate();
+        }
+    }
 }
 
