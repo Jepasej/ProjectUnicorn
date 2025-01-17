@@ -38,7 +38,4 @@ public class ImageDisplay
         System.out.printf("No images found%n");
         return null;
     }
-
-
-
 }

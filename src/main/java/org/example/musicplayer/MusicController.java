@@ -1,5 +1,6 @@
 package org.example.musicplayer;
 
+import javafx.collections.FXCollections;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.TimerTask;
 import java.util.Timer;
@@ -46,7 +49,7 @@ public class MusicController implements Initializable
     @FXML
     private MenuButton menuButton;
     @FXML
-    private ComboBox searchBox;
+    private TextField searchBox;
     @FXML
     private ComboBox playlistBox;
     @FXML
@@ -75,6 +78,11 @@ public class MusicController implements Initializable
     private Parent root;
     private Timer timer;
     private TimerTask task;
+
+    private ObservableList<String> allSongs;
+    private ObservableList<String> filteredSongs;
+
+
 
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
@@ -145,7 +153,40 @@ public class MusicController implements Initializable
             //Log any exceptions that occur during initialization
             e.printStackTrace();
         }
+
+        //All songs in our Music player put in to an observable list
+        allSongs = FXCollections.observableArrayList(
+                "1\tMain Title                 \t\t\tBear McCreary\t\t\t\t65  sec",
+                "3\tHelo Chase                  \t\t\tBear McCreary\t\t\t\t91  sec",
+                "4\tThe Olympic Carrier         \t\tBear McCreary\t\t\t\t348 sec",
+                "5\tHelo Rescued                \t\t\tBear McCreary\t\t\t\t62  sec",
+                "7\tA Good Lighter              \t\t\tBear McCreary\t\t\t\t116 sec",
+                "9\tThe Thousandth Landing      \t\tBear McCreary\t\t\t\t188 sec",
+                "10\tTwo Funerals               \t\t\tBear McCreary\t\t\t\t205 sec",
+                "11\tStarbuck Takes On All Eight\t\tBear McCreary\t\t\t\t226 sec",
+                "12\tForgiven                   \t\t\tBear McCreary\t\t\t\t90  sec",
+                "13\tThe Card Game              \t\t\tBear McCreary\t\t\t\t184 sec",
+                "14\tStarbuck On The Red Moon   \t\tBear McCreary\t\t\t\t120 sec",
+                "15\tHelo In The Warehouse      \t\tBear McCreary\t\t\t\t121 sec",
+                "17\tBaltar Speaks With Adama   \t\tBear McCreary\t\t\t\t114 sec",
+                "18\tTwo Boomers                \t\t\tBear McCreary\t\t\t\t107 sec",
+                "19\tBattlestar Operatica       \t\t\tBear McCreary\t\t\t\t156 sec",
+                "20\tThe Dinner Party           \t\t\tBear McCreary\t\t\t\t194 sec",
+                "21\tBattlestar Muzaktica       \t\t\tBear McCreary\t\t\t\t103 sec",
+                "22\tBaltar Panics              \t\t\tBear McCreary\t\t\t\t106 sec",
+                "23\tBoomer Flees               \t\t\tBear McCreary\t\t\t\t76  sec",
+                "24\tFlesh And Bone             \t\t\tBear McCreary\t\t\t\t246 sec");
+
+        //The filtered songs to be shown after user input taken from our allSongs observable list.
+        filteredSongs = FXCollections.observableArrayList(allSongs);
+
+        infoSongs.setItems(filteredSongs);
+
+        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterListView (newValue);
+        });
     }
+
 
     /**
      * Extracts the songID from our listview
@@ -182,6 +223,7 @@ public class MusicController implements Initializable
             System.out.println("Image display is not initialized or contains no images.");
         }
     }
+
 
     /**
      * Switches to the playlist scene
@@ -239,6 +281,7 @@ public class MusicController implements Initializable
             //Sets the new track
             playerControls.setTrack(filePath);
             playerControls.playTrack();
+            displayRandomImage();
 
             if (mediaPlayer != null)
             {
@@ -290,6 +333,46 @@ public class MusicController implements Initializable
     {
         //Stops the current track
         playerControls.stopTrack();
+    }
+
+
+    /*public void addFilterToSearchSong(ComboBox<String> searchBox){
+        List<String> originalList = new ArrayList<>(searchWords);
+
+        searchBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue == null || newValue.isEmpty()){
+                searchBox.setItems(FXCollections.observableArrayList(originalList));
+            }
+            else{
+                String userInput = newValue.toLowerCase();
+                List<String> filteredList = new ArrayList<>();
+
+                for (String search: originalList){
+                    if(search.toLowerCase().startsWith(userInput)){
+                        filteredList.add(search);
+                    }
+                }
+                searchBox.setItems(FXCollections.observableArrayList(filteredList));
+            }
+            searchBox.show();
+        });
+    }*/
+
+
+    private void filterListView(String searchSongs) {
+        if(searchSongs == null || searchSongs.isEmpty()){
+            filteredSongs.setAll(allSongs);
+        }else{
+            String userInput = searchSongs.toLowerCase();
+            List<String> filteredMatches = new ArrayList<>();
+
+            for(String match : allSongs){
+                if(match.toLowerCase().contains(userInput)){
+                    filteredMatches.add(match);
+                }
+            }
+            filteredSongs.setAll(filteredMatches);
+        }
     }
 
     public void progressBarUI()
@@ -361,3 +444,4 @@ public class MusicController implements Initializable
         stage.show();
     }
 }
+

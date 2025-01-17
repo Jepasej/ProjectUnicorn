@@ -152,8 +152,14 @@ public class Playlist
     }
 
 
-    public void deletePlaylist()
+    /**
+     * Deletes this playlist using the provided database connection.
+     * @param dbConnection the database connection to perform the deletion
+     * @throws Exception if the deletion fails
+     */
+    public void deletePlaylist(DBConnection dbConnection) throws Exception
     {
-
+        // Call the DBConnection method to delete the playlist by name
+        dbConnection.deletePlaylist(this.name);
     }
 }
