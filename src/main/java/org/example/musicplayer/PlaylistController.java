@@ -143,6 +143,7 @@ public class PlaylistController
             ObservableList<String> songs = DisplaySongUI.displayPlaylistSongInfo(playlistListview.getSelectionModel().getSelectedItem());
             //Populates the song list in the UI
             editPlaylistField.setItems(songs);
+            playlistName.setText(playlistListview.getSelectionModel().getSelectedItem());
 
             //System.out.println(infoSongs); //used for bugfixing and bugsearching
         } catch (Exception e) {

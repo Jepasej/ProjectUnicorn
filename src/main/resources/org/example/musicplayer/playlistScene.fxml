@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.musicplayer.PlaylistController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.musicplayer.PlaylistController">
    <left>
       <ListView fx:id="infoSongsInSecondUI" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
    </left>
@@ -35,7 +34,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="50.0" style="-fx-background-color: black;">
                <children>
-                  <Button fx:id="editPlaylist" mnemonicParsing="false" onAction="#onEditPlaylistClick" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Edit Playlist">
+                  <Button fx:id="editPlaylist" mnemonicParsing="false" onAction="#onEditPlaylistClick" prefHeight="90.0" prefWidth="275.0" style="-fx-background-color: #FFB300;" text="Save Changes">
                      <effect>
                         <InnerShadow />
                      </effect></Button>
