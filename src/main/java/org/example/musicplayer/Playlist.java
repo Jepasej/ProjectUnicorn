@@ -152,8 +152,13 @@ public class Playlist
     }
 
 
-    public void deletePlaylist()
+    /**
+     *
+     * @param dbConnection
+     * @throws Exception
+     */
+    public void deletePlaylist(DBConnection dbConnection) throws Exception
     {
-
+        dbConnection.deletePlaylist(this.name);
     }
 }
