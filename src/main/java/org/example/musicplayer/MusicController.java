@@ -17,7 +17,11 @@ import javafx.scene.image.ImageView;
 import javax.print.attribute.standard.Media;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -73,6 +77,7 @@ public class MusicController implements Initializable
     private PlayerControls playerControls;
     //Stores the file path of the last selected track
     public String lastSelectedTrack;
+    private String imageFolderFilepath = null;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -113,10 +118,75 @@ public class MusicController implements Initializable
 
     private void populateImageDisplay()
     {
-        //Initializes the image display object
-        imageDisplay = new ImageDisplay();
-        //Displays a random image in the picture frame
-        displayRandomImage();
+        if(imageFolderFilepath==null)
+        {
+            //Initializes the image display object
+            imageDisplay = new ImageDisplay();
+
+            //Displays a random image in the picture frame
+            displayRandomImage();
+
+        } else if (imageFolderFilepath!=null)
+        {
+            imageDisplay = new ImageDisplay(imageFolderFilepath);
+            displayRandomImageFromFolder();
+        }
+    }
+
+    /**
+     * shows the images in the imageview
+     */
+    private void displayRandomImageFromFolder()
+    {
+        if (imageDisplay != null && !imageDisplay.images.isEmpty())
+        {
+            //Retrieves a random image
+            Image randomImage = imageDisplay.getRandomImage();
+            if (randomImage != null)
+            {
+                //Sets the random image in the picture frame
+                pictureFrame.setImage(randomImage);
+            } else {
+                System.out.println("Random image was null.");
+            }
+        } else {
+            System.out.println("Image display is not initialized or contains no images.");
+        }
+    }
+
+
+    /**
+     * Displays a random image from the list of images in the picture frame
+     */
+    public void displayRandomImage()
+    {
+        if (imageDisplay != null && !imageDisplay.images.isEmpty())
+        {
+            //Retrieves a random image
+            Image randomImage = imageDisplay.getRandomImage();
+            if (randomImage != null)
+            {
+                //Sets the random image in the picture frame
+                pictureFrame.setImage(randomImage);
+                // Print the URI or some other useful info about the image
+                System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
+            } else {
+                System.out.println("Random image was null.");
+            }
+        } else {
+            System.out.println("Image display is not initialized or contains no images.");
+        }
+    }
+
+    /**
+     * Choose a folder from PC with images to display
+     */
+    public void setImageFolder()
+    {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        imageFolderFilepath = selectedDirectory.getAbsolutePath();
+        populateImageDisplay();
     }
 
     private void populatePlaylistBox()
@@ -202,30 +272,6 @@ public class MusicController implements Initializable
     }
 
     /**
-     * Displays a random image from the list of images in the picture frame
-     */
-    public void displayRandomImage()
-    {
-        if (imageDisplay != null && !imageDisplay.images.isEmpty())
-        {
-            //Retrieves a random image
-            Image randomImage = imageDisplay.getRandomImage();
-            if (randomImage != null)
-            {
-                //Sets the random image in the picture frame
-                pictureFrame.setImage(randomImage);
-                // Print the URI or some other useful info about the image
-                System.out.printf("Displayed a random image: %s\n", randomImage.getUrl());
-            } else {
-                System.out.println("Random image was null.");
-            }
-        } else {
-            System.out.println("Image display is not initialized or contains no images.");
-        }
-    }
-
-
-    /**
      * Switches to the playlist scene
      *
      * @param event The ActionEvent triggered by the user interaction
@@ -294,25 +340,6 @@ public class MusicController implements Initializable
         //Updates the last selected track
         lastSelectedTrack = filePath;
         progressBarUI();
-    }
-
-    /**
-     * Switches to the main UI scene
-     *
-     * @param event The ActionEvent triggered by the scene switch.
-     * @throws IOException If the FXML file cannot be loaded.
-     */
-    public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
-        // Ensure you load the FXML
-        Parent root = fxmlLoader.load();
-        // Retrieves the current stage
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        //Sets the new scene
-        stage.setScene(scene);
-        stage.show();
     }
 
     /** Pauses the currently playing song
@@ -419,29 +446,4 @@ public class MusicController implements Initializable
             e.printStackTrace();
         }
     }
-
-    public void goToImageFolderView(ActionEvent actionEvent) throws IOException
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("playlistScene.fxml"));
-        Parent root = fxmlLoader.load();
-        // Retrieve the controller of the second scene
-        PlaylistController playlistController = fxmlLoader.getController();
-        //Create playlist (and add songs)
-        Playlist currentPlaylist = new Playlist("My Playlist");
-
-        // Pass the data from infoSongs to infoSongsInSecondUI
-        ObservableList<String> songs = infoSongs.getItems(); // Get the items from the first ListView
-        playlistController.setInfoSongs(songs);
-
-        //Send songs to PlaylistController
-        playlistController.setInfoSongs(songs);
-
-        //Retrieves the current stage
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        //Sets the new scene
-        stage.setScene(scene);
-        stage.show();
-    }
 }
-

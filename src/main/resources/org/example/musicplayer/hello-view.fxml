@@ -22,7 +22,7 @@
                   <InnerShadow />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#goToImageFolderView" prefHeight="35.0" prefWidth="75.0"  style="-fx-background-color: #FFB300;" text="Choose Image Folder">
+            <Button mnemonicParsing="false" onAction="#setImageFolder" prefHeight="35.0" prefWidth="75.0"  style="-fx-background-color: #FFB300;" text="Choose Image Folder">
                <effect>
                   <InnerShadow />
                </effect>

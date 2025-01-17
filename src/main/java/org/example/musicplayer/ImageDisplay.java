@@ -1,6 +1,9 @@
 package org.example.musicplayer;
 import javafx.scene.image.Image;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -12,11 +15,12 @@ public class ImageDisplay
 {
     //Declaring the array
     public ArrayList<Image> images;
+    private String imageFolderFilepath;
 
     public ImageDisplay()
-        {
+    {
             //INITIALIZING the Array
-        this.images = new ArrayList<Image>();
+        this.images = new ArrayList<>();
 
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn1.jpg"))));
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn2.jpg"))));
@@ -25,7 +29,28 @@ public class ImageDisplay
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn5.jpg"))));
 
         System.out.println("Images added: " + images.size());
+    }
+
+    public ImageDisplay(String imageFolderFilepath)
+    {
+        this.imageFolderFilepath = imageFolderFilepath;
+        this.images = new ArrayList<>();
+
+        File imageFolder = new File(imageFolderFilepath);
+
+        //Returns an array of abstract pathnames denoting the files in the directory denoted by this abstract pathname.
+        File[] imageFiles = imageFolder.listFiles();
+
+        for (File imageFile : imageFiles)
+        {
+            String filename = imageFile.getName();
+            if(imageFile.isFile()&&filename.endsWith(".jpg")||filename.endsWith(".jpeg")||filename.endsWith(".png"))
+            {
+                images.add(new Image(imageFile.toURI().toString()));
+            }
         }
+    }
+
 
         //Method to generate a random image out of the array. Uses the importet Random Class.
     public Image getRandomImage()
