@@ -1,8 +1,5 @@
 package org.example.musicplayer;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 
 
@@ -123,6 +120,9 @@ public class DBConnection
         createBridgeLink(newPlaylist);
     }
 
+    //Constructor of the class
+    public DBConnection() {}
+
     /**
      *
      * @param newPlaylist
@@ -130,7 +130,7 @@ public class DBConnection
      * @throws Exception
      */
 
-    private int getPlaylistID(Playlist newPlaylist) throws Exception
+    public int getPlaylistID(Playlist newPlaylist) throws Exception
     {
         int playlistID = 0;
 
@@ -262,5 +262,31 @@ public class DBConnection
             deletePlaylistStatement.executeUpdate();
         }
     }
-}
 
+
+    public void addSongtoPlaylist(int playlistID, int songID) throws Exception
+    {
+        String sql = "INSERT INTO tblSongPlaylists (fldSongID, fldPlaylistID) VALUES (?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, playlistID);
+            pstmt.setInt(2, songID);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void removeSongFromPlaylist(int playlistID, int songID) throws Exception {
+        String sql = "DELETE FROM tblSongsPlaylist WHERE playlistID = ? AND songID = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, playlistID);
+            pstmt.setInt(2, songID);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -15,10 +15,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.example.musicplayer.DBConnection.getConnection;
+
 
 public class PlaylistController
 {
@@ -94,7 +98,7 @@ public class PlaylistController
         }
     }
 
-    public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
+    public void switchToFrontUI(ActionEvent event) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
         Parent root = fxmlLoader.load(); // Ensure you load the FXML
@@ -127,9 +131,28 @@ public class PlaylistController
         initialize();
     }
 
-    public void onEditPlaylistClick(ActionEvent actionEvent)
-    {
-        
+    public void onEditPlaylistClick(ActionEvent actionEvent) throws Exception {
+       Playlist newPlaylist = new Playlist(playlistName.getText());
+       DBConnection dbConnection = new DBConnection();
+       try{
+           int playlistID = dbConnection.getPlaylistID(newPlaylist);
+           System.out.println("Playlist ID: " + playlistID);
+       }catch (Exception e)
+       {
+           e.printStackTrace();
+       }
+
+        int playlistID = dbConnection.getPlaylistID(newPlaylist);
+
+        String deleteSQL = "DELETE FROM tblSongsPlaylist WHERE playlistID = ?";
+        String insertSQL = "INSERT INTO tblSongsPlaylist WHERE playlistID = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(deleteSQL))
+        {
+            pstmt.setInt(1, playlistID);
+            pstmt.executeUpdate();
+
+        }
 
     }
 
