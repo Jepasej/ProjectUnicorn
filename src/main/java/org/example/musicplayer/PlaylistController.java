@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,11 +132,39 @@ public class PlaylistController
 
     }
 
+    /**
+     *
+     * @param actionEvent
+     */
+
     public void onDeletePlaylistClick(ActionEvent actionEvent)
     {
+        String selectedPlaylist = playlistListview.getSelectionModel().getSelectedItem();
 
+        if (selectedPlaylist == null)
+        {
+            System.out.println("No playlist chosen.");
+            return;
+        }
+
+        try
+        {
+            // Call DBConnection to delete the playlist
+            DBConnection dbConnection = new DBConnection();
+            dbConnection.deletePlaylist(selectedPlaylist);
+
+            // Remove the playlist from the ListView
+            playlistListview.getItems().remove(selectedPlaylist);
+
+            // Clear any songs in the edit field
+            editPlaylistField.getItems().clear();
+
+            System.out.println("Playlist has been deleted.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not delete playlist.");
+        }
     }
-
     public void displayPlaylist(MouseEvent mouseEvent)
     {
         try
