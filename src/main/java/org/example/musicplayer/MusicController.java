@@ -336,4 +336,28 @@ public class MusicController implements Initializable
             e.printStackTrace();
         }
     }
+
+    public void goToImageFolderView(ActionEvent actionEvent) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("playlistScene.fxml"));
+        Parent root = fxmlLoader.load();
+        // Retrieve the controller of the second scene
+        PlaylistController playlistController = fxmlLoader.getController();
+        //Create playlist (and add songs)
+        Playlist currentPlaylist = new Playlist("My Playlist");
+
+        // Pass the data from infoSongs to infoSongsInSecondUI
+        ObservableList<String> songs = infoSongs.getItems(); // Get the items from the first ListView
+        playlistController.setInfoSongs(songs);
+
+        //Send songs to PlaylistController
+        playlistController.setInfoSongs(songs);
+
+        //Retrieves the current stage
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        //Sets the new scene
+        stage.setScene(scene);
+        stage.show();
+    }
 }
