@@ -9,20 +9,20 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.musicplayer.MusicController">
    <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="220.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="searchBox" promptText="Search songs, artist or album" />
+            <TextField fx:id="searchBox" prefHeight="35.0" prefWidth="250.0" promptText="Search songs, artist or album" />
             <ComboBox fx:id="playlistBox" onAction="#changePlaylist" prefHeight="35.0" prefWidth="250.0" promptText="Playlists" style="-fx-background-color: #FFB300;">
                <effect>
                   <InnerShadow />
                </effect>
             </ComboBox>
-            <Button mnemonicParsing="false" onAction="#switchToPlaylistScene" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #FFB300;" text="Playlists">
+            <Button mnemonicParsing="false"  onAction="#switchToPlaylistScene" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #FFB300;" text="Playlists">
                <effect>
                   <InnerShadow />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#setImageFolder" prefHeight="35.0" prefWidth="75.0"  style="-fx-background-color: #FFB300;" text="Choose Image Folder">
+            <Button mnemonicParsing="false" onAction="#setImageFolder" prefHeight="35.0" prefWidth="175.0"  style="-fx-background-color: #FFB300;" text="Choose Image Folder">
                <effect>
                   <InnerShadow />
                </effect>
