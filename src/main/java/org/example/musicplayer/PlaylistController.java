@@ -133,27 +133,33 @@ public class PlaylistController
     }
 
     /**
-     *
-     * @param actionEvent
+     * Deletes the selected playlist from the database and updates the UI.
+     * If no playlist is selected, the method exits with a message.
+     * @param actionEvent the event triggered by the "Delete" button
      */
 
     public void onDeletePlaylistClick(ActionEvent actionEvent)
     {
+        //Get selected playlist from the Listview
         String selectedPlaylist = playlistListview.getSelectionModel().getSelectedItem();
 
+        //Check if a playlist has been selected
         if (selectedPlaylist == null)
         {
+            //Display that no playlist was chosen
             System.out.println("No playlist chosen.");
+            //Exit the method as there is nothing to delete
             return;
         }
 
         try
         {
-            // Call DBConnection to delete the playlist
+            //Initialize the database connection
             DBConnection dbConnection = new DBConnection();
+            // Attempt to delete the selected playlist from the database
             dbConnection.deletePlaylist(selectedPlaylist);
 
-            // Remove the playlist from the ListView
+            // Remove the deleted playlist from the ListView
             playlistListview.getItems().remove(selectedPlaylist);
 
             // Clear any songs in the edit field
@@ -161,6 +167,7 @@ public class PlaylistController
 
             System.out.println("Playlist has been deleted.");
         } catch (Exception e) {
+            //Print the exception stack trace for debugging
             e.printStackTrace();
             System.out.println("Could not delete playlist.");
         }

@@ -239,25 +239,27 @@ public class DBConnection
     }
 
     /**
-     *
-     * @param playlistName
-     * @throws Exception
+     * Deletes a playlist and its associated songs from the database.
+     * @param playlistName the name of the playlist to delete
+     * @throws Exception if a database error occurs
      */
 
     public void deletePlaylist(String playlistName) throws Exception
     {
+        // SQL queries to delete playlist songs and the playlist itself
         String deletePlaylistQuery = "DELETE FROM tblPlaylists WHERE fldName = ?";
         String deletePlaylistSongsQuery = "DELETE FROM tblSongsPlaylists WHERE fldPlaylistID = (SELECT fldPlaylistID FROM tblPlaylists WHERE fldName = ?)";
 
+        // Use try-with-resources to manage database connections and statements
         try (Connection connection = getConnection();
              PreparedStatement deleteSongsStatement = connection.prepareStatement(deletePlaylistSongsQuery);
              PreparedStatement deletePlaylistStatement = connection.prepareStatement(deletePlaylistQuery)) {
 
-            // Remove all strings in playlist_songs
+            // Delete all songs associated with the playlist
             deleteSongsStatement.setString(1, playlistName);
             deleteSongsStatement.executeUpdate();
 
-            // Remove playlist from playlisttable
+            // Delete the playlist itself
             deletePlaylistStatement.setString(1, playlistName);
             deletePlaylistStatement.executeUpdate();
         }
