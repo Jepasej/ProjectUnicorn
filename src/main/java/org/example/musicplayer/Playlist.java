@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class to represent og administrate a playlist
+ * Class to represent and administrate a playlist
  * Contains methods to add, remove and administrate songs
  */
 public class Playlist
