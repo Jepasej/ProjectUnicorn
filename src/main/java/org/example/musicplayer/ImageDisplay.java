@@ -1,12 +1,7 @@
 package org.example.musicplayer;
 import javafx.scene.image.Image;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Class to enable an ArrayList with all images we need for the application. Loaded images from the resource folder into the array.
@@ -17,9 +12,12 @@ public class ImageDisplay
     public ArrayList<Image> images;
     private String imageFolderFilepath;
 
+    /**
+     * Initializes the array and fills the array with images from ressource folder
+     */
     public ImageDisplay()
     {
-            //INITIALIZING the Array
+        //INITIALIZING the Array
         this.images = new ArrayList<>();
 
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn1.jpg"))));
@@ -27,10 +25,13 @@ public class ImageDisplay
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn3.jpg"))));
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn4.jpg"))));
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn5.jpg"))));
-
-        System.out.println("Images added: " + images.size());
     }
 
+    /**
+     * Takes a filepath of a directory, goes through all files in the directory and saves all .jpg, .jpeg and .png
+     * files to an image array.
+     * @param imageFolderFilepath
+     */
     public ImageDisplay(String imageFolderFilepath)
     {
         this.imageFolderFilepath = imageFolderFilepath;
@@ -51,8 +52,10 @@ public class ImageDisplay
         }
     }
 
-
-        //Method to generate a random image out of the array. Uses the importet Random Class.
+    /**
+     * Method to generate a random image out of the array. Uses the importet Random Class.
+     * @return a random image.
+     */
     public Image getRandomImage()
     {
         if (!images.isEmpty()) {
@@ -60,7 +63,7 @@ public class ImageDisplay
             int randomIndex = random.nextInt(images.size()); // Get a random index
             return images.get(randomIndex); // Return the random image
         }
-        System.out.printf("No images found%n");
+
         return null;
     }
 }
