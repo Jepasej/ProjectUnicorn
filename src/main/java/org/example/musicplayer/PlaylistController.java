@@ -145,13 +145,47 @@ public class PlaylistController
         int playlistID = dbConnection.getPlaylistID(newPlaylist);
 
         String deleteSQL = "DELETE FROM tblSongsPlaylist WHERE playlistID = ?";
-        String insertSQL = "INSERT INTO tblSongsPlaylist WHERE playlistID = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(deleteSQL))
-        {
-            pstmt.setInt(1, playlistID);
-            pstmt.executeUpdate();
+        String insertSQL = "INSERT INTO tblSongsPlaylist (playlistID, songID) VALUES (?, ?)";
 
+        ArrayList<Integer> songsToAdd = new ArrayList<>();
+        List<String> currentSelection = editPlaylistField.getItems();
+
+        for (String selection : currentSelection) {
+            try {
+                int songID = Integer.parseInt(selection.substring(0, 2).trim());
+                songsToAdd.add(songID);
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid song ID format: " + selection);
+            }
+        }
+        newPlaylist.setSongIDs(songsToAdd);
+
+        try (Connection connection = dbConnection.getConnection()) {
+            connection.setAutoCommit(false); // Start transaction
+
+            // Delete existing songs from the playlist
+            try (PreparedStatement deleteStmt = connection.prepareStatement(deleteSQL)) {
+                deleteStmt.setInt(1, playlistID);
+                deleteStmt.executeUpdate();
+            }
+
+            // Insert new songs into the playlist
+            try (PreparedStatement insertStmt = connection.prepareStatement(insertSQL)) {
+                for (int songID : songsToAdd) {
+                    insertStmt.setInt(1, playlistID);
+                    insertStmt.setInt(2, songID);
+                    insertStmt.addBatch();
+                }
+                insertStmt.executeBatch();
+            }
+
+            connection.commit(); // Commit transaction
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Rollback transaction in case of error
+            try (Connection connection = dbConnection.getConnection()) {
+                connection.rollback();
+            }
         }
 
     }

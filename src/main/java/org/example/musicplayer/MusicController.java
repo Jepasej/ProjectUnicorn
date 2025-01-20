@@ -36,7 +36,7 @@ import java.util.Timer;
 public class MusicController implements Initializable
 {
     @FXML
-    private Label welcomeText;
+    public Label totalDurationDisplay;
     @FXML
     private TextArea songTitle;
     @FXML
@@ -76,6 +76,7 @@ public class MusicController implements Initializable
     private Timer timer;
     private TimerTask task;
 
+    ObservableList<String> songs = null;
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
      *
@@ -93,7 +94,11 @@ public class MusicController implements Initializable
 
         populatePlaylistBox();
 
+        setLabelDuration("");
+
     }
+
+
 
     private void playOnStartup()
     {
@@ -135,7 +140,8 @@ public class MusicController implements Initializable
     {
         try
         {
-            ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            //ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            songs = DisplaySongUI.displaySongInfo();
             //Populates the song list in the UI
             infoSongs.setItems(songs);
 
@@ -336,4 +342,10 @@ public class MusicController implements Initializable
             e.printStackTrace();
         }
     }
+     public void setLabelDuration(String totalDur)
+    {
+
+        //totalDurationDisplay.setText(totalDur);
+        totalDurationDisplay.setText(DisplaySongUI.totalDur);
+     }
 }

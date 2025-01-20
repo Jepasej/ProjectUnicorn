@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class DisplaySongUI {
 
+    public static String totalDur = "";
     /**
      * Initializes an observarable list for the ListView in our UI
      * @return song info of our songs in the DB.
@@ -20,6 +21,7 @@ public class DisplaySongUI {
         DBConnection db = new DBConnection();
         ArrayList<Song> songs;
         songs = db.readAllSongsToArray();
+        System.out.println("songs: " + songs.size());
         int totalDuration = 0;
 
         //Declares an empty observableList to hold song info to be used in JavaFX.
@@ -34,13 +36,21 @@ public class DisplaySongUI {
         int minutes = totalDuration / 60;
         int seconds = totalDuration % 60;
 
+        System.out.println("Total Duration: " + minutes + ":0" + seconds);
+
         if(seconds < 10)
         {
-            songInfo.add("Total Duration: " + minutes + ":0" + seconds);
+            String totalDur = "Total Duration: " + minutes + ":0" + seconds;
+            System.out.println(totalDur);
+            //MusicController mc = new MusicController();
+            //mc.setLabelDuration(totalDur);
         }
         else
         {
-            songInfo.add("Total Duration: " + minutes + ":" + seconds);
+            String totalDurL = "Total Duration: " + minutes + ":" + seconds;
+            //MusicController mc = new MusicController();
+            totalDur = totalDurL;
+            //mc.setLabelDuration(totalDur);
         }
 
         return songInfo;
