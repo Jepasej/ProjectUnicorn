@@ -254,6 +254,11 @@ public class PlaylistController
             System.out.println("Could not delete playlist.");
         }
     }
+
+    /**
+     * Sets the editplaylist ListView to the playlist chosen by clicking with the mouse.
+     * @param mouseEvent
+     */
     public void displayPlaylist(MouseEvent mouseEvent)
     {
         try
