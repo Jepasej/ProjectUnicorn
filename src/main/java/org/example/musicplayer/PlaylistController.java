@@ -13,28 +13,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.example.musicplayer.DBConnection.getConnection;
 
 
 public class PlaylistController
 {
-
     @FXML
     private ListView<String> infoSongsInSecondUI,editPlaylistField, playlistListview;
-    @FXML
-    private Button savePlaylist, editPlaylist, deletePlaylist, addSong, removeSong;
     @FXML
     private TextField playlistName;
 
     private ObservableList<String> editWindow = FXCollections.observableArrayList();
+
 
     /**
      * Initializing the Second UI, preparing the arrays and filling the right side with our playlists.
@@ -63,6 +56,7 @@ public class PlaylistController
         }
     }
 
+
     /**
      * Method to switch the entries in the main ListView to the edit field so we later can create playlists.
      * @param source
@@ -82,6 +76,7 @@ public class PlaylistController
             System.out.println("No items selected for transfer.");
         }
     }
+
 
     /**
      * Methods to transfer what is displayed from one list view to the other
@@ -112,6 +107,7 @@ public class PlaylistController
         }
     }
 
+
     /**
      *  On action click, switching to our front UI again, loading the FXML file that controlls the frontpage
      * @param event
@@ -126,6 +122,7 @@ public class PlaylistController
         stage.setScene(scene);
         stage.show();
     }
+
 
     /**
      * Preparing and creating an Array to fill it with songs, connects to the database to save the new playlist.
@@ -154,6 +151,7 @@ public class PlaylistController
         //Refresh the ListView
         initialize();
     }
+
 
     /**
      * Method to edit our playlists, deletes the chosen songs that were removed from the ListView "EditField" and at the same time adds the songs added to the ListView.
@@ -221,6 +219,7 @@ public class PlaylistController
 
     }
 
+
     /**
      * Deletes the selected playlist from the database and updates the UI.
      * If no playlist is selected, the method exits with a message.
@@ -263,6 +262,7 @@ public class PlaylistController
             System.out.println("Could not delete playlist.");
         }
     }
+
 
     /**
      * Sets the editplaylist ListView to the playlist chosen by clicking with the mouse.
