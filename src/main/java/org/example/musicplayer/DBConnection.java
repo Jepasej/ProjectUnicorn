@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.*;
 import java.util.ArrayList;
 
 
@@ -17,6 +16,7 @@ public class DBConnection
     static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=DbMusicPlayer;TrustServerCertificate=true;";
     static final String USERNAME = "sa";
     static final String PASSWORD = "admin";
+
 
     /**
      * Establishes a connection to the database.
@@ -31,6 +31,7 @@ public class DBConnection
         conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         return conn;
 }
+
 
     /**
      * Initializes an arraylist with data from tblSongs from our database
@@ -60,6 +61,7 @@ public class DBConnection
         }
         return songs;
     }
+
 
     /**
      * Retrieves songs associated with a specific playlist.
@@ -96,6 +98,7 @@ public class DBConnection
         return songs;
     }
 
+
     /**
      * Takes a playlist object and inserts it into the database
      * @param newPlaylist playlist object created with UI
@@ -120,6 +123,7 @@ public class DBConnection
         createBridgeLink(newPlaylist);
     }
 
+
     /**
      * Retrieves the ID of a playlist from the database based on its name.
      *
@@ -127,7 +131,6 @@ public class DBConnection
      * @return The ID of the playlist.
      * @throws Exception If there is an issue with the database connection or SQL query execution.
      */
-
     public int getPlaylistID(Playlist newPlaylist) throws Exception
     {
         int playlistID = 0;
@@ -222,6 +225,7 @@ public class DBConnection
     return null;
     }
 
+
     /**
      * Retrieves all playlists from the database.
      *
@@ -248,6 +252,7 @@ public class DBConnection
         // Returns the list of playlists
         return playlists;
     }
+
 
     /**
      * Deletes a playlist and its associated songs from the database.
