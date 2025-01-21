@@ -34,15 +34,7 @@ import java.util.Timer;
 public class MusicController implements Initializable
 {
     @FXML
-    private Label welcomeText;
-    @FXML
-    private TextArea songTitle;
-    @FXML
-    private ListView<String> infoSongs, infoSongsInSecondUI;
-    @FXML
-    private Button buttonPlay, buttonPause, buttonStop, buttonPreviousSong, buttonNextSong, buttonShuffle;
-    @FXML
-    private MenuButton menuButton;
+    private ListView<String> infoSongs;
     @FXML
     private TextField searchBox;
     @FXML
@@ -52,16 +44,8 @@ public class MusicController implements Initializable
     @FXML
     private ProgressBar progressBar;
 
-    //Media-related fields
-    private Media media;
     //Controls music playback
     private MediaPlayer mediaPlayer;
-    //Stores a list of images for display
-    private ArrayList<Image> imageList;
-    //Tracks the current song index
-    private int songNumber;
-    //Current playlist object
-    private Playlist currentPlaylist;
     //Handles image display
     private org.example.musicplayer.ImageDisplay imageDisplay;
     //Manges player controls for music playback
@@ -78,8 +62,6 @@ public class MusicController implements Initializable
     private ObservableList<String> allSongs;
     // Observable list to hold the filtered songs, used to show a subset of songs based on user selection
     private ObservableList<String> filteredSongs;
-
-
 
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
