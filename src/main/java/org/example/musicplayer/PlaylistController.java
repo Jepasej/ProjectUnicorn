@@ -36,6 +36,9 @@ public class PlaylistController
 
     private ObservableList<String> editWindow = FXCollections.observableArrayList();
 
+    /**
+     * Initializing the Second UI, preparing the arrays and filling the right side with our playlists.
+     */
     public void initialize()
     {
         //Initialize the ListView with empty observable lists
@@ -60,7 +63,11 @@ public class PlaylistController
         }
     }
 
-    //Method to switch the entries in the main ListView to the edit field so we later can create playlists.
+    /**
+     * Method to switch the entries in the main ListView to the edit field so we later can create playlists.
+     * @param source
+     * @param destination
+     */
     private void transferItems(ListView<String> source, ListView<String> destination)
     {
         ObservableList<String> selectedItems = source.getSelectionModel().getSelectedItems();
@@ -76,6 +83,10 @@ public class PlaylistController
         }
     }
 
+    /**
+     * Methods to transfer what is displayed from one list view to the other
+     */
+
     public void transferToEditPlaylist()
     {
         transferItems(infoSongsInSecondUI, editPlaylistField);
@@ -87,7 +98,10 @@ public class PlaylistController
     }
 
 
-    // Method to set the items in the ListView
+    /**
+     *  Method to set the items in the ListView
+     * @param songs
+     */
     public void setInfoSongs(ObservableList<String> songs)
     {
         if (infoSongsInSecondUI != null)
@@ -98,6 +112,11 @@ public class PlaylistController
         }
     }
 
+    /**
+     *  On action click, switching to our front UI again, loading the FXML file that controlls the frontpage
+     * @param event
+     * @throws IOException
+     */
     public void switchToFrontUI(ActionEvent event) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
@@ -108,6 +127,11 @@ public class PlaylistController
         stage.show();
     }
 
+    /**
+     * Preparing and creating an Array to fill it with songs, connects to the database to save the new playlist.
+     * @param actionEvent
+     * @throws Exception
+     */
     public void onSavePlaylistClick(ActionEvent actionEvent) throws Exception {
         Playlist newPlaylist = new Playlist(playlistName.getText());
         ArrayList<Integer> songsToAdd = new ArrayList<>();
@@ -131,6 +155,12 @@ public class PlaylistController
         initialize();
     }
 
+    /**
+     * Method to edit our playlists, deletes the chosen songs that were removed from the ListView "EditField" and at the same time adds the songs added to the ListView.
+     * Using Batch: Instead of executing a single query, we can execute a batch (group) of queries. It makes the performance fast. It is because when one sends multiple statements of SQL at once to the database, the communication overhead is reduced significantly, as one is not communicating with the database frequently, which in turn results to fast performance.
+     * @param actionEvent
+     * @throws Exception
+     */
     public void onEditPlaylistClick(ActionEvent actionEvent) throws Exception {
        Playlist newPlaylist = new Playlist(playlistName.getText());
        DBConnection dbConnection = new DBConnection();
@@ -192,7 +222,7 @@ public class PlaylistController
     }
 
     /**
-     *
+     *Deleting the chosen playlist from the Database,
      * @param actionEvent
      */
 
@@ -240,6 +270,3 @@ public class PlaylistController
         }
     }
 }
-
-//currentPlaylist.addSong(new Song("Song 1", "Artist 1", "path/to/song1"));
-//currentPlaylist.addSong(new Song("Song 2", "Artist 2", "path/to/song2"));
