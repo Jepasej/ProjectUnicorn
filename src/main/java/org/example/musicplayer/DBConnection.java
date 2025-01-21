@@ -1,20 +1,29 @@
 package org.example.musicplayer;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.*;
 import java.util.ArrayList;
 
 
 /**
- * Preparing the system to write in our Database
- * and establish connection to the DB
+ * Manages database connections and operations for the music player
  */
 public class DBConnection
 {
-    //initializes variables for the getConnection method.
+    //Initializes variables for the getConnection method.
     static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=DbMusicPlayer;TrustServerCertificate=true;";
     static final String USERNAME = "sa";
     static final String PASSWORD = "admin";
 
-    //connects us to the SQL to DB server
+    /**
+     * Establishes a connection to the database.
+     *
+     * @return a Connection object
+     * @throws Exception if the connection fails
+     */
     public static Connection getConnection() throws Exception
     {
         Connection conn = null;
@@ -25,7 +34,7 @@ public class DBConnection
 
     /**
      * Initializes an arraylist with data from tblSongs from our database
-     * @return returns all data from the database
+     * @return a list of all songs
      * @throws Exception If the database or SQL connection operation fails
      */
     public ArrayList readAllSongsToArray() throws Exception
@@ -37,12 +46,9 @@ public class DBConnection
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
 
-        boolean hasSongs = false;
-
         //Loops through every song until none left and retrieves all information about the songs from out DB.
         while (rs.next())
         {
-            hasSongs = true;
             Song song = new Song();
             song.setFldSongID(rs.getInt(1));
             song.setFldName(rs.getString(2).trim());
@@ -52,14 +58,16 @@ public class DBConnection
             song.setFldFilePath(rs.getString(6).trim());
             songs.add(song);
         }
-
-        if (!hasSongs)
-        {
-            System.out.println("No songs found.");
-        }
         return songs;
     }
 
+    /**
+     * Retrieves songs associated with a specific playlist.
+     *
+     * @param playlistName the name of the playlist
+     * @return a list of songs in the playlist
+     * @throws Exception if a database error occurs
+     */
     public ArrayList<Song> readSomeSongsToArray(String playlistName) throws Exception
     {
         Playlist desiredPlaylist = new Playlist(playlistName);
@@ -73,12 +81,9 @@ public class DBConnection
         pstmt.setInt(1,desiredPlaylist.getFldPlaylistID());
         ResultSet rs = pstmt.executeQuery();
 
-        boolean hasSongs = false;
-
         //Loops through every song until none left and retrieves all information about the songs from out DB.
         while (rs.next())
         {
-            hasSongs = true;
             Song song = new Song();
             song.setFldSongID(rs.getInt(1));
             song.setFldName(rs.getString(2).trim());
@@ -87,11 +92,6 @@ public class DBConnection
             song.setFldAlbum(rs.getString(5).trim());
             song.setFldFilePath(rs.getString(6).trim());
             songs.add(song);
-        }
-
-        if (!hasSongs)
-        {
-            System.out.println("No songs found.");
         }
         return songs;
     }
@@ -120,20 +120,19 @@ public class DBConnection
         createBridgeLink(newPlaylist);
     }
 
-    //Constructor of the class
-    public DBConnection() {}
-
     /**
+     * Retrieves the ID of a playlist from the database based on its name.
      *
-     * @param newPlaylist
-     * @return
-     * @throws Exception
+     * @param newPlaylist The playlist object containing the name of the playlist to be searched.
+     * @return The ID of the playlist.
+     * @throws Exception If there is an issue with the database connection or SQL query execution.
      */
 
     public int getPlaylistID(Playlist newPlaylist) throws Exception
     {
         int playlistID = 0;
 
+        // // SQL query to retrieve the playlist ID based on the playlist name.
         String sql = "SELECT fldPlaylistID FROM tblPlaylists WHERE fldName = ?";
         Connection conn = getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -142,18 +141,21 @@ public class DBConnection
 
         boolean hasPlaylistID = false;
 
-        //Loops through every song until none left and retrieves all information about the songs from out DB.
+        // Loops through the result set and retrieves the playlist ID.
         while (rs.next())
         {
             hasPlaylistID = true;
+            // Retrieves the playlist ID from the result set.
             playlistID = rs.getInt(1);
         }
 
+        // If no playlist ID is found, print a message indicating no match was found.
         if (!hasPlaylistID)
         {
             System.out.println("No songs found.");
         }
 
+        // Returns the playlist ID (or 0 if not found)
         return playlistID;
     }
 
@@ -182,7 +184,6 @@ public class DBConnection
             }
         }
     }
-
 
     /**
      * Retrieves the filepath from our database for a specific chosen song in our song arrayList.
@@ -221,72 +222,57 @@ public class DBConnection
     return null;
     }
 
+    /**
+     * Retrieves all playlists from the database.
+     *
+     * @return A list of Playlist objects containing all the playlists from the database.
+     * @throws Exception If there is an issue with the database connection or SQL query execution.
+     */
     public ArrayList<Playlist> readAllPlaylists() throws Exception
     {
         ArrayList<Playlist> playlists = new ArrayList<>();
+        // SQL query to select all playlist IDs and names from the database.
         String sql = "SELECT fldPlaylistID, fldName FROM tblPlaylists";
         Connection conn = getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
 
+        // Loops through the result set and creates Playlist objects for each row
         while (rs.next())
         {
             Playlist playlist = new Playlist(rs.getString("fldName"));
             playlist.setFldPlaylistID(rs.getInt("fldPlaylistID"));
+            // Adds each Playlist object to the list
             playlists.add(playlist);
         }
+        // Returns the list of playlists
         return playlists;
     }
 
     /**
-     *
-     * @param playlistName
-     * @throws Exception
+     * Deletes a playlist and its associated songs from the database.
+     * @param playlistName the name of the playlist to delete
+     * @throws Exception if a database error occurs
      */
-
     public void deletePlaylist(String playlistName) throws Exception
     {
+        // SQL queries to delete playlist songs and the playlist itself
         String deletePlaylistQuery = "DELETE FROM tblPlaylists WHERE fldName = ?";
         String deletePlaylistSongsQuery = "DELETE FROM tblSongsPlaylists WHERE fldPlaylistID = (SELECT fldPlaylistID FROM tblPlaylists WHERE fldName = ?)";
 
+        // Use try-with-resources to manage database connections and statements
         try (Connection connection = getConnection();
              PreparedStatement deleteSongsStatement = connection.prepareStatement(deletePlaylistSongsQuery);
              PreparedStatement deletePlaylistStatement = connection.prepareStatement(deletePlaylistQuery)) {
 
-            // Remove all strings in playlist_songs
+            // Delete all songs associated with the playlist
             deleteSongsStatement.setString(1, playlistName);
             deleteSongsStatement.executeUpdate();
 
-            // Remove playlist from playlisttable
+            // Delete the playlist itself
             deletePlaylistStatement.setString(1, playlistName);
             deletePlaylistStatement.executeUpdate();
         }
     }
-
-
-    public void addSongtoPlaylist(int playlistID, int songID) throws Exception
-    {
-        String sql = "INSERT INTO tblSongPlaylists (fldSongID, fldPlaylistID) VALUES (?, ?)";
-        try (Connection connection = getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, playlistID);
-            pstmt.setInt(2, songID);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void removeSongFromPlaylist(int playlistID, int songID) throws Exception {
-        String sql = "DELETE FROM tblSongsPlaylist WHERE playlistID = ? AND songID = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, playlistID);
-            pstmt.setInt(2, songID);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
+

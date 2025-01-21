@@ -1,7 +1,7 @@
 package org.example.musicplayer;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,17 +12,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javax.print.attribute.standard.Media;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import java.io.IOException;
+
+import java.io.File;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.TimerTask;
 import java.util.Timer;
@@ -46,7 +44,7 @@ public class MusicController implements Initializable
     @FXML
     private MenuButton menuButton;
     @FXML
-    private ComboBox searchBox;
+    private TextField searchBox;
     @FXML
     private ComboBox playlistBox;
     @FXML
@@ -54,7 +52,7 @@ public class MusicController implements Initializable
     @FXML
     private ProgressBar progressBar;
 
-    //Holds the media file for playback
+    //Media-related fields
     private Media media;
     //Controls music playback
     private MediaPlayer mediaPlayer;
@@ -70,11 +68,18 @@ public class MusicController implements Initializable
     private PlayerControls playerControls;
     //Stores the file path of the last selected track
     public String lastSelectedTrack;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    // Path to the folder containing images for the music player
+    private String imageFolderFilepath = null;
+    // Timer for  managing time-based actions in the music player
     private Timer timer;
+    // A TimerTask that represents the specific task to be executed by the Timer
     private TimerTask task;
+    // Observable list to hold all songs in the playlist, used to manage the entire song collection
+    private ObservableList<String> allSongs;
+    // Observable list to hold the filtered songs, used to show a subset of songs based on user selection
+    private ObservableList<String> filteredSongs;
+
+
 
     ObservableList<String> songs = null;
     /**
@@ -87,11 +92,8 @@ public class MusicController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         playOnStartup();
-
         populateInfoSongs();
-
         populateImageDisplay();
-
         populatePlaylistBox();
 
         setLabelDuration("");
@@ -100,6 +102,9 @@ public class MusicController implements Initializable
 
 
 
+    /**
+     * Plays a startup sound when the application is initialized.
+     */
     private void playOnStartup()
     {
         String startupSound = "src/main/resources/org/example/musicplayer/Music/pornhub-intro-made-with-Voicemod.mp3";
@@ -108,63 +113,47 @@ public class MusicController implements Initializable
         playerControls.playTrack();
     }
 
+    /**
+     * Initializes the image display object and shows a random image.
+     */
     private void populateImageDisplay()
     {
-        //Initializes the image display object
-        imageDisplay = new ImageDisplay();
-        //Displays a random image in the picture frame
-        displayRandomImage();
-    }
-
-    private void populatePlaylistBox()
-    {
-        //Load playlists from the database and add them to the ListView
-        try
+        if(imageFolderFilepath==null)
         {
-            DBConnection dbConnection = new DBConnection();
-            ArrayList <Playlist> playlists = dbConnection.readAllPlaylists();
-            ObservableList<String> playlistNames = FXCollections.observableArrayList();
+            //Initializes the image display object
+            imageDisplay = new ImageDisplay();
 
-            for (Playlist playlist : playlists)
-            {
-                playlistNames.add(playlist.getname());
-            }
-            playlistBox.setItems(playlistNames);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Failed to load playlists from DB");
-        }
-    }
+            //Displays a random image in the picture frame
+            displayRandomImage();
 
-    private void populateInfoSongs()
-    {
-        try
+        } else if (imageFolderFilepath!=null)
         {
-            //ObservableList<String> songs = DisplaySongUI.displaySongInfo();
-            songs = DisplaySongUI.displaySongInfo();
-            //Populates the song list in the UI
-            infoSongs.setItems(songs);
-
-
-            //System.out.println(infoSongs); //used for bugfixing and bugsearching
-        } catch (Exception e) {
-            //Log any exceptions that occur during initialization
-            e.printStackTrace();
+            imageDisplay = new ImageDisplay(imageFolderFilepath);
+            displayRandomImageFromFolder();
         }
     }
 
     /**
-     * Extracts the songID from our listview
-     * @return a songID int which can be used to retrieve a filepath from the DB
+     * Displays a random image from the list of images in the picture frame.
      */
-    public int getCurrentSelection()
+    private void displayRandomImageFromFolder()
     {
-        String selection = infoSongs.getSelectionModel().getSelectedItem();
-        //Extracts the first two characters and trims whitespace
-        selection = selection.substring(0,2).trim();
-        //Converts the extracted ID to an integer
-        return Integer.parseInt(selection);
+        if (imageDisplay != null && !imageDisplay.images.isEmpty())
+        {
+            //Retrieves a random image
+            Image randomImage = imageDisplay.getRandomImage();
+            if (randomImage != null)
+            {
+                //Sets the random image in the picture frame
+                pictureFrame.setImage(randomImage);
+            } else {
+                System.out.println("Random image was null.");
+            }
+        } else {
+            System.out.println("Image display is not initialized or contains no images.");
+        }
     }
+
 
     /**
      * Displays a random image from the list of images in the picture frame
@@ -187,6 +176,124 @@ public class MusicController implements Initializable
         } else {
             System.out.println("Image display is not initialized or contains no images.");
         }
+    }
+
+    /**
+     * Choose a folder from PC with images to display
+     */
+    public void setImageFolder()
+    {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(null);
+        imageFolderFilepath = selectedDirectory.getAbsolutePath();
+        populateImageDisplay();
+    }
+
+    /**
+     * Populates the playlist ComboBox with playlist names from the database.
+     */
+    private void populatePlaylistBox()
+    {
+        //Load playlists from the database and add them to the ListView
+        try
+        {
+            DBConnection dbConnection = new DBConnection();
+            ArrayList <Playlist> playlists = dbConnection.readAllPlaylists();
+            ObservableList<String> playlistNames = FXCollections.observableArrayList();
+
+            for (Playlist playlist : playlists)
+            {
+                playlistNames.add(playlist.getname());
+            }
+            playlistBox.setItems(playlistNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to load playlists from DB");
+        }
+    }
+
+    /**
+     * Populates the song list in the UI with songs from the database.
+     */
+    private void populateInfoSongs()
+    {
+        try
+        {
+            //ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            songs = DisplaySongUI.displaySongInfo();
+            //Populates the song list in the UI
+            infoSongs.setItems(songs);
+        } catch (Exception e) {
+            //Log any exceptions that occur during initialization
+            e.printStackTrace();
+        }
+
+        //All songs in our Music player put in to an observable list
+        allSongs = FXCollections.observableArrayList(
+                "1\tMain Title                 \t\t\tBear McCreary\t\t\t\t65  sec",
+                "3\tHelo Chase                  \t\t\tBear McCreary\t\t\t\t91  sec",
+                "4\tThe Olympic Carrier         \t\tBear McCreary\t\t\t\t348 sec",
+                "5\tHelo Rescued                \t\t\tBear McCreary\t\t\t\t62  sec",
+                "7\tA Good Lighter              \t\t\tBear McCreary\t\t\t\t116 sec",
+                "9\tThe Thousandth Landing      \t\tBear McCreary\t\t\t\t188 sec",
+                "10\tTwo Funerals               \t\t\tBear McCreary\t\t\t\t205 sec",
+                "11\tStarbuck Takes On All Eight\t\tBear McCreary\t\t\t\t226 sec",
+                "12\tForgiven                   \t\t\tBear McCreary\t\t\t\t90  sec",
+                "13\tThe Card Game              \t\t\tBear McCreary\t\t\t\t184 sec",
+                "14\tStarbuck On The Red Moon   \t\tBear McCreary\t\t\t\t120 sec",
+                "15\tHelo In The Warehouse      \t\tBear McCreary\t\t\t\t121 sec",
+                "17\tBaltar Speaks With Adama   \t\tBear McCreary\t\t\t\t114 sec",
+                "18\tTwo Boomers                \t\t\tBear McCreary\t\t\t\t107 sec",
+                "19\tBattlestar Operatica       \t\t\tBear McCreary\t\t\t\t156 sec",
+                "20\tThe Dinner Party           \t\t\tBear McCreary\t\t\t\t194 sec",
+                "21\tBattlestar Muzaktica       \t\t\tBear McCreary\t\t\t\t103 sec",
+                "22\tBaltar Panics              \t\t\tBear McCreary\t\t\t\t106 sec",
+                "23\tBoomer Flees               \t\t\tBear McCreary\t\t\t\t76  sec",
+                "24\tFlesh And Bone             \t\t\tBear McCreary\t\t\t\t246 sec");
+
+        //The filtered songs to be shown after user input taken from our allSongs observable list.
+        filteredSongs = FXCollections.observableArrayList(allSongs);
+
+        infoSongs.setItems(filteredSongs);
+
+        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterListView (newValue);
+        });
+    }
+
+    /**
+     * Filters the list of songs based on the user's search input.
+     *
+     * @param searchSongs The search term entered by the user.
+     */
+    private void filterListView(String searchSongs)
+    {
+        if(searchSongs == null || searchSongs.isEmpty()){
+            filteredSongs.setAll(allSongs);
+        }else{
+            String userInput = searchSongs.toLowerCase();
+            List<String> filteredMatches = new ArrayList<>();
+
+            for(String match : allSongs){
+                if(match.toLowerCase().contains(userInput)){
+                    filteredMatches.add(match);
+                }
+            }
+            filteredSongs.setAll(filteredMatches);
+        }
+    }
+
+    /**
+     * Extracts the songID from our listview
+     * @return a songID int which can be used to retrieve a filepath from the DB
+     */
+    public int getCurrentSelection()
+    {
+        String selection = infoSongs.getSelectionModel().getSelectedItem();
+        //Extracts the first two characters and trims whitespace
+        selection = selection.substring(0,2).trim();
+        //Converts the extracted ID to an integer
+        return Integer.parseInt(selection);
     }
 
     /**
@@ -237,7 +344,6 @@ public class MusicController implements Initializable
         {
             //Resumes playback of the current track
             playerControls.playTrack();
-
         }
         else
         {
@@ -245,6 +351,7 @@ public class MusicController implements Initializable
             //Sets the new track
             playerControls.setTrack(filePath);
             playerControls.playTrack();
+            displayRandomImage();
 
             if (mediaPlayer != null)
             {
@@ -257,25 +364,6 @@ public class MusicController implements Initializable
         //Updates the last selected track
         lastSelectedTrack = filePath;
         progressBarUI();
-    }
-
-    /**
-     * Switches to the main UI scene
-     *
-     * @param event The ActionEvent triggered by the scene switch.
-     * @throws IOException If the FXML file cannot be loaded.
-     */
-    public void switchToFrontUI(javafx.event.ActionEvent event) throws IOException
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(MusicPlayerApplication.class.getResource("hello-view.fxml"));
-        // Ensure you load the FXML
-        Parent root = fxmlLoader.load();
-        // Retrieves the current stage
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        //Sets the new scene
-        stage.setScene(scene);
-        stage.show();
     }
 
     /** Pauses the currently playing song
@@ -298,45 +386,60 @@ public class MusicController implements Initializable
         playerControls.stopTrack();
     }
 
+    /**
+     * Updates the progress bar to reflect the current media playback position.
+     * Runs periodically using a TimerTask.
+     */
     public void progressBarUI()
     {
-        //System.out.printf("Testing");
+        // Get the player commands from the playerControls object
         mediaPlayer = playerControls.getPlayerCommands();
+        // Initialize a timer to schedule periodic tasks
         timer = new Timer();
+        // Define a TimerTask to update the progress bar at regular intervals
         task = new TimerTask()
         {
             @Override
             public void run() {
-                //System.out.printf("TestingRun");
+                // Run the task on the JavaFX Application Thread
                 Platform.runLater(() ->
                 {
-                //System.out.printf("TestingRunLater");
+                // Check if the mediaPlayer is null (if no media is loaded)
                 if (mediaPlayer == null) {
-                    //System.out.println("MediaPlayer is null");
+
                 }
+                // Proceed if the mediaPlayer and its media are not null
                 if (mediaPlayer != null && mediaPlayer.getMedia() != null)
                 {
-                    //System.out.println("Playing " + mediaPlayer.getMedia());
+                    // Calculate the current time in seconds and the total duration of the media
                     double currentSeconds = mediaPlayer.getCurrentTime().toSeconds();
                     double end = mediaPlayer.getMedia().getDuration().toSeconds();
+
+                    // Update the progress bar based on the current time and total duration
                     progressBar.setProgress(currentSeconds / end);
-                    //System.out.println(currentSeconds / end);
                 }
             });
             }
         };
+        // Schedule the TimerTask to run every 1000 milliseconds (1 second), starting after 100 milliseconds
         timer.scheduleAtFixedRate(task, 100, 1000);
     };
 
+
+    /**
+     * Changes the playlist and updates the song list in the UI.
+     *
+     * @param actionEvent The event triggered by selecting a new playlist.
+     */
     public void changePlaylist(ActionEvent actionEvent)
     {
         try
         {
+            // Get the songs associated with the selected playlist and display them in the UI
             ObservableList<String> songs = DisplaySongUI.displayPlaylistSongInfo(playlistBox.getValue().toString());
             //Populates the song list in the UI
             infoSongs.setItems(songs);
 
-            //System.out.println(infoSongs); //used for bugfixing and bugsearching
         } catch (Exception e) {
             //Log any exceptions that occur during initialization
             e.printStackTrace();

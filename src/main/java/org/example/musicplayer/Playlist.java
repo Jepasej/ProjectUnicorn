@@ -1,10 +1,9 @@
 package org.example.musicplayer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
- * Class to represent og administrate a playlist
+ * Class to represent and administrate a playlist
  * Contains methods to add, remove and administrate songs
  */
 public class Playlist
@@ -22,8 +21,8 @@ public class Playlist
     private ArrayList<Integer> songIDs;
 
     /**
-     *
-     * @return
+     * Getter for ArrayList songIDs
+     * @return returns an ArrayList of songIDs
      */
 
     public ArrayList<Integer> getSongIDs()
@@ -32,8 +31,8 @@ public class Playlist
     }
 
     /**
-     *
-     * @param songIDs
+     * Setter for ArrayList songIDs
+     * @param songIDs songIDs to be set as this.songIDs
      */
 
     public void setSongIDs(ArrayList<Integer> songIDs)
@@ -65,7 +64,7 @@ public class Playlist
     }
 
     /**
-     * Set new name for playlist
+     * Set new name for playlist - was meant to be added as part of playlist editing
      *
      * @param name new name of playlist
      */
@@ -75,7 +74,7 @@ public class Playlist
     }
 
     /**
-     * Get list of all songs in playlist
+     * Get list of all songs in playlist - was made for further playlist functionality, not yet implemented
      *
      * @return list of song-objects
      */
@@ -85,7 +84,7 @@ public class Playlist
     }
 
     /**
-     * Adds new song to playlist
+     * Adds new song to playlist - was made for further playlist functionality, not yet implemented
      *
      * @param song the song that is added
      */
@@ -95,7 +94,7 @@ public class Playlist
     }
 
     /**
-     * Removes existing song from playlist
+     * Removes existing song from playlist - was made for further playlist functionality, not yet implemented
      *
      * @param song the song that is removed
      */
@@ -106,7 +105,7 @@ public class Playlist
     }
 
     /**
-     * Gets a song from playlist based on its index
+     * Gets a song from playlist based on its index - was made for further playlist functionality, not yet implemented
      *
      * @param index the index of the song in the List
      * return song on the given index
@@ -117,7 +116,7 @@ public class Playlist
     }
 
     /**
-     * Gets number of songs on playlist
+     * Gets number of songs on playlist - was made for further playlist functionality, not yet implemented
      *
      * @return number of songs
      */
@@ -126,7 +125,7 @@ public class Playlist
     }
 
     /**
-     * Removes all songs from playlist
+     * Removes all songs from playlist - was made for further playlist functionality, not yet implemented
      */
     public void clearPlaylist()
     {
@@ -149,16 +148,5 @@ public class Playlist
     public void setFldPlaylistID(int fldPlaylistID)
     {
         this.fldPlaylistID = fldPlaylistID;
-    }
-
-
-    /**
-     *
-     * @param dbConnection
-     * @throws Exception
-     */
-    public void deletePlaylist(DBConnection dbConnection) throws Exception
-    {
-        dbConnection.deletePlaylist(this.name);
     }
 }

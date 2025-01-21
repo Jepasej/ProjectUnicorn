@@ -1,10 +1,11 @@
 package org.example.musicplayer;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import java.sql.*;
+import javafx.collections.*;
 import java.util.ArrayList;
 
+/**
+ * Intermediary class handling read calls to database in regards to songs
+ */
 public class DisplaySongUI {
 
     public static String totalDur = "";
@@ -56,6 +57,11 @@ public class DisplaySongUI {
         return songInfo;
     }
 
+    /**
+     * Initializes an observarable list for the ListView in our UI
+     * @return song info of our songs in the selected playlist.
+     * @throws Exception If the database or SQL connection operation fails.
+     */
     public static ObservableList<String> displayPlaylistSongInfo(String playlistName) throws Exception
     {
         /*Connects to our DB and inititlaizes an arraylist with the songs from our method readSomeSongsToArray

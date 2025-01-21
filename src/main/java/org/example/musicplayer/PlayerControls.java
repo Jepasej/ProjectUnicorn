@@ -2,7 +2,6 @@ package org.example.musicplayer;
 
 import javafx.scene.media.*;
 import java.io.*;
-import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
 
 /**
@@ -13,12 +12,12 @@ public class PlayerControls
     private MediaPlayer playerCommands;
     private Media track;
 
+    /**
+     * Getter for playerCommands MediaPlayer
+     * @return playerCommands MediaPlayer
+     */
     public MediaPlayer getPlayerCommands() {
         return playerCommands;
-    }
-
-    public void setPlayerCommands(MediaPlayer playerCommands) {
-        this.playerCommands = playerCommands;
     }
 
     /**
