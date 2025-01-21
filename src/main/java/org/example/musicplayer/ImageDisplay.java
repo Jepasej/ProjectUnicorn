@@ -12,6 +12,7 @@ public class ImageDisplay
     public ArrayList<Image> images;
     private String imageFolderFilepath;
 
+
     /**
      * Initializes the array and fills the array with images from ressource folder
      */
@@ -26,6 +27,7 @@ public class ImageDisplay
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn4.jpg"))));
         images.add(new Image(Objects.requireNonNull(ImageDisplay.class.getResourceAsStream("Images/unicorn5.jpg"))));
     }
+
 
     /**
      * Takes a filepath of a directory, goes through all files in the directory and saves all .jpg, .jpeg and .png
@@ -51,6 +53,7 @@ public class ImageDisplay
             }
         }
     }
+
 
     /**
      * Method to generate a random image out of the array. Uses the importet Random Class.
