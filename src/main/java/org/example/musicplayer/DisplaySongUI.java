@@ -86,6 +86,8 @@ public class DisplaySongUI {
             songInfo.add("Total Duration: " + minutes + ":" + seconds);
         }
 
+
+
         return songInfo;
     }
 }

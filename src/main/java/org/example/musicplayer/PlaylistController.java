@@ -144,8 +144,8 @@ public class PlaylistController
 
         int playlistID = dbConnection.getPlaylistID(newPlaylist);
 
-        String deleteSQL = "DELETE FROM tblSongsPlaylist WHERE playlistID = ?";
-        String insertSQL = "INSERT INTO tblSongsPlaylist (playlistID, songID) VALUES (?, ?)";
+        String deleteSQL = "DELETE FROM tblSongsPlaylists WHERE fldPlaylistID = ?";
+        String insertSQL = "INSERT INTO tblSongsPlaylists (fldPlaylistID, fldSongID, fldOrderNo) VALUES (?, ?, ?)";
 
         ArrayList<Integer> songsToAdd = new ArrayList<>();
         List<String> currentSelection = editPlaylistField.getItems();
@@ -171,9 +171,10 @@ public class PlaylistController
 
             // Insert new songs into the playlist
             try (PreparedStatement insertStmt = connection.prepareStatement(insertSQL)) {
-                for (int songID : songsToAdd) {
+                for (int i = 1; i <= songsToAdd.size(); i++) {
                     insertStmt.setInt(1, playlistID);
-                    insertStmt.setInt(2, songID);
+                    insertStmt.setInt(2, songsToAdd.get((i-1)));
+                    insertStmt.setInt(3, i);
                     insertStmt.addBatch();
                 }
                 insertStmt.executeBatch();
