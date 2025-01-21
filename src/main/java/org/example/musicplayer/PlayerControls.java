@@ -12,6 +12,7 @@ public class PlayerControls
     private MediaPlayer playerCommands;
     private Media track;
 
+
     /**
      * Getter for playerCommands MediaPlayer
      * @return playerCommands MediaPlayer
@@ -19,6 +20,7 @@ public class PlayerControls
     public MediaPlayer getPlayerCommands() {
         return playerCommands;
     }
+
 
     /**
      * Method to define what song we wish to interact with.
@@ -39,6 +41,7 @@ public class PlayerControls
         }
     }
 
+
     /**
      * plays selected track
      */
@@ -55,6 +58,7 @@ public class PlayerControls
     {
         playerCommands.stop();
     }
+
 
     /**
      * pauses selected track
