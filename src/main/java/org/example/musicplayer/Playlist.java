@@ -20,6 +20,7 @@ public class Playlist
     //ArrayList of songIDs
     private ArrayList<Integer> songIDs;
 
+
     /**
      * Getter for ArrayList songIDs
      * @return returns an ArrayList of songIDs
@@ -30,6 +31,7 @@ public class Playlist
         return songIDs;
     }
 
+
     /**
      * Setter for ArrayList songIDs
      * @param songIDs songIDs to be set as this.songIDs
@@ -39,6 +41,7 @@ public class Playlist
     {
         this.songIDs = songIDs;
     }
+
 
     /**
      * Contructor to add a new playlist with a chosen name
@@ -53,6 +56,7 @@ public class Playlist
         this.songs = new ArrayList<Song>();
     }
 
+
     /**
      * Get name of playlist
      *
@@ -62,6 +66,7 @@ public class Playlist
     {
         return name;
     }
+
 
     /**
      * Set new name for playlist - was meant to be added as part of playlist editing
@@ -73,6 +78,7 @@ public class Playlist
         this.name = name;
     }
 
+
     /**
      * Get list of all songs in playlist - was made for further playlist functionality, not yet implemented
      *
@@ -83,6 +89,7 @@ public class Playlist
         return songs;
     }
 
+
     /**
      * Adds new song to playlist - was made for further playlist functionality, not yet implemented
      *
@@ -92,6 +99,7 @@ public class Playlist
     {
         songs.add(song);
     }
+
 
     /**
      * Removes existing song from playlist - was made for further playlist functionality, not yet implemented
@@ -104,6 +112,7 @@ public class Playlist
         songs.remove(song);
     }
 
+
     /**
      * Gets a song from playlist based on its index - was made for further playlist functionality, not yet implemented
      *
@@ -115,6 +124,7 @@ public class Playlist
         return songs.get(index);
     }
 
+
     /**
      * Gets number of songs on playlist - was made for further playlist functionality, not yet implemented
      *
@@ -124,6 +134,7 @@ public class Playlist
         return songs.size();
     }
 
+
     /**
      * Removes all songs from playlist - was made for further playlist functionality, not yet implemented
      */
@@ -131,6 +142,7 @@ public class Playlist
     {
         songs.clear();
     }
+
 
     /**
      * Gets playlistID
@@ -140,6 +152,7 @@ public class Playlist
     {
         return fldPlaylistID;
     }
+
 
     /**
      * Sets new ID for Playlist
