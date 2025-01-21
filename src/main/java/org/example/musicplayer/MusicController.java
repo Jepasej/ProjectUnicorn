@@ -64,9 +64,9 @@ public class MusicController implements Initializable
     private ObservableList<String> allSongs;
     // Observable list to hold the filtered songs, used to show a subset of songs based on user selection
     private ObservableList<String> filteredSongs;
-
-
+    // Initialize an empty list of songs. This list will later be populated with actual song data
     ObservableList<String> songs = null;
+
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
      *
