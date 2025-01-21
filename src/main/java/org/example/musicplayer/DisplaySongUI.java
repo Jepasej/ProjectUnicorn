@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class DisplaySongUI {
 
     public static String totalDur = "";
+
+
     /**
      * Initializes an observarable list for the ListView in our UI
      * @return song info of our songs in the DB.
@@ -56,6 +58,7 @@ public class DisplaySongUI {
 
         return songInfo;
     }
+
 
     /**
      * Initializes an observarable list for the ListView in our UI
