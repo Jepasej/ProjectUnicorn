@@ -63,6 +63,9 @@ public class MusicController implements Initializable
     // Observable list to hold the filtered songs, used to show a subset of songs based on user selection
     private ObservableList<String> filteredSongs;
 
+
+
+    ObservableList<String> songs = null;
     /**
      * Initializes the UI elements and sets up the list of songs and random image display
      *
@@ -76,6 +79,9 @@ public class MusicController implements Initializable
         populateInfoSongs();
         populateImageDisplay();
         populatePlaylistBox();
+
+        setLabelDuration("");
+
     }
 
     /**
@@ -195,7 +201,8 @@ public class MusicController implements Initializable
     {
         try
         {
-            ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            //ObservableList<String> songs = DisplaySongUI.displaySongInfo();
+            songs = DisplaySongUI.displaySongInfo();
             //Populates the song list in the UI
             infoSongs.setItems(songs);
         } catch (Exception e) {
@@ -420,4 +427,10 @@ public class MusicController implements Initializable
             e.printStackTrace();
         }
     }
+     public void setLabelDuration(String totalDur)
+    {
+
+        //totalDurationDisplay.setText(totalDur);
+        totalDurationDisplay.setText(DisplaySongUI.totalDur);
+     }
 }
