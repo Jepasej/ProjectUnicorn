@@ -36,13 +36,7 @@ public class MusicController implements Initializable
     @FXML
     public Label totalDurationDisplay;
     @FXML
-    private TextArea songTitle;
-    @FXML
-    private ListView<String> infoSongs, infoSongsInSecondUI;
-    @FXML
-    private Button buttonPlay, buttonPause, buttonStop, buttonPreviousSong, buttonNextSong, buttonShuffle;
-    @FXML
-    private MenuButton menuButton;
+    private ListView<String> infoSongs;
     @FXML
     private TextField searchBox;
     @FXML
@@ -52,16 +46,8 @@ public class MusicController implements Initializable
     @FXML
     private ProgressBar progressBar;
 
-    //Media-related fields
-    private Media media;
     //Controls music playback
     private MediaPlayer mediaPlayer;
-    //Stores a list of images for display
-    private ArrayList<Image> imageList;
-    //Tracks the current song index
-    private int songNumber;
-    //Current playlist object
-    private Playlist currentPlaylist;
     //Handles image display
     private org.example.musicplayer.ImageDisplay imageDisplay;
     //Manges player controls for music playback
@@ -78,7 +64,6 @@ public class MusicController implements Initializable
     private ObservableList<String> allSongs;
     // Observable list to hold the filtered songs, used to show a subset of songs based on user selection
     private ObservableList<String> filteredSongs;
-
 
 
     ObservableList<String> songs = null;
@@ -101,7 +86,6 @@ public class MusicController implements Initializable
     }
 
 
-
     /**
      * Plays a startup sound when the application is initialized.
      */
@@ -112,6 +96,7 @@ public class MusicController implements Initializable
         playerControls.setTrack(startupSound);
         playerControls.playTrack();
     }
+
 
     /**
      * Initializes the image display object and shows a random image.
@@ -132,6 +117,7 @@ public class MusicController implements Initializable
             displayRandomImageFromFolder();
         }
     }
+
 
     /**
      * Displays a random image from the list of images in the picture frame.
@@ -178,6 +164,7 @@ public class MusicController implements Initializable
         }
     }
 
+
     /**
      * Choose a folder from PC with images to display
      */
@@ -188,6 +175,7 @@ public class MusicController implements Initializable
         imageFolderFilepath = selectedDirectory.getAbsolutePath();
         populateImageDisplay();
     }
+
 
     /**
      * Populates the playlist ComboBox with playlist names from the database.
@@ -211,6 +199,7 @@ public class MusicController implements Initializable
             System.out.println("Failed to load playlists from DB");
         }
     }
+
 
     /**
      * Populates the song list in the UI with songs from the database.
@@ -261,6 +250,7 @@ public class MusicController implements Initializable
         });
     }
 
+
     /**
      * Filters the list of songs based on the user's search input.
      *
@@ -283,6 +273,7 @@ public class MusicController implements Initializable
         }
     }
 
+
     /**
      * Extracts the songID from our listview
      * @return a songID int which can be used to retrieve a filepath from the DB
@@ -295,6 +286,7 @@ public class MusicController implements Initializable
         //Converts the extracted ID to an integer
         return Integer.parseInt(selection);
     }
+
 
     /**
      * Switches to the playlist scene
@@ -325,6 +317,7 @@ public class MusicController implements Initializable
         stage.setScene(scene);
         stage.show();
     }
+
 
     /**
      * Plays the selected song from the Listview. If the selected song is the same as the last one, resumes playback.
@@ -366,6 +359,7 @@ public class MusicController implements Initializable
         progressBarUI();
     }
 
+
     /** Pauses the currently playing song
      *
      * @param actionEvent The ActionEvent triggered by the pause button.
@@ -376,6 +370,7 @@ public class MusicController implements Initializable
         playerControls.pauseTrack();
     }
 
+
     /**
      * Stops the currently playing song.
      * @param actionEvent The ActionEvent triggered by the stop button.
@@ -385,6 +380,7 @@ public class MusicController implements Initializable
         //Stops the current track
         playerControls.stopTrack();
     }
+
 
     /**
      * Updates the progress bar to reflect the current media playback position.
@@ -423,7 +419,7 @@ public class MusicController implements Initializable
         };
         // Schedule the TimerTask to run every 1000 milliseconds (1 second), starting after 100 milliseconds
         timer.scheduleAtFixedRate(task, 100, 1000);
-    };
+    }
 
 
     /**
