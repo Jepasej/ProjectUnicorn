@@ -12,6 +12,7 @@ public class Song
     private String fldAlbum;
     private String fldFilePath;
 
+
     /**
      * retrieves song id from song object
      * @return SongID of song
@@ -19,6 +20,7 @@ public class Song
     public int getFldSongID() {
         return fldSongID;
     }
+
 
     /**
      * sets SongID on Song object
@@ -28,6 +30,7 @@ public class Song
         this.fldSongID = fldSongID;
     }
 
+
     /**
      * retrieves song name from song object
      * @return name of song
@@ -35,6 +38,7 @@ public class Song
     public String getFldName() {
         return fldName;
     }
+
 
     /**
      * sets name on Song object
@@ -44,6 +48,7 @@ public class Song
         this.fldName = fldName;
     }
 
+
     /**
      * retrieves length of song object (in seconds)
      * @return length of song
@@ -51,6 +56,7 @@ public class Song
     public int getFldLengthInSeconds() {
         return fldLengthInSeconds;
     }
+
 
     /**
      * sets length (in seconds) on Song object
@@ -60,6 +66,7 @@ public class Song
         this.fldLengthInSeconds = fldLengthInSeconds;
     }
 
+
     /**
      * retrieves artist name from Song object
      * @return artist name
@@ -67,6 +74,7 @@ public class Song
     public String getFldArtist() {
         return fldArtist;
     }
+
 
     /**
      * sets artist name on Song object
@@ -76,6 +84,7 @@ public class Song
         this.fldArtist = fldArtist;
     }
 
+
     /**
      * retrieves album name from Song object
      * @return album name
@@ -83,6 +92,7 @@ public class Song
     public String getFldAlbum() {
         return fldAlbum;
     }
+
 
     /**
      * sets album name on Song object
@@ -92,6 +102,7 @@ public class Song
         this.fldAlbum = fldAlbum;
     }
 
+
     /**
      * retrieves filepath from Song object
      * @return filepath of song
@@ -99,6 +110,7 @@ public class Song
     public String getFldFilePath() {
         return fldFilePath;
     }
+
 
     /**
      * sets filepath on Song object
