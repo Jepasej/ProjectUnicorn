@@ -125,12 +125,16 @@ public class PlaylistController
 
 
     /**
-     * Preparing and creating an Array to fill it with songs, connects to the database to save the new playlist.
+     * Handles the event triggered by clicking the 'Save Playlist' button.
+     * This method creates a new playlist with the specified name, extracts song IDs
+     * from the selected items in the ListView, and saves the playlist to the database.
+     * Finally, it refreshes the ListView to reflect the changes.
      * @param actionEvent
      * @throws Exception
      */
     public void onSavePlaylistClick(ActionEvent actionEvent) throws Exception {
         Playlist newPlaylist = new Playlist(playlistName.getText());
+        // List to store the IDs of the songs to be added to the playlist
         ArrayList<Integer> songsToAdd = new ArrayList<>();
         List<String> currentSelection = editPlaylistField.getItems();
 
@@ -138,6 +142,7 @@ public class PlaylistController
         for(int i = 0; i < currentSelection.size(); i++)
         {
             String selection = currentSelection.get(i);
+            // Extract the first two characters of the string, which represent the song ID, and trim whitespace
             selection = selection.substring(0,2).trim();
 
             songsToAdd.add(Integer.parseInt(selection));
@@ -160,29 +165,38 @@ public class PlaylistController
      * @throws Exception
      */
     public void onEditPlaylistClick(ActionEvent actionEvent) throws Exception {
+        // Create a new Playlist object using the name entered by the user
        Playlist newPlaylist = new Playlist(playlistName.getText());
+        // Establish a connection to the database
        DBConnection dbConnection = new DBConnection();
        try{
+           // Attempt to retrieve the playlist ID from the database using the new Playlist object
            int playlistID = dbConnection.getPlaylistID(newPlaylist);
            System.out.println("Playlist ID: " + playlistID);
        }catch (Exception e)
        {
+           // Handle any exception that occurs while retrieving the playlist ID
            e.printStackTrace();
        }
-
+        // Attempt to retrieve the playlist ID from the database
         int playlistID = dbConnection.getPlaylistID(newPlaylist);
 
+        // Define SQL queries for deleting existing songs and inserting new songs into the playlist
         String deleteSQL = "DELETE FROM tblSongsPlaylists WHERE fldPlaylistID = ?";
         String insertSQL = "INSERT INTO tblSongsPlaylists (fldPlaylistID, fldSongID, fldOrderNo) VALUES (?, ?, ?)";
 
+        // Create a list to store the song IDs that the user wants to add to the playlist
         ArrayList<Integer> songsToAdd = new ArrayList<>();
         List<String> currentSelection = editPlaylistField.getItems();
 
+        // Loop through each selected song, extract the song ID, and add it to the songsToAdd list
         for (String selection : currentSelection) {
             try {
+                // Extract the first two characters of the selection string, trim whitespace, and convert to an integer
                 int songID = Integer.parseInt(selection.substring(0, 2).trim());
                 songsToAdd.add(songID);
             } catch (NumberFormatException e) {
+                // If the song ID format is invalid (e.g., not an integer), print an error message
                 System.err.println("Invalid song ID format: " + selection);
             }
         }
