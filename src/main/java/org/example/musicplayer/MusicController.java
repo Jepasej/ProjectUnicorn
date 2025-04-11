@@ -218,27 +218,7 @@ public class MusicController implements Initializable
         }
 
         //All songs in our Music player put in to an observable list
-        allSongs = FXCollections.observableArrayList(
-                "1\tMain Title                 \t\t\tBear McCreary\t\t\t\t65  sec",
-                "3\tHelo Chase                  \t\t\tBear McCreary\t\t\t\t91  sec",
-                "4\tThe Olympic Carrier         \t\tBear McCreary\t\t\t\t348 sec",
-                "5\tHelo Rescued                \t\t\tBear McCreary\t\t\t\t62  sec",
-                "7\tA Good Lighter              \t\t\tBear McCreary\t\t\t\t116 sec",
-                "9\tThe Thousandth Landing      \t\tBear McCreary\t\t\t\t188 sec",
-                "10\tTwo Funerals               \t\t\tBear McCreary\t\t\t\t205 sec",
-                "11\tStarbuck Takes On All Eight\t\tBear McCreary\t\t\t\t226 sec",
-                "12\tForgiven                   \t\t\tBear McCreary\t\t\t\t90  sec",
-                "13\tThe Card Game              \t\t\tBear McCreary\t\t\t\t184 sec",
-                "14\tStarbuck On The Red Moon   \t\tBear McCreary\t\t\t\t120 sec",
-                "15\tHelo In The Warehouse      \t\tBear McCreary\t\t\t\t121 sec",
-                "17\tBaltar Speaks With Adama   \t\tBear McCreary\t\t\t\t114 sec",
-                "18\tTwo Boomers                \t\t\tBear McCreary\t\t\t\t107 sec",
-                "19\tBattlestar Operatica       \t\t\tBear McCreary\t\t\t\t156 sec",
-                "20\tThe Dinner Party           \t\t\tBear McCreary\t\t\t\t194 sec",
-                "21\tBattlestar Muzaktica       \t\t\tBear McCreary\t\t\t\t103 sec",
-                "22\tBaltar Panics              \t\t\tBear McCreary\t\t\t\t106 sec",
-                "23\tBoomer Flees               \t\t\tBear McCreary\t\t\t\t76  sec",
-                "24\tFlesh And Bone             \t\t\tBear McCreary\t\t\t\t246 sec");
+        allSongs = songs;
 
         //The filtered songs to be shown after user input taken from our allSongs observable list.
         filteredSongs = FXCollections.observableArrayList(allSongs);
